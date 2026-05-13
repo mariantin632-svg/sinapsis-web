@@ -1,0 +1,27 @@
+[
+  {
+    "pregunta": "¿Necesito orden médica para una sesión?",
+    "respuesta": "No es obligatoria para una consulta inicial, pero si vas a presentar la sesión a tu obra social, la mayoría la requiere. Consultanos si tenés dudas.",
+    "categoria": "turnos"
+  },
+  {
+    "pregunta": "¿Cómo reservo un turno?",
+    "respuesta": "Por WhatsApp al +54 9 11 6367-8308. Te respondemos en horario de atención.",
+    "categoria": "turnos"
+  },
+  {
+    "pregunta": "¿Atienden a domicilio?",
+    "respuesta": "Sí, en zonas cercanas a José C. Paz. El precio varía según distancia. Consultanos por WhatsApp.",
+    "categoria": "turnos"
+  },
+  {
+    "pregunta": "¿Puedo cancelar mi plan de suscripción?",
+    "respuesta": "Las suscripciones contratadas no pueden cancelarse una vez iniciadas. No se realizan reembolsos. El plan finaliza automáticamente al cumplirse el período contratado.",
+    "categoria": "planes"
+  },
+  {
+    "pregunta": "¿Aceptan tarjeta de crédito o cuotas?",
+    "respuesta": "Sí. Consultanos las opciones de pago vigentes por WhatsApp.",
+    "categoria": "pagos"
+  }
+]

@@ -1,0 +1,43 @@
+[
+  {
+    "slug": "kinesiologia",
+    "nombre": "Kinesiología",
+    "modalidades": [
+      { "tipo": "presencial", "precio": 28000 },
+      { "tipo": "online", "precio": 25000 }
+    ],
+    "descripcion": "Sesión individual de kinesiología."
+  },
+  {
+    "slug": "osteopatia",
+    "nombre": "Osteopatía",
+    "modalidades": [
+      { "tipo": "presencial", "precio": 45000 }
+    ],
+    "descripcion": "Sesión individual de osteopatía."
+  },
+  {
+    "slug": "consulta-traumatologica",
+    "nombre": "Consulta traumatológica",
+    "modalidades": [
+      { "tipo": "presencial", "precio": 30000 }
+    ],
+    "descripcion": "Evaluación con médico traumatólogo."
+  },
+  {
+    "slug": "mela",
+    "nombre": "MELA (Ultrasonido + Drenaje Linfático Manual)",
+    "modalidades": [
+      { "tipo": "presencial", "precio": 30000 }
+    ],
+    "descripcion": "Procedimiento terapéutico. Paquete de 8 sesiones con 10% off."
+  },
+  {
+    "slug": "domicilio",
+    "nombre": "Sesión a domicilio",
+    "modalidades": [
+      { "tipo": "domicilio", "precio": 0 }
+    ],
+    "descripcion": "Sesión kinesiológica en tu casa. Precio según zona — consultar por WhatsApp."
+  }
+]

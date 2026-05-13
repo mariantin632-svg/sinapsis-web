@@ -1,0 +1,20 @@
+[
+  {
+    "slug": "martin-niro",
+    "nombre": "Martín",
+    "apellido": "Niro",
+    "matricula": "MN PLACEHOLDER",
+    "especialidades": ["Kinesiología", "Osteopatía"],
+    "bio_corta": "Director del centro. Kinesiólogo y osteópata.",
+    "foto": "/equipo/martin-niro.jpg"
+  },
+  {
+    "slug": "santiago-duahu",
+    "nombre": "Santiago",
+    "apellido": "Duahu",
+    "matricula": "MN PLACEHOLDER",
+    "especialidades": ["Kinesiología deportiva"],
+    "bio_corta": "Kinesiólogo deportivo.",
+    "foto": "/equipo/santiago-duahu.jpg"
+  }
+]
