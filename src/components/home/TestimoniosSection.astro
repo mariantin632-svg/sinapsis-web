@@ -1,0 +1,31 @@
+---
+import testimonios from '../../content/testimonios.json';
+import sitio from '../../content/sitio.json';
+import type { Testimonio } from '../../content/_types';
+
+const tipados = testimonios as Testimonio[];
+---
+<section class="bg-cream-bg px-6 py-12 md:py-16">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-8">
+      <div class="text-xs text-gray-500 uppercase tracking-widest">Lo que dicen nuestros pacientes</div>
+      <h2 class="text-xl md:text-2xl font-bold text-violet-deep mt-1">⭐ {sitio.google_reviews.rating} / 5 · {sitio.google_reviews.count} reseñas en Google</h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-3">
+      {tipados.map((t) => (
+        <div class="bg-white rounded-card p-4 border border-gray-100">
+          <div class="text-accent-yellow text-sm">{'★'.repeat(t.estrellas)}</div>
+          <p class="text-sm text-gray-700 mt-2 leading-relaxed">{t.texto}</p>
+          <div class="text-xs text-gray-400 mt-3">— {t.autor}</div>
+        </div>
+      ))}
+    </div>
+
+    <div class="text-center mt-6 text-xs">
+      <a href={sitio.google_reviews.url} target="_blank" rel="noopener" class="text-accent-mint underline">
+        Ver las {sitio.google_reviews.count} reseñas en Google →
+      </a>
+    </div>
+  </div>
+</section>
