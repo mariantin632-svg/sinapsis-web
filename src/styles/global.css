@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+@config "../../tailwind.config.mjs";
+
+html {
+  font-family: 'Inter', system-ui, sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  color: #1A0E3D;
+  background: #FFFFFF;
+  -webkit-font-smoothing: antialiased;
+}
