@@ -1,0 +1,28 @@
+---
+import planes from '../../content/planes.json';
+import type { Plan } from '../../content/_types';
+import PlanCard from '../planes/PlanCard.astro';
+import DuracionToggle from '../planes/DuracionToggle.astro';
+
+const planesTipados = planes as Plan[];
+---
+<section class="bg-violet-deep px-6 py-12 md:py-16">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-8">
+      <div>
+        <div class="text-xs text-cream/50 uppercase tracking-widest">Capa 1 · Suscripciones</div>
+        <h2 class="text-2xl md:text-3xl font-bold text-cream mt-1">Encontrá tu plan ideal</h2>
+      </div>
+      <DuracionToggle />
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+      {planesTipados.map((plan) => <PlanCard plan={plan} duracionMeses={12} />)}
+    </div>
+
+    <div class="text-center text-xs text-cream/60 mt-6">
+      Precios desde el plan anual ·
+      <a href="/planes" class="text-accent-mint underline">comparar planes en detalle →</a>
+    </div>
+  </div>
+</section>

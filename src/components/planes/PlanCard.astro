@@ -1,0 +1,50 @@
+---
+import type { Plan } from '../../content/_types';
+import { formatARS } from '../../lib/precios';
+
+interface Props {
+  plan: Plan;
+  duracionMeses: 1 | 3 | 6 | 12;
+}
+
+const { plan, duracionMeses } = Astro.props;
+const duracion = plan.duraciones.find((d) => d.meses === duracionMeses)!;
+const colorMap: Record<string, string> = {
+  'accent-silver': '#C0C0C0',
+  'accent-mint': '#5DCAA5',
+  'accent-gold': '#D4A030',
+  'accent-yellow': '#F4D03F',
+};
+const colorHex = colorMap[plan.color_signature];
+---
+<article
+  data-plan-card
+  data-plan-slug={plan.slug}
+  class={`relative bg-violet-mid rounded-card p-4 text-cream ${plan.destacado ? 'border-2 border-accent-gold' : 'border border-white/15'}`}
+>
+  {plan.destacado && (
+    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent-gold text-accent-gold-dark px-3 py-1 rounded text-[10px] font-bold tracking-wider whitespace-nowrap">
+      ★ RECOMENDADO
+    </div>
+  )}
+  <div class="px-3 py-1 rounded text-[10px] font-bold tracking-widest inline-block mt-1" style={`background-color: ${colorHex}; color: #1A1033;`}>
+    {plan.nombre}
+  </div>
+  <p class="text-xs opacity-65 mt-2">Tier {plan.tier} · {plan.subtitulo}</p>
+  <p class="text-sm font-medium mt-1 leading-tight">{plan.hook}</p>
+  <p class="text-xs opacity-70 mt-2 leading-relaxed">{plan.beneficios_destacados.join(' · ')}</p>
+  <div class="mt-4">
+    <div class="text-[9px] opacity-55 tracking-wider">DESDE</div>
+    <div class="text-xl font-bold" data-plan-price style={`color: ${colorHex};`}>{formatARS(duracion.precio_mensual)}</div>
+    <div class="text-[10px] opacity-55" data-plan-price-label>
+      / mes ({duracionMeses === 1 ? 'mensual' : `${duracionMeses} meses`})
+    </div>
+  </div>
+  <a
+    href={`/planes/${plan.slug}`}
+    class="mt-4 block text-center text-xs font-bold py-2 rounded-pill"
+    style={`background-color: ${colorHex}; color: #1A1033;`}
+  >
+    Ver plan →
+  </a>
+</article>

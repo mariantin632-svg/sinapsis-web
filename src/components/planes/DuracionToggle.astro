@@ -1,0 +1,63 @@
+---
+const opciones = [
+  { meses: 1, label: 'Mes', short: 'mes' },
+  { meses: 3, label: '3m', short: '3m' },
+  { meses: 6, label: '6m', short: '6m' },
+  { meses: 12, label: '12m', short: '12m · -25%' },
+];
+---
+<div class="inline-flex gap-1 bg-white/8 rounded-card p-1 text-xs">
+  {opciones.map((op) => (
+    <button
+      data-duracion-btn
+      data-meses={op.meses}
+      class={`px-3 py-1.5 rounded ${op.meses === 12 ? 'bg-cream text-violet-deep font-bold' : 'text-cream/60 hover:text-cream'}`}
+    >
+      {op.short}
+    </button>
+  ))}
+</div>
+
+<script>
+  import planesData from '../../content/planes.json';
+  const planes = planesData as any[];
+
+  function formatARS(amount: number): string {
+    return new Intl.NumberFormat('es-AR', {
+      style: 'currency',
+      currency: 'ARS',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount).replace(/\s/g, '');
+  }
+
+  function updatePrices(meses: number) {
+    const cards = document.querySelectorAll<HTMLElement>('[data-plan-card]');
+    cards.forEach((card) => {
+      const slug = card.dataset.planSlug;
+      const plan = planes.find((p) => p.slug === slug);
+      if (!plan) return;
+      const duracion = plan.duraciones.find((d: any) => d.meses === meses);
+      if (!duracion) return;
+      const priceEl = card.querySelector<HTMLElement>('[data-plan-price]');
+      if (priceEl) priceEl.textContent = formatARS(duracion.precio_mensual);
+      const labelEl = card.querySelector<HTMLElement>('[data-plan-price-label]');
+      if (labelEl) {
+        labelEl.textContent = meses === 1 ? '/ mes (mensual)' : `/ mes (${meses} meses)`;
+      }
+    });
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('[data-duracion-btn]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const meses = Number(btn.dataset.meses);
+      document.querySelectorAll<HTMLElement>('[data-duracion-btn]').forEach((b) => {
+        b.classList.remove('bg-cream', 'text-violet-deep', 'font-bold');
+        b.classList.add('text-cream/60');
+      });
+      btn.classList.remove('text-cream/60');
+      btn.classList.add('bg-cream', 'text-violet-deep', 'font-bold');
+      updatePrices(meses);
+    });
+  });
+</script>
