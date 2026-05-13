@@ -1,0 +1,33 @@
+---
+import sitio from '../../content/sitio.json';
+import { buildWhatsAppUrl } from '../../lib/whatsapp';
+
+interface Props {
+  text: string;        // ej: "Suscribirme por WhatsApp"
+  message: string;     // ej: "Hola, me interesa el Plan Total"
+  variant?: 'primary' | 'outline';
+  size?: 'sm' | 'md' | 'lg';
+}
+
+const { text, message, variant = 'primary', size = 'md' } = Astro.props;
+
+const url = buildWhatsAppUrl({ phone: sitio.contacto.whatsapp, text: message });
+
+const baseClasses = 'inline-flex items-center justify-center gap-2 rounded-pill font-bold transition';
+const variantClasses = variant === 'primary'
+  ? 'bg-accent-mint text-accent-mint-dark hover:opacity-90'
+  : 'border border-cream/40 text-cream hover:bg-cream/10';
+const sizeClasses = {
+  sm: 'px-3 py-1.5 text-xs',
+  md: 'px-4 py-2 text-sm',
+  lg: 'px-6 py-3 text-base',
+}[size];
+---
+<a
+  href={url}
+  target="_blank"
+  rel="noopener"
+  class={`${baseClasses} ${variantClasses} ${sizeClasses}`}
+>
+  📱 {text}
+</a>
