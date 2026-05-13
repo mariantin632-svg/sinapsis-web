@@ -1,0 +1,125 @@
+[
+  {
+    "slug": "essence",
+    "nombre": "ESSENCE",
+    "tier": 1,
+    "subtitulo": "Entrada",
+    "hook": "Empezar a cuidarte sin compromiso grande",
+    "color_signature": "accent-silver",
+    "para_quien": "Para quienes quieren probar el modelo de cuidado mensual.",
+    "duraciones": [
+      { "meses": 1, "precio_mensual": 36900, "total": 36900 },
+      { "meses": 3, "precio_mensual": 33900, "total": 101700, "ahorro_pct": 8 },
+      { "meses": 6, "precio_mensual": 31900, "total": 191400, "ahorro_pct": 13 },
+      { "meses": 12, "precio_mensual": 29900, "total": 358800, "ahorro_pct": 19, "extra": "+ regalo de bienvenida" }
+    ],
+    "incluye": [
+      "1 sesión de kinesiología u osteopatía / mes",
+      "1 evaluación funcional al inicio",
+      "Atención online ilimitada (WhatsApp profesional)",
+      "Prioridad de turnos",
+      "10% off en sesiones extras",
+      "Plan de ejercicios básico"
+    ],
+    "beneficios_destacados": [
+      "1 sesión / mes",
+      "Online ilimitado",
+      "Ejercicios básico"
+    ]
+  },
+  {
+    "slug": "focus",
+    "nombre": "FOCUS",
+    "tier": 2,
+    "subtitulo": "Volumen",
+    "hook": "El que más se vende",
+    "color_signature": "accent-mint",
+    "para_quien": "Para quienes ya saben que necesitan más de una sesión al mes.",
+    "duraciones": [
+      { "meses": 1, "precio_mensual": 69900, "total": 69900 },
+      { "meses": 3, "precio_mensual": 64900, "total": 194700, "ahorro_pct": 7 },
+      { "meses": 6, "precio_mensual": 59900, "total": 359400, "ahorro_pct": 14 },
+      { "meses": 12, "precio_mensual": 54900, "total": 658800, "ahorro_pct": 21, "extra": "+ regalo" }
+    ],
+    "incluye": [
+      "2 sesiones / mes (kinesiología u osteopatía)",
+      "1 sesión de botas de presoterapia / mes",
+      "Evaluación funcional trimestral",
+      "Atención online ilimitada",
+      "Plan de ejercicios personalizado con ajuste mensual",
+      "Prioridad de turnos",
+      "15% off sesiones extras",
+      "1 orden médica / mes incluida"
+    ],
+    "beneficios_destacados": [
+      "2 sesiones / mes",
+      "Presoterapia",
+      "Plan personalizado"
+    ]
+  },
+  {
+    "slug": "total",
+    "nombre": "TOTAL",
+    "tier": 3,
+    "subtitulo": "Cuidado total",
+    "hook": "Para no preocuparte por nada",
+    "color_signature": "accent-gold",
+    "destacado": true,
+    "para_quien": "Para quienes quieren cubrir todas las necesidades de cuidado físico en un solo plan.",
+    "duraciones": [
+      { "meses": 1, "precio_mensual": 129000, "total": 129000 },
+      { "meses": 3, "precio_mensual": 119000, "total": 357000, "ahorro_pct": 8 },
+      { "meses": 6, "precio_mensual": 109000, "total": 654000, "ahorro_pct": 16 },
+      { "meses": 12, "precio_mensual": 99000, "total": 1188000, "ahorro_pct": 23, "extra": "+ sesión a domicilio de regalo" }
+    ],
+    "incluye": [
+      "4 sesiones / mes intercambiables (kinesiología, osteopatía, deportiva)",
+      "2 sesiones de botas / mes",
+      "1 traumatología trimestral",
+      "Evaluación funcional bimestral",
+      "Plan de ejercicios personalizado con seguimiento",
+      "Online prioritario",
+      "VIP turnos (reserva con 24h de anticipación)",
+      "20% off sesiones extras",
+      "Órdenes médicas ilimitadas",
+      "Atención online incluida"
+    ],
+    "beneficios_destacados": [
+      "4 sesiones / mes",
+      "Traumatología incluida",
+      "VIP turnos"
+    ]
+  },
+  {
+    "slug": "elite",
+    "nombre": "ELITE",
+    "tier": 4,
+    "subtitulo": "Concierge de salud",
+    "hook": "Atención ilimitada, dedicación total",
+    "color_signature": "accent-yellow",
+    "para_quien": "Para deportistas de alto rendimiento o quienes buscan atención concierge.",
+    "duraciones": [
+      { "meses": 1, "precio_mensual": 239000, "total": 239000 },
+      { "meses": 3, "precio_mensual": 219000, "total": 657000, "ahorro_pct": 8 },
+      { "meses": 6, "precio_mensual": 199000, "total": 1194000, "ahorro_pct": 17 },
+      { "meses": 12, "precio_mensual": 179000, "total": 2148000, "ahorro_pct": 25, "extra": "+ concierge full" }
+    ],
+    "incluye": [
+      "8 sesiones / mes libres (kinesiología, osteopatía, deportiva, domicilio sumando 1)",
+      "4 sesiones de botas / mes",
+      "Evaluación funcional mensual",
+      "Traumatología bimestral",
+      "Plan de entrenamiento de élite con ajustes mensuales",
+      "1 sesión a domicilio / mes incluida",
+      "Online prioritario 24/7",
+      "Concierge de salud (coordinador personal)",
+      "Acceso para 1 familiar con 35% off de por vida",
+      "Acompañamiento post quirúrgico si aplica"
+    ],
+    "beneficios_destacados": [
+      "8 sesiones / mes",
+      "Concierge personal",
+      "Familiar con 35% off"
+    ]
+  }
+]
