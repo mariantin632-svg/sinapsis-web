@@ -1,0 +1,48 @@
+---
+import sitio from '../../content/sitio.json';
+import { buildWhatsAppUrl } from '../../lib/whatsapp';
+
+const links = [
+  { href: '/planes', label: 'Planes' },
+  { href: '/packs', label: 'Packs' },
+  { href: '/servicios-sueltos', label: 'Sueltos' },
+  { href: '/equipo', label: 'Equipo' },
+  { href: '/obras-sociales', label: 'Obras sociales' },
+  { href: '/faq', label: 'FAQ' },
+  { href: '/contacto', label: 'Contacto' },
+];
+
+const whatsappUrl = buildWhatsAppUrl({
+  phone: sitio.contacto.whatsapp,
+  text: 'Hola! Llegué desde la web y quería consultar.',
+});
+---
+<nav class="sticky top-0 z-50 bg-violet-deep/95 backdrop-blur-md border-b border-white/10">
+  <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+    <a href="/" class="text-cream font-bold tracking-widest text-sm">SINAPSIS</a>
+
+    <div class="hidden md:flex gap-5 text-sm text-cream/80">
+      {links.map((l) => (
+        <a href={l.href} class="hover:text-cream transition">{l.label}</a>
+      ))}
+    </div>
+
+    <a
+      href={whatsappUrl}
+      target="_blank"
+      rel="noopener"
+      class="bg-accent-mint text-accent-mint-dark px-3 py-1.5 rounded-pill text-xs font-bold hover:opacity-90 transition"
+    >
+      📱 WhatsApp
+    </a>
+  </div>
+
+  <details class="md:hidden border-t border-white/10">
+    <summary class="text-cream/80 text-sm px-6 py-2 cursor-pointer">Menú</summary>
+    <div class="flex flex-col bg-violet-mid">
+      {links.map((l) => (
+        <a href={l.href} class="text-cream/80 px-6 py-3 border-t border-white/10 text-sm">{l.label}</a>
+      ))}
+    </div>
+  </details>
+</nav>
