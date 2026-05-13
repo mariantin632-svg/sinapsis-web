@@ -1,14 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
-@config "../../tailwind.config.mjs";
+
+@theme {
+  --color-violet-deep: #1A0E3D;
+  --color-violet-mid: #2D1B5E;
+  --color-violet-darker: #0F0820;
+  --color-sinapsis-purple: #3D2FA0;
+  --color-accent-mint: #5DCAA5;
+  --color-accent-mint-dark: #04342C;
+  --color-accent-gold: #D4A030;
+  --color-accent-gold-dark: #3D2A0A;
+  --color-accent-yellow: #F4D03F;
+  --color-accent-silver: #C0C0C0;
+  --color-cream: #F5F2FF;
+  --color-cream-bg: #F8F7FC;
+
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  --radius-card: 14px;
+  --radius-pill: 20px;
+
+  --shadow-card: 0 2px 8px rgba(26, 14, 61, 0.06);
+  --shadow-card-hover: 0 8px 24px rgba(26, 14, 61, 0.12);
+}
 
 html {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--font-sans);
   scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
 body {
-  color: #1A0E3D;
+  color: var(--color-violet-deep);
   background: #FFFFFF;
   -webkit-font-smoothing: antialiased;
 }
