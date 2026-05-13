@@ -1,0 +1,38 @@
+---
+import sitio from '../../content/sitio.json';
+import CtaWhatsApp from '../shared/CtaWhatsApp.astro';
+
+const direccionEncoded = encodeURIComponent(`${sitio.direccion.calle}, ${sitio.direccion.ciudad}, ${sitio.direccion.provincia}`);
+const mapSrc = `https://www.google.com/maps?q=${direccionEncoded}&output=embed`;
+---
+<section class="bg-violet-deep text-cream px-6 py-12 md:py-16">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 items-center">
+    <div>
+      <div class="text-xs opacity-60 uppercase tracking-widest">Vení a Sinapsis</div>
+      <h2 class="text-2xl md:text-3xl font-bold mt-2">{sitio.direccion.calle}</h2>
+      <p class="text-sm opacity-80 mt-1">{sitio.direccion.ciudad} · {sitio.direccion.provincia}</p>
+
+      <div class="text-sm opacity-75 mt-4 space-y-1 leading-relaxed">
+        <div>📅 Lun-Vie: {sitio.horarios.lunes_viernes}</div>
+        <div>📅 Sábado: {sitio.horarios.sabado}</div>
+        <div>📱 {sitio.contacto.whatsapp_display}</div>
+      </div>
+
+      <div class="mt-5">
+        <CtaWhatsApp text="Reservar por WhatsApp" message="Hola! Quería reservar un turno." />
+      </div>
+    </div>
+
+    <div class="rounded-card overflow-hidden h-72 md:h-80 bg-white/5">
+      <iframe
+        src={mapSrc}
+        width="100%"
+        height="100%"
+        style="border:0;"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Mapa Sinapsis"
+      ></iframe>
+    </div>
+  </div>
+</section>
