@@ -1,0 +1,32 @@
+---
+import sitio from '../../content/sitio.json';
+import CtaWhatsApp from '../shared/CtaWhatsApp.astro';
+---
+<section class="bg-white px-6 py-12 md:py-20">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <div class="text-xs text-gray-500 uppercase tracking-widest">{sitio.tagline}</div>
+      <h1 class="text-3xl md:text-5xl font-bold mt-3 leading-tight text-violet-deep">
+        Tu cuerpo en las mejores manos.<br />
+        <span class="text-sinapsis-purple">Cuidate todo el año.</span>
+      </h1>
+      <p class="text-base text-gray-600 mt-4 leading-relaxed">
+        Suscripciones mensuales, packs por dolor específico o sesiones sueltas. José C. Paz · presencial y online.
+      </p>
+      <div class="flex flex-wrap gap-3 mt-6">
+        <a href="/planes" class="bg-sinapsis-purple text-white px-5 py-2.5 rounded-pill text-sm font-bold hover:opacity-90 transition">
+          Ver planes →
+        </a>
+        <CtaWhatsApp text="Consultar por WhatsApp" message="Hola! Quería hacer una consulta inicial." variant="outline" />
+      </div>
+      <div class="mt-6 flex items-center gap-2 text-sm text-gray-600">
+        <span class="text-accent-yellow text-base">★★★★★</span>
+        <span>{sitio.google_reviews.rating} / 5 · {sitio.google_reviews.count} reseñas Google</span>
+      </div>
+    </div>
+    <div class="bg-cream-bg rounded-card h-60 md:h-80 flex items-center justify-center text-gray-400 text-sm">
+      <!-- PLACEHOLDER: pedir a Martín foto principal del centro -->
+      [ Foto del centro / sesión real ]
+    </div>
+  </div>
+</section>
