@@ -1,0 +1,24 @@
+{
+  "nombre": "Sinapsis",
+  "tagline": "Centro de rehabilitación traumatológica y deportiva",
+  "direccion": {
+    "calle": "Alfredo Nobel 336",
+    "ciudad": "José C. Paz",
+    "provincia": "Buenos Aires"
+  },
+  "horarios": {
+    "lunes_viernes": "8:00 a 12:00 / 14:00 a 19:00",
+    "sabado": "8:00 a 14:00",
+    "domingo": "Cerrado"
+  },
+  "contacto": {
+    "whatsapp": "5491163678308",
+    "whatsapp_display": "+54 9 11 6367-8308",
+    "instagram": "@sinapsiskinesio"
+  },
+  "google_reviews": {
+    "rating": 4.9,
+    "count": 64,
+    "url": "https://maps.google.com/?cid=PLACEHOLDER"
+  }
+}
