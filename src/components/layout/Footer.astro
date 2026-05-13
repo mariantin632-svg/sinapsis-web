@@ -1,0 +1,52 @@
+---
+import sitio from '../../content/sitio.json';
+import planes from '../../content/planes.json';
+import packs from '../../content/packs.json';
+import { buildWhatsAppUrl } from '../../lib/whatsapp';
+
+const whatsappUrl = buildWhatsAppUrl({ phone: sitio.contacto.whatsapp });
+const year = new Date().getFullYear();
+---
+<footer class="bg-violet-darker text-cream/80 px-6 py-10">
+  <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-sm">
+    <div>
+      <div class="text-cream font-bold tracking-widest mb-3">SINAPSIS</div>
+      <p class="text-cream/60 text-xs leading-relaxed">{sitio.tagline}</p>
+      <p class="text-cream/60 text-xs mt-3">{sitio.direccion.calle}<br />{sitio.direccion.ciudad}</p>
+    </div>
+
+    <div>
+      <div class="text-cream/90 font-semibold mb-3 text-xs uppercase tracking-wider">Planes</div>
+      <ul class="space-y-1.5 text-xs">
+        {planes.map((p) => (
+          <li><a href={`/planes/${p.slug}`} class="hover:text-cream transition">{p.nombre}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <div class="text-cream/90 font-semibold mb-3 text-xs uppercase tracking-wider">Packs</div>
+      <ul class="space-y-1.5 text-xs">
+        {packs.slice(0, 5).map((p) => (
+          <li><a href={`/packs/${p.slug}`} class="hover:text-cream transition">{p.nombre}</a></li>
+        ))}
+        <li><a href="/packs" class="text-accent-mint hover:underline">Ver todos →</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="text-cream/90 font-semibold mb-3 text-xs uppercase tracking-wider">Contacto</div>
+      <ul class="space-y-1.5 text-xs">
+        <li><a href={whatsappUrl} target="_blank" rel="noopener" class="hover:text-cream transition">WhatsApp</a></li>
+        {sitio.contacto.instagram && (
+          <li><a href={`https://instagram.com/${sitio.contacto.instagram.replace('@', '')}`} target="_blank" rel="noopener" class="hover:text-cream transition">Instagram</a></li>
+        )}
+        <li><a href="/contacto" class="hover:text-cream transition">Cómo llegar</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto mt-8 pt-6 border-t border-white/10 text-center text-xs text-cream/40">
+    © {year} Sinapsis · Todos los derechos reservados
+  </div>
+</footer>
