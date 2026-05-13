@@ -1,9 +1,25 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import PlanesSection from '../components/home/PlanesSection.astro';
+import PacksPreview from '../components/home/PacksPreview.astro';
+import EnfoqueCards from '../components/home/EnfoqueCards.astro';
+import EquipoPreview from '../components/home/EquipoPreview.astro';
+import TestimoniosSection from '../components/home/TestimoniosSection.astro';
+import GaleriaSection from '../components/home/GaleriaSection.astro';
+import ObrasSocialesPreview from '../components/home/ObrasSocialesPreview.astro';
+import FaqPreview from '../components/home/FaqPreview.astro';
+import UbicacionSection from '../components/home/UbicacionSection.astro';
 ---
-<BaseLayout title="Sinapsis · Kinesiología y Osteopatía">
-  <main class="p-8">
-    <h1 class="text-4xl font-bold text-violet-deep">Sinapsis Kinesio</h1>
-    <p class="mt-2 text-gray-600">Web en construcción.</p>
-  </main>
+<BaseLayout title="Sinapsis · Kinesiología y Osteopatía · José C. Paz">
+  <Hero />
+  <PlanesSection />
+  <PacksPreview />
+  <EnfoqueCards />
+  <EquipoPreview />
+  <TestimoniosSection />
+  <GaleriaSection />
+  <ObrasSocialesPreview />
+  <FaqPreview />
+  <UbicacionSection />
 </BaseLayout>
