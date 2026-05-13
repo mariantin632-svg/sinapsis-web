@@ -1,0 +1,36 @@
+---
+const valores = [
+  {
+    emoji: '🤝',
+    titulo: 'Atención humanizada',
+    descripcion: 'Sesiones uno a uno · seguimiento real',
+  },
+  {
+    emoji: '🎓',
+    titulo: 'Profesionales matriculados',
+    descripcion: 'Equipo formado en traumatología, deporte y osteopatía',
+  },
+  {
+    emoji: '🏥',
+    titulo: 'Enfoque integral',
+    descripcion: 'Kinesiología + osteopatía + traumatología en un solo lugar',
+  },
+];
+---
+<section class="bg-cream-bg px-6 py-12 md:py-16">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-8">
+      <div class="text-xs text-gray-500 uppercase tracking-widest">Nuestro enfoque</div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-3">
+      {valores.map((v) => (
+        <div class="bg-white rounded-card p-5 text-center border border-gray-100 hover:shadow-card-hover transition">
+          <div class="text-3xl">{v.emoji}</div>
+          <div class="font-semibold text-violet-deep mt-2">{v.titulo}</div>
+          <p class="text-sm text-gray-600 mt-1 leading-relaxed">{v.descripcion}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
