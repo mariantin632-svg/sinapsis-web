@@ -1,0 +1,23 @@
+---
+import type { Pack } from '../../content/_types';
+import { formatARS } from '../../lib/precios';
+
+interface Props {
+  pack: Pack;
+  variant?: 'compact' | 'full';
+}
+
+const { pack, variant = 'compact' } = Astro.props;
+---
+<a
+  href={`/packs/${pack.slug}`}
+  class="block bg-white/5 hover:bg-white/8 rounded-card p-3 text-cream border border-white/10 transition"
+>
+  <div class="text-lg">{pack.emoji}</div>
+  <div class="font-semibold text-xs mt-1">{pack.nombre}</div>
+  <div class="text-[10px] opacity-55 mt-1">{pack.publico_ideal}</div>
+  <div class="mt-2">
+    <span class="text-[10px] opacity-55 line-through">{formatARS(pack.precio_carta)}</span>
+    <div class="text-sm font-bold text-accent-mint mt-0.5">{formatARS(pack.precio_sugerido)}</div>
+  </div>
+</a>
