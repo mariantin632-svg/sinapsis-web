@@ -12,6 +12,7 @@
     "test:all": "pnpm test && pnpm test:e2e"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.2.8",
     "astro": "^5.0.0"
   },
   "devDependencies": {
