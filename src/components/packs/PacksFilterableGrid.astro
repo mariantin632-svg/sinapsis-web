@@ -1,0 +1,56 @@
+---
+import packsData from '../../content/packs.json';
+import type { Pack } from '../../content/_types';
+import PackCard from './PackCard.astro';
+
+const packs = packsData as Pack[];
+
+const categorias = [
+  { value: 'all', label: 'Todos', emoji: '' },
+  { value: 'dolor_agudo', label: 'Dolor agudo', emoji: '🔥' },
+  { value: 'oficina', label: 'Oficina / postura', emoji: '💼' },
+  { value: 'deportistas', label: 'Deportistas', emoji: '🏃' },
+  { value: 'post_quirurgico', label: 'Post quirúrgico', emoji: '🏥' },
+  { value: 'mayor_60', label: '+60', emoji: '👵' },
+  { value: 'mujer', label: 'Mujer', emoji: '👩' },
+  { value: 'empresas', label: 'Empresas', emoji: '🏢' },
+];
+---
+<div class="flex flex-wrap gap-2 mb-6">
+  {categorias.map((cat) => (
+    <button
+      data-filter-btn
+      data-cat={cat.value}
+      class={`px-3 py-1.5 rounded-pill text-xs border transition ${cat.value === 'all' ? 'bg-cream text-violet-deep border-cream font-bold' : 'bg-white/8 text-cream border-cream/15 hover:bg-white/15'}`}
+    >
+      {cat.emoji} {cat.label}
+    </button>
+  ))}
+</div>
+
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3" id="packs-grid">
+  {packs.map((pack) => (
+    <div data-pack-item data-cat={pack.categoria}>
+      <PackCard pack={pack} />
+    </div>
+  ))}
+</div>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-filter-btn]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const cat = btn.dataset.cat;
+      document.querySelectorAll<HTMLElement>('[data-filter-btn]').forEach((b) => {
+        b.classList.remove('bg-cream', 'text-violet-deep', 'border-cream', 'font-bold');
+        b.classList.add('bg-white/8', 'text-cream', 'border-cream/15');
+      });
+      btn.classList.remove('bg-white/8', 'text-cream', 'border-cream/15');
+      btn.classList.add('bg-cream', 'text-violet-deep', 'border-cream', 'font-bold');
+
+      document.querySelectorAll<HTMLElement>('[data-pack-item]').forEach((item) => {
+        const itemCat = item.dataset.cat;
+        item.style.display = cat === 'all' || itemCat === cat ? '' : 'none';
+      });
+    });
+  });
+</script>
