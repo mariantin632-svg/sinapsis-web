@@ -1,0 +1,40 @@
+---
+import planes from '../../content/planes.json';
+import type { Plan } from '../../content/_types';
+import { formatARS } from '../../lib/precios';
+
+const planesTipados = planes as Plan[];
+
+const filas = planesTipados.map((p) => {
+  const anual = p.duraciones.find((d) => d.meses === 12)!;
+  return {
+    plan: p,
+    precioAnual: anual.precio_mensual,
+    sesionesMes: p.beneficios_destacados[0],
+  };
+});
+---
+<div class="overflow-x-auto">
+  <table class="w-full text-sm">
+    <thead>
+      <tr class="border-b border-cream/15">
+        <th class="text-left py-3 px-2 text-cream/60 font-medium text-xs uppercase tracking-wider">Plan</th>
+        <th class="text-left py-3 px-2 text-cream/60 font-medium text-xs uppercase tracking-wider">Sesiones</th>
+        <th class="text-right py-3 px-2 text-cream/60 font-medium text-xs uppercase tracking-wider">Desde (anual)</th>
+        <th class="py-3 px-2"></th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-cream/10">
+      {filas.map(({ plan, precioAnual, sesionesMes }) => (
+        <tr class={plan.destacado ? 'bg-accent-gold/8' : ''}>
+          <td class="py-3 px-2 text-cream font-semibold">{plan.nombre}{plan.destacado && ' ★'}</td>
+          <td class="py-3 px-2 text-cream/80">{sesionesMes}</td>
+          <td class="py-3 px-2 text-right text-cream font-bold">{formatARS(precioAnual)} / mes</td>
+          <td class="py-3 px-2 text-right">
+            <a href={`/planes/${plan.slug}`} class="text-accent-mint text-xs underline">Ver detalle →</a>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
