@@ -1,0 +1,62 @@
+---
+import sitio from '../../content/sitio.json';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = sitio.tagline,
+  image = '/og-image.jpg',
+  type = 'website',
+  noindex = false,
+} = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://sinapsiskinesio.com.ar').toString();
+
+const isHome = Astro.url.pathname === '/';
+const businessJsonLd = isHome ? {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalBusiness',
+  name: sitio.nombre,
+  description: sitio.tagline,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: sitio.direccion.calle,
+    addressLocality: sitio.direccion.ciudad,
+    addressRegion: sitio.direccion.provincia,
+    addressCountry: 'AR',
+  },
+  telephone: `+${sitio.contacto.whatsapp}`,
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: sitio.google_reviews.rating,
+    reviewCount: sitio.google_reviews.count,
+  },
+  openingHours: ['Mo-Fr 08:00-12:00', 'Mo-Fr 14:00-19:00', 'Sa 08:00-14:00'],
+} : null;
+---
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={new URL(image, Astro.site ?? 'https://sinapsiskinesio.com.ar').toString()} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:type" content={type} />
+<meta property="og:locale" content="es_AR" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+
+{businessJsonLd && (
+  <script type="application/ld+json" set:html={JSON.stringify(businessJsonLd)}></script>
+)}
