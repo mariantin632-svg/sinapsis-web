@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FaqAccordion from '../components/shared/FaqAccordion.astro';
+import faqData from '../content/faq.json';
+import type { FaqItem } from '../content/_types';
+
+const faq = faqData as FaqItem[];
+
+const categorias = [
+  { key: 'turnos', label: 'Turnos y reservas' },
+  { key: 'pagos', label: 'Pagos' },
+  { key: 'planes', label: 'Planes y suscripciones' },
+  { key: 'obras_sociales', label: 'Obras sociales' },
+  { key: 'otros', label: 'Otros' },
+] as const;
+
+const grouped = categorias
+  .map((cat) => ({ ...cat, items: faq.filter((f) => f.categoria === cat.key) }))
+  .filter((g) => g.items.length > 0);
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.pregunta,
+    acceptedAnswer: { '@type': 'Answer', text: item.respuesta },
+  })),
+};
+---
+<BaseLayout title="Preguntas frecuentes · Sinapsis">
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
+
+  <section class="bg-white px-6 py-12">
+    <div class="max-w-3xl mx-auto text-center">
+      <div class="text-xs text-gray-500 uppercase tracking-widest">FAQ</div>
+      <h1 class="text-3xl md:text-4xl font-bold text-violet-deep mt-3">Preguntas frecuentes</h1>
+    </div>
+  </section>
+
+  <section class="bg-cream-bg px-6 py-12">
+    <div class="max-w-3xl mx-auto space-y-10">
+      {grouped.map((g) => (
+        <div>
+          <h2 class="text-violet-deep font-semibold mb-3">{g.label}</h2>
+          <FaqAccordion items={g.items} />
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
