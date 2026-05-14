@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaWhatsApp from '../../components/shared/CtaWhatsApp.astro';
+import planesData from '../../content/planes.json';
+import type { Plan } from '../../content/_types';
+import { formatARS } from '../../lib/precios';
+
+export async function getStaticPaths() {
+  const planes = planesData as Plan[];
+  return planes.map((plan) => ({ params: { slug: plan.slug }, props: { plan } }));
+}
+
+interface Props {
+  plan: Plan;
+}
+
+const { plan } = Astro.props;
+
+const colorMap: Record<string, string> = {
+  'accent-silver': '#C0C0C0',
+  'accent-mint': '#5DCAA5',
+  'accent-gold': '#D4A030',
+  'accent-yellow': '#F4D03F',
+};
+const colorHex = colorMap[plan.color_signature];
+
+const anual = plan.duraciones.find((d) => d.meses === 12)!;
+const mensajeWhatsApp = `Hola! Me interesa el Plan ${plan.nombre} (anual, ${formatARS(anual.precio_mensual)}/mes).`;
+---
+<BaseLayout title={`Plan ${plan.nombre} · Sinapsis`} description={plan.hook}>
+  <section class="bg-violet-deep text-cream px-6 py-12 md:py-16">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-xs opacity-55 tracking-widest uppercase">Plan · Tier {plan.tier}</div>
+      <div class="inline-block px-3 py-1 rounded text-xs font-bold tracking-widest mt-3" style={`background-color: ${colorHex}; color: #1A1033;`}>
+        {plan.nombre}
+      </div>
+      <h1 class="text-3xl md:text-5xl font-bold mt-4 leading-tight">{plan.hook}</h1>
+      <p class="text-cream/75 mt-3 leading-relaxed">{plan.para_quien}</p>
+    </div>
+  </section>
+
+  <section class="bg-violet-mid text-cream px-6 py-12">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-xs uppercase tracking-widest opacity-60 mb-4">Elegí tu duración</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        {plan.duraciones.map((d) => (
+          <div class={`p-4 rounded-card text-center ${d.meses === 12 ? 'bg-cream text-violet-deep' : 'bg-white/5 text-cream'}`}>
+            <div class="text-xs opacity-70">{d.meses === 1 ? 'Mensual' : `${d.meses} meses`}</div>
+            <div class="text-xl font-bold mt-1">{formatARS(d.precio_mensual)}</div>
+            <div class="text-[10px] opacity-65 mt-0.5">/ mes</div>
+            {d.ahorro_pct && <div class="text-[10px] mt-1 font-semibold" style={`color: ${d.meses === 12 ? '#5DCAA5' : colorHex};`}>-{d.ahorro_pct}%</div>}
+            {d.extra && <div class="text-[10px] opacity-60 mt-1 italic">{d.extra}</div>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white px-6 py-12">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-xl font-bold text-violet-deep mb-4">¿Qué incluye?</h2>
+      <ul class="space-y-2">
+        {plan.incluye.map((item) => (
+          <li class="flex gap-3 items-start">
+            <span class="text-accent-mint font-bold">✓</span>
+            <span class="text-sm text-gray-700">{item}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div class="mt-8">
+        <CtaWhatsApp text={`Suscribirme al Plan ${plan.nombre}`} message={mensajeWhatsApp} size="lg" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
