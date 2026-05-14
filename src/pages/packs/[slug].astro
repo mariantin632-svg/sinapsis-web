@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaWhatsApp from '../../components/shared/CtaWhatsApp.astro';
+import PackCard from '../../components/packs/PackCard.astro';
+import packsData from '../../content/packs.json';
+import type { Pack } from '../../content/_types';
+import { formatARS } from '../../lib/precios';
+
+export async function getStaticPaths() {
+  const packs = packsData as Pack[];
+  return packs.map((pack) => ({ params: { slug: pack.slug }, props: { pack } }));
+}
+
+interface Props {
+  pack: Pack;
+}
+
+const { pack } = Astro.props;
+const allPacks = packsData as Pack[];
+const relacionados = allPacks
+  .filter((p) => p.slug !== pack.slug && p.categoria === pack.categoria)
+  .slice(0, 2);
+
+const mensaje = `Hola! Me interesa el ${pack.nombre} (${formatARS(pack.precio_sugerido)}).`;
+---
+<BaseLayout title={`${pack.nombre} · Pack · Sinapsis`} description={pack.publico_ideal}>
+  <section class="bg-violet-deep text-cream px-6 py-12 md:py-16">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-xs opacity-55 tracking-widest uppercase">Pack</div>
+      <div class="text-5xl mt-3">{pack.emoji}</div>
+      <h1 class="text-3xl md:text-5xl font-bold mt-3">{pack.nombre}</h1>
+      <p class="text-cream/75 mt-3">{pack.publico_ideal}</p>
+
+      <div class="mt-6 flex flex-wrap items-baseline gap-3">
+        <span class="text-cream/55 text-sm line-through">{formatARS(pack.precio_carta)}</span>
+        <span class="text-3xl font-bold text-accent-mint">{formatARS(pack.precio_sugerido)}</span>
+        <span class="bg-accent-mint text-accent-mint-dark px-2 py-1 rounded text-xs font-bold">{pack.ahorro_pct}% OFF</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white px-6 py-12">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-xl font-bold text-violet-deep mb-4">¿Qué incluye?</h2>
+      <ul class="space-y-2">
+        {pack.incluye.map((item) => (
+          <li class="flex gap-3 items-start">
+            <span class="text-accent-mint font-bold">✓</span>
+            <span class="text-sm text-gray-700">{item}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div class="mt-8">
+        <CtaWhatsApp text={`Comprar ${pack.nombre}`} message={mensaje} size="lg" />
+      </div>
+    </div>
+  </section>
+
+  {relacionados.length > 0 && (
+    <section class="bg-violet-mid px-6 py-12">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-cream text-xl font-bold mb-4">También te puede interesar</h2>
+        <div class="grid grid-cols-2 gap-3">
+          {relacionados.map((p) => <PackCard pack={p} />)}
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>
