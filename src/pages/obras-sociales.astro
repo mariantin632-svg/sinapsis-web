@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import obrasData from '../content/obras-sociales.json';
+import type { ObraSocial } from '../content/_types';
+
+const obras = obrasData as ObraSocial[];
+---
+<BaseLayout title="Obras sociales aceptadas · Sinapsis">
+  <section class="bg-white px-6 py-12">
+    <div class="max-w-3xl mx-auto text-center">
+      <div class="text-xs text-gray-500 uppercase tracking-widest">Obras sociales</div>
+      <h1 class="text-3xl md:text-4xl font-bold text-violet-deep mt-3">Trabajamos con las principales obras sociales</h1>
+      <p class="text-gray-600 mt-3">Presentá tu orden médica vigente para acceder al beneficio según tu plan.</p>
+    </div>
+  </section>
+
+  <section class="bg-cream-bg px-6 py-12">
+    <div class="max-w-5xl mx-auto">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+        {obras.map((o) => (
+          <div class="bg-white rounded-card p-4 flex flex-col items-center justify-center border border-gray-100 h-28">
+            <img src={o.logo} alt={o.nombre} class="max-h-12 max-w-full object-contain" onerror="this.style.display='none'" />
+            <div class="text-sm text-gray-700 mt-2 text-center">{o.nombre}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white px-6 py-12">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-xl font-bold text-violet-deep mb-3">¿Cómo presentar la orden?</h2>
+      <ol class="space-y-2 text-sm text-gray-700 list-decimal list-inside">
+        <li>Coordinás el turno por WhatsApp.</li>
+        <li>Traés la orden médica vigente impresa o en celular.</li>
+        <li>En la primera sesión validamos cobertura y coseguro si aplica.</li>
+      </ol>
+
+      <p class="text-sm text-gray-600 mt-6">
+        ¿Tu obra social no aparece? Consultanos por WhatsApp — actualizamos esta lista periódicamente.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
