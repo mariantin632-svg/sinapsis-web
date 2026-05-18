@@ -19,6 +19,7 @@
     "@astrojs/sitemap": "^3.7.2",
     "@playwright/test": "^1.60.0",
     "@tailwindcss/vite": "^4.3.0",
+    "lighthouse": "^13.3.0",
     "tailwindcss": "^4.3.0",
     "tsx": "^4.21.0",
     "vitest": "^4.1.6"
