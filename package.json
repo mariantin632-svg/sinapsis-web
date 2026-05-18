@@ -16,6 +16,7 @@
     "astro": "^5.0.0"
   },
   "devDependencies": {
+    "@astrojs/sitemap": "^3.7.2",
     "@playwright/test": "^1.60.0",
     "@tailwindcss/vite": "^4.3.0",
     "tailwindcss": "^4.3.0",
