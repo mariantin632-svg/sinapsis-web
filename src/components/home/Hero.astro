@@ -24,9 +24,13 @@ import CtaWhatsApp from '../shared/CtaWhatsApp.astro';
         <span>{sitio.google_reviews.rating} / 5 · {sitio.google_reviews.count} reseñas Google</span>
       </div>
     </div>
-    <div class="bg-cream-bg rounded-card h-60 md:h-80 flex items-center justify-center text-gray-400 text-sm">
-      <!-- PLACEHOLDER: pedir a Martín foto principal del centro -->
-      [ Foto del centro / sesión real ]
+    <div class="rounded-card h-60 md:h-80 relative overflow-hidden bg-violet-deep flex items-center justify-center">
+      <!-- PLACEHOLDER mientras llegan las fotos del centro -->
+      <div class="absolute inset-0 opacity-30" style="background: radial-gradient(circle at 30% 30%, var(--color-sinapsis-purple) 0%, transparent 60%), radial-gradient(circle at 70% 70%, var(--color-accent-mint) 0%, transparent 50%);"></div>
+      <div class="relative text-center px-6">
+        <img src="/logo-sinapsis.jpg" alt="Sinapsis" class="h-12 md:h-14 w-auto mx-auto rounded-md shadow-lg" />
+        <div class="text-cream/80 text-xs uppercase tracking-widest mt-4">José C. Paz</div>
+      </div>
     </div>
   </div>
 </section>

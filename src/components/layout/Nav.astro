@@ -19,7 +19,15 @@ const whatsappUrl = buildWhatsAppUrl({
 ---
 <nav class="sticky top-0 z-50 bg-violet-deep/95 backdrop-blur-md border-b border-white/10">
   <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-    <a href="/" class="text-cream font-bold tracking-widest text-sm">SINAPSIS</a>
+    <a href="/" class="flex items-center" aria-label="Sinapsis — inicio">
+      <img
+        src="/logo-sinapsis.jpg"
+        alt="Sinapsis — Centro de Rehabilitación Traumatológica y Deportiva"
+        class="h-8 md:h-9 w-auto"
+        width="240"
+        height="36"
+      />
+    </a>
 
     <div class="hidden md:flex gap-5 text-sm text-cream/80">
       {links.map((l) => (
