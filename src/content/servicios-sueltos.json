@@ -1,20 +1,19 @@
 [
   {
     "slug": "kinesiologia",
-    "nombre": "Kinesiología",
+    "nombre": "Kinesiología personalizada",
     "modalidades": [
-      { "tipo": "presencial", "precio": 28000 },
-      { "tipo": "online", "precio": 25000 }
+      { "tipo": "presencial", "precio": 30000 }
     ],
-    "descripcion": "Sesión individual de kinesiología."
+    "descripcion": "Sesión de kinesiología adaptada a tu objetivo y tu lesión."
   },
   {
     "slug": "osteopatia",
     "nombre": "Osteopatía",
     "modalidades": [
-      { "tipo": "presencial", "precio": 45000 }
+      { "tipo": "presencial", "precio": 50000 }
     ],
-    "descripcion": "Sesión individual de osteopatía."
+    "descripcion": "Sesión de osteopatía."
   },
   {
     "slug": "consulta-traumatologica",
@@ -25,19 +24,19 @@
     "descripcion": "Evaluación con médico traumatólogo."
   },
   {
-    "slug": "mela",
-    "nombre": "MELA (Ultrasonido + Drenaje Linfático Manual)",
+    "slug": "consulta-nutricional",
+    "nombre": "Consulta nutricional",
     "modalidades": [
       { "tipo": "presencial", "precio": 30000 }
     ],
-    "descripcion": "Procedimiento terapéutico. Paquete de 8 sesiones con 10% off."
+    "descripcion": "Consulta con nutricionista — nutrición clínica y deportiva."
   },
   {
     "slug": "domicilio",
     "nombre": "Sesión a domicilio",
     "modalidades": [
-      { "tipo": "domicilio", "precio": 0 }
+      { "tipo": "domicilio", "precio": 50000 }
     ],
-    "descripcion": "Sesión kinesiológica en tu casa. Precio según zona — consultar por WhatsApp."
+    "descripcion": "Sesión kinesiológica en tu casa."
   }
 ]

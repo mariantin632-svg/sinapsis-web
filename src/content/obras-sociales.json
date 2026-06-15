@@ -1,6 +1,15 @@
 [
-  { "nombre": "OSDE", "logo": "/logos-obras-sociales/osde.png" },
-  { "nombre": "Galeno", "logo": "/logos-obras-sociales/galeno.png" },
+  { "nombre": "OSPE", "logo": "/logos-obras-sociales/ospe.png", "instrucciones": "Usás token digital desde la app" },
+  { "nombre": "OMINT", "logo": "/logos-obras-sociales/omint.png" },
+  { "nombre": "Avalian", "logo": "/logos-obras-sociales/avalian.png" },
+  { "nombre": "Medifé", "logo": "/logos-obras-sociales/medife.png" },
   { "nombre": "Swiss Medical", "logo": "/logos-obras-sociales/swiss-medical.png" },
-  { "nombre": "IOMA", "logo": "/logos-obras-sociales/ioma.png" }
+  { "nombre": "Sancor Salud", "logo": "/logos-obras-sociales/sancor-salud.png" },
+  { "nombre": "Federada Salud", "logo": "/logos-obras-sociales/federada-salud.png" },
+  { "nombre": "UP", "logo": "/logos-obras-sociales/up.png" },
+  { "nombre": "COMEI", "logo": "/logos-obras-sociales/comei.png" },
+  { "nombre": "AMFFA", "logo": "/logos-obras-sociales/amffa.png" },
+  { "nombre": "Colegio de Escribanos", "logo": "/logos-obras-sociales/colegio-escribanos.png" },
+  { "nombre": "La Segunda ART", "logo": "/logos-obras-sociales/la-segunda-art.png" },
+  { "nombre": "Amsterdam Salud", "logo": "/logos-obras-sociales/amsterdam-salud.png" }
 ]
