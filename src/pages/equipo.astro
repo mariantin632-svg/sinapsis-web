@@ -25,7 +25,9 @@ const equipo = equipoData as Profesional[];
           <div>
             <h2 class="text-xl font-bold text-violet-deep">{prof.nombre} {prof.apellido}</h2>
             <div class="text-sm text-gray-500 mt-1">{prof.especialidades.join(' · ')}</div>
-            <div class="text-xs text-gray-400 mt-1">Matrícula: {prof.matricula}</div>
+            {prof.matricula && !prof.matricula.includes('PLACEHOLDER') && (
+              <div class="text-xs text-gray-400 mt-1">Matrícula: {prof.matricula}</div>
+            )}
             <p class="text-sm text-gray-700 mt-3 leading-relaxed">
               {prof.bio_larga || prof.bio_corta}
             </p>

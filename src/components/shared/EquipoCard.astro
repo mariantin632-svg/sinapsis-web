@@ -20,7 +20,7 @@ const { profesional, variant = 'compact' } = Astro.props;
   <div class="flex-1 min-w-0">
     <div class="font-semibold text-violet-deep text-sm">{profesional.nombre} {profesional.apellido}</div>
     <div class="text-xs text-gray-600">{profesional.especialidades.join(' · ')}</div>
-    {variant === 'full' && (
+    {variant === 'full' && profesional.matricula && !profesional.matricula.includes('PLACEHOLDER') && (
       <div class="text-xs text-gray-500 mt-1">Matrícula: {profesional.matricula}</div>
     )}
     <a href={`/equipo#${profesional.slug}`} class="text-xs text-accent-mint hover:underline mt-1 inline-block">Ver perfil →</a>
