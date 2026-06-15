@@ -11,10 +11,19 @@
   {
     "slug": "santiago-duahu",
     "nombre": "Santiago",
-    "apellido": "Duahu",
+    "apellido": "Duhau",
     "matricula": "MN PLACEHOLDER",
     "especialidades": ["Kinesiología deportiva"],
     "bio_corta": "Kinesiólogo deportivo.",
     "foto": "/equipo/santiago-duahu.jpg"
+  },
+  {
+    "slug": "jimena-avalos",
+    "nombre": "Jimena Belén",
+    "apellido": "Avalos",
+    "matricula": "MP PLACEHOLDER",
+    "especialidades": ["Nutrición clínica", "Nutrición deportiva"],
+    "bio_corta": "Nutricionista. Acompaña la salud, el rendimiento y la mejora de hábitos alimentarios.",
+    "foto": "/equipo/jimena-avalos.jpg"
   }
 ]
