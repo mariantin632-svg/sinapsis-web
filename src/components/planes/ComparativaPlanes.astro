@@ -3,14 +3,15 @@ import planes from '../../content/planes.json';
 import type { Plan } from '../../content/_types';
 import { formatARS } from '../../lib/precios';
 
-const planesTipados = planes as Plan[];
+const planesTipados = (planes as Plan[]).sort((a, b) => a.orden - b.orden);
 
 const filas = planesTipados.map((p) => {
-  const anual = p.duraciones.find((d) => d.meses === 12)!;
+  const principal = p.duraciones.find((d) => d.periodo === 'anual') ?? p.duraciones[0];
   return {
     plan: p,
-    precioAnual: anual.precio_mensual,
-    sesionesMes: p.beneficios_destacados[0],
+    total: principal.total,
+    periodoLabel: principal.label,
+    composicion: p.beneficios_destacados[0],
   };
 });
 ---
@@ -19,19 +20,25 @@ const filas = planesTipados.map((p) => {
     <thead>
       <tr class="border-b border-cream/15">
         <th class="text-left py-3 px-2 text-cream/60 font-medium text-xs uppercase tracking-wider">Plan</th>
-        <th class="text-left py-3 px-2 text-cream/60 font-medium text-xs uppercase tracking-wider">Sesiones</th>
-        <th class="text-right py-3 px-2 text-cream/60 font-medium text-xs uppercase tracking-wider">Desde (anual)</th>
+        <th class="text-left py-3 px-2 text-cream/60 font-medium text-xs uppercase tracking-wider">Eje</th>
+        <th class="text-right py-3 px-2 text-cream/60 font-medium text-xs uppercase tracking-wider">Desde</th>
         <th class="py-3 px-2"></th>
       </tr>
     </thead>
     <tbody class="divide-y divide-cream/10">
-      {filas.map(({ plan, precioAnual, sesionesMes }) => (
+      {filas.map(({ plan, total, periodoLabel, composicion }) => (
         <tr class={plan.destacado ? 'bg-accent-gold/8' : ''}>
-          <td class="py-3 px-2 text-cream font-semibold">{plan.nombre}{plan.destacado && ' ★'}</td>
-          <td class="py-3 px-2 text-cream/80">{sesionesMes}</td>
-          <td class="py-3 px-2 text-right text-cream font-bold">{formatARS(precioAnual)} / mes</td>
+          <td class="py-3 px-2 text-cream font-semibold">
+            <span class="inline-block w-2 h-2 rounded-full mr-2 align-middle" style={`background-color: ${plan.color_hex};`}></span>
+            {plan.nombre}{plan.destacado && ' ★'}
+          </td>
+          <td class="py-3 px-2 text-cream/80">{composicion}</td>
+          <td class="py-3 px-2 text-right text-cream font-bold">
+            {formatARS(total)}
+            <span class="block text-[10px] font-normal text-cream/50">{periodoLabel}</span>
+          </td>
           <td class="py-3 px-2 text-right">
-            <a href={`/planes/${plan.slug}`} class="text-accent-mint text-xs underline">Ver detalle →</a>
+            <a href={`/planes/${plan.slug}`} class="text-accent-mint text-xs underline whitespace-nowrap">Ver detalle →</a>
           </td>
         </tr>
       ))}

@@ -3,10 +3,12 @@ import { test, expect } from '@playwright/test';
 const PAGES = [
   { path: '/', name: 'Home' },
   { path: '/planes', name: 'Planes index' },
-  { path: '/planes/essence', name: 'Plan Essence' },
-  { path: '/planes/focus', name: 'Plan Focus' },
-  { path: '/planes/total', name: 'Plan Total' },
-  { path: '/planes/elite', name: 'Plan Elite' },
+  { path: '/planes/premier-kine', name: 'Plan PREMIER KINE' },
+  { path: '/planes/premier-kine-plus', name: 'Plan PREMIER KINE +' },
+  { path: '/planes/performance', name: 'Plan PERFORMANCE' },
+  { path: '/planes/conecta', name: 'Plan CONECTA' },
+  { path: '/planes/osteo-mantenimiento', name: 'Plan Osteo Mantenimiento' },
+  { path: '/planes/kine-10', name: 'Plan Kine 10' },
   { path: '/packs', name: 'Packs index' },
   { path: '/packs/sos-express', name: 'Pack SOS Express' },
   { path: '/packs/reset-lumbar', name: 'Pack Reset Lumbar' },
@@ -47,9 +49,9 @@ test('all WhatsApp links use wa.me with correct phone', async ({ page }) => {
 
 test('Toggle de duración en planes section funciona', async ({ page }) => {
   await page.goto('/');
-  const priceBefore = await page.locator('[data-plan-card][data-plan-slug="total"] [data-plan-price]').textContent();
-  await page.locator('[data-duracion-btn][data-meses="1"]').click();
-  const priceAfter = await page.locator('[data-plan-card][data-plan-slug="total"] [data-plan-price]').textContent();
+  const priceBefore = await page.locator('[data-plan-card][data-plan-slug="premier-kine"] [data-plan-total]').textContent();
+  await page.locator('[data-duracion-btn][data-periodo="semestral"]').click();
+  const priceAfter = await page.locator('[data-plan-card][data-plan-slug="premier-kine"] [data-plan-total]').textContent();
   expect(priceBefore).not.toBe(priceAfter);
 });
 

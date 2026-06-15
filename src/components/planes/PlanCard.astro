@@ -4,45 +4,45 @@ import { formatARS } from '../../lib/precios';
 
 interface Props {
   plan: Plan;
-  duracionMeses: 1 | 3 | 6 | 12;
 }
 
-const { plan, duracionMeses } = Astro.props;
-const duracion = plan.duraciones.find((d) => d.meses === duracionMeses)!;
-const colorMap: Record<string, string> = {
-  'accent-silver': '#C0C0C0',
-  'accent-mint': '#5DCAA5',
-  'accent-gold': '#D4A030',
-  'accent-yellow': '#F4D03F',
-};
-const colorHex = colorMap[plan.color_signature];
+const { plan } = Astro.props;
+// Duración por defecto: la primera (anual en suscripciones, única en finitos).
+const d = plan.duraciones[0];
+const colorHex = plan.color_hex;
+const tipoLabel = plan.tipo === 'finito' ? 'Tratamiento' : 'Suscripción';
 ---
 <article
   data-plan-card
   data-plan-slug={plan.slug}
-  class={`relative bg-violet-mid rounded-card p-4 text-cream ${plan.destacado ? 'border-2 border-accent-gold' : 'border border-white/15'}`}
+  class={`relative flex flex-col bg-violet-mid rounded-card p-5 text-cream ${plan.destacado ? 'border-2 border-accent-gold' : 'border border-white/15'}`}
 >
   {plan.destacado && (
     <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent-gold text-accent-gold-dark px-3 py-1 rounded text-[10px] font-bold tracking-wider whitespace-nowrap">
       ★ RECOMENDADO
     </div>
   )}
-  <div class="px-3 py-1 rounded text-[10px] font-bold tracking-widest inline-block mt-1" style={`background-color: ${colorHex}; color: #1A1033;`}>
+  <div class="px-3 py-1 rounded text-[10px] font-bold tracking-widest inline-block self-start" style={`background-color: ${colorHex}; color: #1A1033;`}>
     {plan.nombre}
   </div>
-  <p class="text-xs opacity-65 mt-2">Tier {plan.tier} · {plan.subtitulo}</p>
-  <p class="text-sm font-medium mt-1 leading-tight">{plan.hook}</p>
+  <p class="text-[11px] opacity-60 mt-2 uppercase tracking-wider">{tipoLabel} · {plan.subtitulo}</p>
+  <p class="text-sm font-medium mt-1 leading-snug">{plan.hook}</p>
   <p class="text-xs opacity-70 mt-2 leading-relaxed">{plan.beneficios_destacados.join(' · ')}</p>
-  <div class="mt-4">
-    <div class="text-[9px] opacity-55 tracking-wider">DESDE</div>
-    <div class="text-xl font-bold" data-plan-price style={`color: ${colorHex};`}>{formatARS(duracion.precio_mensual)}</div>
-    <div class="text-[10px] opacity-55" data-plan-price-label>
-      / mes ({duracionMeses === 1 ? 'mensual' : `${duracionMeses} meses`})
+
+  <div class="mt-auto pt-5">
+    <div class="flex items-baseline gap-2">
+      <span class="text-[9px] opacity-55 tracking-wider uppercase" data-plan-periodo>{d.label}</span>
+      {d.ahorro_label && (
+        <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded" data-plan-ahorro style={`color: ${colorHex}; background-color: ${colorHex}1A;`}>{d.ahorro_label}</span>
+      )}
     </div>
+    <div class="text-2xl font-bold mt-1" data-plan-total style={`color: ${colorHex};`}>{formatARS(d.total)}</div>
+    <div class="text-[11px] opacity-60" data-plan-equiv>≈ {formatARS(d.equiv_valor)} {d.equiv_label}</div>
   </div>
+
   <a
     href={`/planes/${plan.slug}`}
-    class="mt-4 block text-center text-xs font-bold py-2 rounded-pill"
+    class="mt-4 block text-center text-xs font-bold py-2.5 rounded-pill"
     style={`background-color: ${colorHex}; color: #1A1033;`}
   >
     Ver plan →

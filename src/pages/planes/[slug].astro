@@ -15,22 +15,16 @@ interface Props {
 }
 
 const { plan } = Astro.props;
+const colorHex = plan.color_hex;
+const tipoLabel = plan.tipo === 'finito' ? 'Tratamiento' : 'Suscripción';
 
-const colorMap: Record<string, string> = {
-  'accent-silver': '#C0C0C0',
-  'accent-mint': '#5DCAA5',
-  'accent-gold': '#D4A030',
-  'accent-yellow': '#F4D03F',
-};
-const colorHex = colorMap[plan.color_signature];
-
-const anual = plan.duraciones.find((d) => d.meses === 12)!;
-const mensajeWhatsApp = `Hola! Me interesa el Plan ${plan.nombre} (anual, ${formatARS(anual.precio_mensual)}/mes).`;
+const principal = plan.duraciones[0];
+const mensajeWhatsApp = `Hola! Me interesa el Plan ${plan.nombre} (${principal.label}, ${formatARS(principal.total)}).`;
 ---
 <BaseLayout title={`Plan ${plan.nombre} · Sinapsis`} description={plan.hook}>
   <section class="bg-violet-deep text-cream px-6 py-12 md:py-16">
     <div class="max-w-3xl mx-auto">
-      <div class="text-xs opacity-55 tracking-widest uppercase">Plan · Tier {plan.tier}</div>
+      <div class="text-xs opacity-55 tracking-widest uppercase">{tipoLabel} · {plan.subtitulo}</div>
       <div class="inline-block px-3 py-1 rounded text-xs font-bold tracking-widest mt-3" style={`background-color: ${colorHex}; color: #1A1033;`}>
         {plan.nombre}
       </div>
@@ -41,18 +35,32 @@ const mensajeWhatsApp = `Hola! Me interesa el Plan ${plan.nombre} (anual, ${form
 
   <section class="bg-violet-mid text-cream px-6 py-12">
     <div class="max-w-3xl mx-auto">
-      <h2 class="text-xs uppercase tracking-widest opacity-60 mb-4">Elegí tu duración</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {plan.duraciones.map((d) => (
-          <div class={`p-4 rounded-card text-center ${d.meses === 12 ? 'bg-cream text-violet-deep' : 'bg-white/5 text-cream'}`}>
-            <div class="text-xs opacity-70">{d.meses === 1 ? 'Mensual' : `${d.meses} meses`}</div>
-            <div class="text-xl font-bold mt-1">{formatARS(d.precio_mensual)}</div>
-            <div class="text-[10px] opacity-65 mt-0.5">/ mes</div>
-            {d.ahorro_pct && <div class="text-[10px] mt-1 font-semibold" style={`color: ${d.meses === 12 ? '#5DCAA5' : colorHex};`}>-{d.ahorro_pct}%</div>}
-            {d.extra && <div class="text-[10px] opacity-60 mt-1 italic">{d.extra}</div>}
+      <h2 class="text-xs uppercase tracking-widest opacity-60 mb-4">
+        {plan.duraciones.length > 1 ? 'Elegí tu duración' : 'Inversión'}
+      </h2>
+      <div class={`grid gap-3 ${plan.duraciones.length > 1 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1'}`}>
+        {plan.duraciones.map((d, i) => (
+          <div class={`p-5 rounded-card ${i === 0 ? 'bg-cream text-violet-deep' : 'bg-white/5 text-cream'}`}>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold uppercase tracking-wider opacity-70">{d.label}</span>
+              {d.ahorro_label && (
+                <span class="text-[11px] font-bold px-2 py-0.5 rounded" style={`color: #1A1033; background-color: ${colorHex};`}>{d.ahorro_label}</span>
+              )}
+            </div>
+            <div class="text-3xl font-bold mt-2" style={i === 0 ? `color: ${colorHex === '#C0C0C0' ? '#1A0E3D' : colorHex};` : ''}>{formatARS(d.total)}</div>
+            <div class="text-xs opacity-65 mt-0.5">≈ {formatARS(d.equiv_valor)} {d.equiv_label}</div>
+            <div class="text-xs opacity-70 mt-2">{d.sesiones}</div>
+            {d.tarjeta_1pago && (
+              <div class="text-[11px] opacity-55 mt-2 pt-2 border-t border-current/15">
+                Tarjeta en 1 pago: {formatARS(d.tarjeta_1pago)}
+              </div>
+            )}
           </div>
         ))}
       </div>
+      <p class="text-[11px] opacity-55 mt-4">
+        Pago único al activar el plan. Métodos: transferencia, efectivo en el centro o tarjeta de crédito (10% de recargo en 1 pago; cuotas a consultar).
+      </p>
     </div>
   </section>
 
@@ -62,14 +70,14 @@ const mensajeWhatsApp = `Hola! Me interesa el Plan ${plan.nombre} (anual, ${form
       <ul class="space-y-2">
         {plan.incluye.map((item) => (
           <li class="flex gap-3 items-start">
-            <span class="text-accent-mint font-bold">✓</span>
+            <span class="font-bold" style={`color: ${colorHex};`}>✓</span>
             <span class="text-sm text-gray-700">{item}</span>
           </li>
         ))}
       </ul>
 
       <div class="mt-8">
-        <CtaWhatsApp text={`Suscribirme al Plan ${plan.nombre}`} message={mensajeWhatsApp} size="lg" />
+        <CtaWhatsApp text={`Quiero el Plan ${plan.nombre}`} message={mensajeWhatsApp} size="lg" />
       </div>
     </div>
   </section>

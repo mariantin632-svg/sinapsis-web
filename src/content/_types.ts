@@ -26,22 +26,28 @@ export interface Sitio {
   };
 }
 
-// Planes de suscripción
+// Planes de suscripción y tratamientos
+export type PlanPeriodo = 'anual' | 'semestral' | 'unico';
+
 export interface DuracionPrecio {
-  meses: 1 | 3 | 6 | 12;
-  precio_mensual: number;
-  total: number;
-  ahorro_pct?: number;
-  extra?: string;
+  periodo: PlanPeriodo;
+  label: string;          // "Plan anual" · "Plan semestral" · "10 sesiones"
+  sesiones: string;       // "48 sesiones de kinesiología"
+  total: number;          // precio total upfront
+  equiv_valor: number;    // equivalente: por mes (recurrente) o por sesión (finito)
+  equiv_label: string;    // "/mes" · "/sesión"
+  ahorro_label?: string;  // "22% off" · "$77.000 off"
+  tarjeta_1pago?: number; // total con tarjeta en 1 pago (+10%)
 }
 
 export interface Plan {
-  slug: 'essence' | 'focus' | 'total' | 'elite';
+  slug: string;
   nombre: string;
-  tier: 1 | 2 | 3 | 4;
-  subtitulo: string;
+  orden: number;
+  tipo: 'suscripcion' | 'finito';
+  subtitulo: string;      // kicker corto bajo el nombre
   hook: string;
-  color_signature: string;
+  color_hex: string;      // color firma del plan (ej. "#5DCAA5")
   destacado?: boolean;
   duraciones: DuracionPrecio[];
   incluye: string[];

@@ -1,17 +1,15 @@
 ---
 const opciones = [
-  { meses: 1, label: 'Mes', short: 'mes' },
-  { meses: 3, label: '3m', short: '3m' },
-  { meses: 6, label: '6m', short: '6m' },
-  { meses: 12, label: '12m', short: '12m · -25%' },
+  { periodo: 'anual', short: 'Anual · hasta 27% off' },
+  { periodo: 'semestral', short: 'Semestral' },
 ];
 ---
 <div class="inline-flex gap-1 bg-white/8 rounded-card p-1 text-xs">
   {opciones.map((op) => (
     <button
       data-duracion-btn
-      data-meses={op.meses}
-      class={`px-3 py-1.5 rounded ${op.meses === 12 ? 'bg-cream text-violet-deep font-bold' : 'text-cream/60 hover:text-cream'}`}
+      data-periodo={op.periodo}
+      class={`px-3 py-1.5 rounded ${op.periodo === 'anual' ? 'bg-cream text-violet-deep font-bold' : 'text-cream/60 hover:text-cream'}`}
     >
       {op.short}
     </button>
@@ -31,33 +29,45 @@ const opciones = [
     }).format(amount).replace(/\s/g, '');
   }
 
-  function updatePrices(meses: number) {
+  function updatePrices(periodo: string) {
     const cards = document.querySelectorAll<HTMLElement>('[data-plan-card]');
     cards.forEach((card) => {
-      const slug = card.dataset.planSlug;
-      const plan = planes.find((p) => p.slug === slug);
+      const plan = planes.find((p) => p.slug === card.dataset.planSlug);
       if (!plan) return;
-      const duracion = plan.duraciones.find((d: any) => d.meses === meses);
-      if (!duracion) return;
-      const priceEl = card.querySelector<HTMLElement>('[data-plan-price]');
-      if (priceEl) priceEl.textContent = formatARS(duracion.precio_mensual);
-      const labelEl = card.querySelector<HTMLElement>('[data-plan-price-label]');
-      if (labelEl) {
-        labelEl.textContent = meses === 1 ? '/ mes (mensual)' : `/ mes (${meses} meses)`;
+      // Si el plan no tiene el período elegido (Osteo solo anual, Kine 10 finito),
+      // se queda con su duración por defecto.
+      const d = plan.duraciones.find((x: any) => x.periodo === periodo) ?? plan.duraciones[0];
+
+      const totalEl = card.querySelector<HTMLElement>('[data-plan-total]');
+      if (totalEl) totalEl.textContent = formatARS(d.total);
+
+      const equivEl = card.querySelector<HTMLElement>('[data-plan-equiv]');
+      if (equivEl) equivEl.textContent = `≈ ${formatARS(d.equiv_valor)} ${d.equiv_label}`;
+
+      const periodoEl = card.querySelector<HTMLElement>('[data-plan-periodo]');
+      if (periodoEl) periodoEl.textContent = d.label;
+
+      const ahorroEl = card.querySelector<HTMLElement>('[data-plan-ahorro]');
+      if (ahorroEl) {
+        if (d.ahorro_label) {
+          ahorroEl.textContent = d.ahorro_label;
+          ahorroEl.style.display = '';
+        } else {
+          ahorroEl.style.display = 'none';
+        }
       }
     });
   }
 
   document.querySelectorAll<HTMLButtonElement>('[data-duracion-btn]').forEach((btn) => {
     btn.addEventListener('click', () => {
-      const meses = Number(btn.dataset.meses);
       document.querySelectorAll<HTMLElement>('[data-duracion-btn]').forEach((b) => {
         b.classList.remove('bg-cream', 'text-violet-deep', 'font-bold');
         b.classList.add('text-cream/60');
       });
       btn.classList.remove('text-cream/60');
       btn.classList.add('bg-cream', 'text-violet-deep', 'font-bold');
-      updatePrices(meses);
+      updatePrices(btn.dataset.periodo as string);
     });
   });
 </script>

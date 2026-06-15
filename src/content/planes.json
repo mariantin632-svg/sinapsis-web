@@ -1,125 +1,272 @@
 [
   {
-    "slug": "essence",
-    "nombre": "ESSENCE",
-    "tier": 1,
-    "subtitulo": "Entrada",
-    "hook": "Empezar a cuidarte sin compromiso grande",
-    "color_signature": "accent-silver",
-    "para_quien": "Para quienes quieren probar el modelo de cuidado mensual.",
+    "slug": "premier-kine",
+    "nombre": "PREMIER KINE",
+    "orden": 1,
+    "tipo": "suscripcion",
+    "subtitulo": "Kinesiología semanal",
+    "hook": "Tu kinesiólogo fijo, todas las semanas.",
+    "color_hex": "#5DCAA5",
+    "para_quien": "Para quienes necesitan continuidad kinesiológica una vez por semana, con seguimiento, informes y un lugar fijo en la agenda.",
     "duraciones": [
-      { "meses": 1, "precio_mensual": 36900, "total": 36900 },
-      { "meses": 3, "precio_mensual": 33900, "total": 101700, "ahorro_pct": 8 },
-      { "meses": 6, "precio_mensual": 31900, "total": 191400, "ahorro_pct": 13 },
-      { "meses": 12, "precio_mensual": 29900, "total": 358800, "ahorro_pct": 19, "extra": "+ regalo de bienvenida" }
+      {
+        "periodo": "anual",
+        "label": "Plan anual",
+        "sesiones": "48 sesiones de kinesiología",
+        "total": 1049000,
+        "equiv_valor": 87416,
+        "equiv_label": "/mes",
+        "ahorro_label": "22% off",
+        "tarjeta_1pago": 1153900
+      },
+      {
+        "periodo": "semestral",
+        "label": "Plan semestral",
+        "sesiones": "24 sesiones de kinesiología",
+        "total": 599000,
+        "equiv_valor": 99833,
+        "equiv_label": "/mes",
+        "ahorro_label": "11% off",
+        "tarjeta_1pago": 658900
+      }
     ],
     "incluye": [
-      "1 sesión de kinesiología u osteopatía / mes",
-      "1 evaluación funcional al inicio",
-      "Atención online ilimitada (WhatsApp profesional)",
+      "1 sesión de kinesiología por semana",
+      "Evaluación funcional inicial con informe escrito",
+      "Revaluaciones con informe (2 en anual · 1 en semestral)",
+      "Órdenes médicas digitales sin límite",
+      "Consultas clínicas por WhatsApp sin límite",
+      "Prioridad de turnos (lugar fijo en agenda)",
+      "10% off en prestaciones extra (osteopatía, presoterapia, domicilio)",
+      "Ventana de arrepentimiento de 7 días",
+      "Pausa por causa médica (hasta 90 días en anual · 60 en semestral)"
+    ],
+    "beneficios_destacados": [
+      "1 kinesio / semana",
+      "Órdenes digitales sin límite",
+      "Prioridad de turnos"
+    ]
+  },
+  {
+    "slug": "premier-kine-plus",
+    "nombre": "PREMIER KINE +",
+    "orden": 2,
+    "tipo": "suscripcion",
+    "subtitulo": "Kinesiología intensiva 2x",
+    "hook": "Doble frecuencia para recuperarte más rápido.",
+    "color_hex": "#D4A030",
+    "para_quien": "Para post-quirúrgicos largos, deportistas en carga intensa o quienes ya hicieron PREMIER KINE y quieren profundizar el trabajo.",
+    "duraciones": [
+      {
+        "periodo": "anual",
+        "label": "Plan anual",
+        "sesiones": "96 sesiones de kinesiología",
+        "total": 2099000,
+        "equiv_valor": 174916,
+        "equiv_label": "/mes",
+        "ahorro_label": "22% off",
+        "tarjeta_1pago": 2308900
+      },
+      {
+        "periodo": "semestral",
+        "label": "Plan semestral",
+        "sesiones": "48 sesiones de kinesiología",
+        "total": 1199000,
+        "equiv_valor": 199833,
+        "equiv_label": "/mes",
+        "ahorro_label": "11% off",
+        "tarjeta_1pago": 1318900
+      }
+    ],
+    "incluye": [
+      "2 sesiones de kinesiología por semana",
+      "Evaluación funcional inicial con informe escrito",
+      "Revaluaciones semestrales con informe (2 en anual · 1 en semestral)",
+      "Órdenes médicas digitales sin límite",
+      "Consultas clínicas por WhatsApp sin límite",
+      "Prioridad de turnos (lugar fijo en agenda)",
+      "10% off en prestaciones extra (osteopatía, presoterapia, domicilio)",
+      "Ventana de arrepentimiento de 7 días",
+      "Pausa por causa médica (hasta 90 días en anual · 60 en semestral)"
+    ],
+    "beneficios_destacados": [
+      "2 kinesio / semana",
+      "Recuperación acelerada",
+      "Órdenes sin límite"
+    ]
+  },
+  {
+    "slug": "performance",
+    "nombre": "PERFORMANCE",
+    "orden": 3,
+    "tipo": "suscripcion",
+    "subtitulo": "Rendimiento deportivo integral",
+    "hook": "Kinesiología deportiva, osteopatía y nutrición en un solo plan.",
+    "color_hex": "#F4D03F",
+    "para_quien": "Para deportistas que buscan rendir: trabajamos el gesto técnico, liberamos restricciones con terapia manual y ordenamos la alimentación.",
+    "duraciones": [
+      {
+        "periodo": "anual",
+        "label": "Plan anual",
+        "sesiones": "48 kine deportiva · 24 osteo · 12 nutri",
+        "total": 2099000,
+        "equiv_valor": 174916,
+        "equiv_label": "/mes",
+        "ahorro_label": "23% off",
+        "tarjeta_1pago": 2308900
+      },
+      {
+        "periodo": "semestral",
+        "label": "Plan semestral",
+        "sesiones": "24 kine deportiva · 12 osteo · 6 nutri",
+        "total": 1199000,
+        "equiv_valor": 199833,
+        "equiv_label": "/mes",
+        "ahorro_label": "12% off",
+        "tarjeta_1pago": 1318900
+      }
+    ],
+    "incluye": [
+      "4 sesiones de kinesiología deportiva / mes — Lic. Santiago Duhau",
+      "2 sesiones de osteopatía / mes — Lic. Martín Niro",
+      "1 consulta de nutrición deportiva / mes — Lic. Jimena Avalos",
+      "Evaluación funcional deportiva con informe",
+      "Revaluaciones con informe",
+      "Órdenes médicas digitales sin límite",
+      "Consultas clínicas por WhatsApp sin límite",
       "Prioridad de turnos",
-      "10% off en sesiones extras",
-      "Plan de ejercicios básico"
+      "10% off en prestaciones extra",
+      "Ventana de arrepentimiento de 7 días + pausa por causa médica"
     ],
     "beneficios_destacados": [
-      "1 sesión / mes",
-      "Online ilimitado",
-      "Ejercicios básico"
+      "Kine depo + Osteo + Nutri",
+      "3 profesionales",
+      "Evaluación deportiva"
     ]
   },
   {
-    "slug": "focus",
-    "nombre": "FOCUS",
-    "tier": 2,
-    "subtitulo": "Volumen",
-    "hook": "El que más se vende",
-    "color_signature": "accent-mint",
-    "para_quien": "Para quienes ya saben que necesitan más de una sesión al mes.",
+    "slug": "conecta",
+    "nombre": "CONECTA",
+    "orden": 4,
+    "tipo": "suscripcion",
+    "subtitulo": "Híbrido online + presencial",
+    "hook": "Atención presencial cuando hacen falta manos, online para el resto.",
+    "color_hex": "#5BA8D4",
+    "para_quien": "Para quienes viajan, viven lejos de José C. Paz o tienen agenda complicada y necesitan flexibilidad sin perder el seguimiento.",
     "duraciones": [
-      { "meses": 1, "precio_mensual": 69900, "total": 69900 },
-      { "meses": 3, "precio_mensual": 64900, "total": 194700, "ahorro_pct": 7 },
-      { "meses": 6, "precio_mensual": 59900, "total": 359400, "ahorro_pct": 14 },
-      { "meses": 12, "precio_mensual": 54900, "total": 658800, "ahorro_pct": 21, "extra": "+ regalo" }
+      {
+        "periodo": "anual",
+        "label": "Plan anual",
+        "sesiones": "24 presenciales · 24 online · 4 traumatología",
+        "total": 1099000,
+        "equiv_valor": 91583,
+        "equiv_label": "/mes",
+        "ahorro_label": "27% off",
+        "tarjeta_1pago": 1208900
+      },
+      {
+        "periodo": "semestral",
+        "label": "Plan semestral",
+        "sesiones": "12 presenciales · 12 online · 2 traumatología",
+        "total": 679000,
+        "equiv_valor": 113166,
+        "equiv_label": "/mes",
+        "ahorro_label": "10% off",
+        "tarjeta_1pago": 746900
+      }
     ],
     "incluye": [
-      "2 sesiones / mes (kinesiología u osteopatía)",
-      "1 sesión de botas de presoterapia / mes",
-      "Evaluación funcional trimestral",
-      "Atención online ilimitada",
-      "Plan de ejercicios personalizado con ajuste mensual",
+      "2 sesiones presenciales / mes (kinesiología u osteopatía)",
+      "2 videoconsultas de seguimiento / mes (ajuste de rutina + control)",
+      "Rutina de ejercicios para casa actualizada",
+      "1 consulta traumatológica online trimestral — Dr. Dante Centellas",
+      "Evaluación inicial presencial con informe",
+      "Revaluaciones con informe",
+      "Órdenes médicas digitales sin límite",
+      "Consultas clínicas por WhatsApp sin límite",
       "Prioridad de turnos",
-      "15% off sesiones extras",
-      "1 orden médica / mes incluida"
+      "10% off en prestaciones extra",
+      "Ventana de arrepentimiento de 7 días + pausa por causa médica"
     ],
     "beneficios_destacados": [
-      "2 sesiones / mes",
-      "Presoterapia",
-      "Plan personalizado"
+      "Presencial + online",
+      "Traumatología online",
+      "Rutina para casa"
     ]
   },
   {
-    "slug": "total",
-    "nombre": "TOTAL",
-    "tier": 3,
-    "subtitulo": "Cuidado total",
-    "hook": "Para no preocuparte por nada",
-    "color_signature": "accent-gold",
-    "destacado": true,
-    "para_quien": "Para quienes quieren cubrir todas las necesidades de cuidado físico en un solo plan.",
+    "slug": "osteo-mantenimiento",
+    "nombre": "OSTEO MANTENIMIENTO",
+    "orden": 5,
+    "tipo": "suscripcion",
+    "subtitulo": "Osteopatía quincenal",
+    "hook": "Osteopatía cada 15 días para sostener tu cuerpo en equilibrio.",
+    "color_hex": "#B98FE0",
+    "para_quien": "Para quienes ya pasaron la fase intensa o quieren prevenir, con un ritmo quincenal sostenible. Plan anual.",
     "duraciones": [
-      { "meses": 1, "precio_mensual": 129000, "total": 129000 },
-      { "meses": 3, "precio_mensual": 119000, "total": 357000, "ahorro_pct": 8 },
-      { "meses": 6, "precio_mensual": 109000, "total": 654000, "ahorro_pct": 16 },
-      { "meses": 12, "precio_mensual": 99000, "total": 1188000, "ahorro_pct": 23, "extra": "+ sesión a domicilio de regalo" }
+      {
+        "periodo": "anual",
+        "label": "Plan anual",
+        "sesiones": "24 sesiones de osteopatía (1 cada 15 días)",
+        "total": 1099000,
+        "equiv_valor": 91583,
+        "equiv_label": "/mes",
+        "ahorro_label": "$77.000 off",
+        "tarjeta_1pago": 1208900
+      }
     ],
     "incluye": [
-      "4 sesiones / mes intercambiables (kinesiología, osteopatía, deportiva)",
-      "2 sesiones de botas / mes",
-      "1 traumatología trimestral",
-      "Evaluación funcional bimestral",
-      "Plan de ejercicios personalizado con seguimiento",
-      "Online prioritario",
-      "VIP turnos (reserva con 24h de anticipación)",
-      "20% off sesiones extras",
-      "Órdenes médicas ilimitadas",
-      "Atención online incluida"
+      "24 sesiones de osteopatía / año (1 cada 15 días, 60 min) — Lic. Martín Niro",
+      "Evaluación inicial + revaluación semestral con informe escrito",
+      "2 consultas de nutrición (inicial + 6 meses)",
+      "2 consultas de traumatología (semestrales)",
+      "4 órdenes médicas digitales",
+      "Pautas de autocuidado",
+      "Prioridad de turnos",
+      "Consultas clínicas por WhatsApp",
+      "10% off en prestaciones extra"
     ],
     "beneficios_destacados": [
-      "4 sesiones / mes",
-      "Traumatología incluida",
-      "VIP turnos"
+      "Osteopatía quincenal",
+      "Nutri + traumat incluidas",
+      "Solo plan anual"
     ]
   },
   {
-    "slug": "elite",
-    "nombre": "ELITE",
-    "tier": 4,
-    "subtitulo": "Concierge de salud",
-    "hook": "Atención ilimitada, dedicación total",
-    "color_signature": "accent-yellow",
-    "para_quien": "Para deportistas de alto rendimiento o quienes buscan atención concierge.",
+    "slug": "kine-10",
+    "nombre": "KINE 10",
+    "orden": 6,
+    "tipo": "finito",
+    "subtitulo": "Tratamiento de 10 sesiones",
+    "hook": "Resolvé una lesión puntual con un tratamiento completo.",
+    "color_hex": "#C0C0C0",
+    "para_quien": "Para una lesión o dolor puntual que necesita un tratamiento acotado y completo, sin compromiso de suscripción.",
     "duraciones": [
-      { "meses": 1, "precio_mensual": 239000, "total": 239000 },
-      { "meses": 3, "precio_mensual": 219000, "total": 657000, "ahorro_pct": 8 },
-      { "meses": 6, "precio_mensual": 199000, "total": 1194000, "ahorro_pct": 17 },
-      { "meses": 12, "precio_mensual": 179000, "total": 2148000, "ahorro_pct": 25, "extra": "+ concierge full" }
+      {
+        "periodo": "unico",
+        "label": "10 sesiones",
+        "sesiones": "10 sesiones de kinesiología",
+        "total": 249000,
+        "equiv_valor": 24900,
+        "equiv_label": "/sesión",
+        "ahorro_label": "11% off",
+        "tarjeta_1pago": 273900
+      }
     ],
     "incluye": [
-      "8 sesiones / mes libres (kinesiología, osteopatía, deportiva, domicilio sumando 1)",
-      "4 sesiones de botas / mes",
-      "Evaluación funcional mensual",
-      "Traumatología bimestral",
-      "Plan de entrenamiento de élite con ajustes mensuales",
-      "1 sesión a domicilio / mes incluida",
-      "Online prioritario 24/7",
-      "Concierge de salud (coordinador personal)",
-      "Acceso para 1 familiar con 35% off de por vida",
-      "Acompañamiento post quirúrgico si aplica"
+      "10 sesiones de kinesiología",
+      "Evaluación funcional inicial con informe escrito",
+      "Revaluación intermedia con informe",
+      "2 órdenes médicas digitales",
+      "Plan de ejercicios para casa",
+      "10% off en prestaciones extra (osteopatía, presoterapia, eval funcional adicional)",
+      "Consultas clínicas por WhatsApp",
+      "Ventana de arrepentimiento de 7 días + pausa por causa médica (hasta 90 días)"
     ],
     "beneficios_destacados": [
-      "8 sesiones / mes",
-      "Concierge personal",
-      "Familiar con 35% off"
+      "10 sesiones",
+      "Informe escrito",
+      "Sin suscripción"
     ]
   }
 ]
