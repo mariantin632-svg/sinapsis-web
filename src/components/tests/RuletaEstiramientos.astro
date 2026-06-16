@@ -1,0 +1,70 @@
+---
+// Estiramientos / tips de autocuidado, suaves y de bajo riesgo.
+const items = [
+  { emoji: '🙆', nombre: 'Cuello lateral', como: 'Incliná la cabeza hacia un hombro, suave, sin tirar. Sostené 20 s de cada lado.' },
+  { emoji: '🐱', nombre: 'Gato–camello', como: 'En cuatro apoyos, alterná lomo arriba y abajo. 10 repeticiones lentas.' },
+  { emoji: '🦵', nombre: 'Isquiotibiales', como: 'Sentado, llevá el pecho hacia los muslos sin forzar la espalda. 20 s.' },
+  { emoji: '🧍', nombre: 'Apertura de pecho', como: 'Entrelazá las manos atrás y abrí el pecho llevando los hombros atrás. 20 s.' },
+  { emoji: '🚶', nombre: 'Flexor de cadera', como: 'En paso largo, llevá la cadera hacia adelante. 20 s de cada lado.' },
+  { emoji: '🧘', nombre: 'Glúteo (figura 4)', como: 'Acostado, cruzá un tobillo sobre la rodilla y traé la pierna hacia vos. 20 s.' },
+  { emoji: '🦶', nombre: 'Movilidad de tobillo', como: 'Dibujá círculos con el pie en el aire. 10 hacia cada lado.' },
+  { emoji: '🔄', nombre: 'Rotación de tronco', como: 'Sentado, girá el tronco hacia un lado acompañando con la mirada. 20 s por lado.' },
+  { emoji: '✋', nombre: 'Muñecas', como: 'Estirá la muñeca con la otra mano, hacia arriba y hacia abajo. 15 s cada una.' },
+  { emoji: '🌬️', nombre: 'Respiración diafragmática', como: 'Inflá la panza al inspirar y soltá lento. 5 respiraciones tranquilas.' },
+];
+---
+<div data-ruleta class="text-center">
+  <div class="bg-violet-mid rounded-card p-6 min-h-48 flex flex-col items-center justify-center mb-5">
+    <div data-ruleta-emoji class="text-5xl mb-2 transition-transform">🎲</div>
+    <div data-ruleta-nombre class="text-lg font-bold text-cream">Girá la ruleta</div>
+    <p data-ruleta-como class="text-sm text-cream/75 mt-2 max-w-md leading-relaxed">
+      Te toca un estiramiento o tip de autocuidado al azar para hacer ahora mismo.
+    </p>
+  </div>
+  <button data-ruleta-btn
+    class="bg-accent-mint text-accent-mint-dark px-6 py-3 rounded-pill text-sm font-bold hover:opacity-90 transition disabled:opacity-50">
+    🎯 Girar
+  </button>
+  <p class="text-[11px] text-cream/45 mt-4 max-w-xl mx-auto">
+    Estiramientos suaves de uso general. Si algo te duele, pará y consultanos.
+  </p>
+</div>
+
+<script define:vars={{ items }}>
+  document.querySelectorAll('[data-ruleta]').forEach((root) => {
+    const elEmoji = root.querySelector('[data-ruleta-emoji]');
+    const elNombre = root.querySelector('[data-ruleta-nombre]');
+    const elComo = root.querySelector('[data-ruleta-como]');
+    const btn = root.querySelector('[data-ruleta-btn]');
+    let last = -1;
+
+    function show(i) {
+      const it = items[i];
+      elEmoji.textContent = it.emoji;
+      elNombre.textContent = it.nombre;
+      elComo.textContent = it.como;
+    }
+
+    btn.addEventListener('click', () => {
+      btn.disabled = true;
+      let pick;
+      do { pick = Math.floor(Math.random() * items.length); } while (pick === last && items.length > 1);
+      last = pick;
+      let step = 0;
+      const total = 16;
+      function tick() {
+        show(Math.floor(Math.random() * items.length));
+        elEmoji.style.transform = 'scale(1.15)';
+        setTimeout(() => (elEmoji.style.transform = 'scale(1)'), 60);
+        step++;
+        if (step < total) {
+          setTimeout(tick, 60 + step * 16); // se va frenando
+        } else {
+          show(pick);
+          btn.disabled = false;
+        }
+      }
+      tick();
+    });
+  });
+</script>

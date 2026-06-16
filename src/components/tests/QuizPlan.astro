@@ -1,0 +1,135 @@
+---
+import sitio from '../../content/sitio.json';
+const wa = `https://wa.me/${sitio.contacto.whatsapp}`;
+
+// Cada opción suma puntos a uno o más planes. Gana el de mayor puntaje.
+const preguntas = [
+  {
+    q: '¿Cuál es tu objetivo principal?',
+    opciones: [
+      { t: 'Recuperarme de una lesión o dolor', p: { 'kine-10': 2, 'premier-kine': 1 } },
+      { t: 'Mantenerme y prevenir', p: { 'osteo-mantenimiento': 2, 'premier-kine': 1 } },
+      { t: 'Rendir en mi deporte', p: { performance: 3 } },
+      { t: 'Bajar de peso y ordenar hábitos', p: { reinicio: 3 } },
+    ],
+  },
+  {
+    q: '¿Con qué frecuencia querés venir?',
+    opciones: [
+      { t: 'Algo puntual, pocas sesiones', p: { 'kine-10': 2 } },
+      { t: '1 vez por semana', p: { 'premier-kine': 2 } },
+      { t: '2 o más por semana', p: { 'premier-kine-plus': 2, performance: 1 } },
+      { t: 'Cada 15 días', p: { 'osteo-mantenimiento': 2 } },
+    ],
+  },
+  {
+    q: '¿Cómo preferís atenderte?',
+    opciones: [
+      { t: 'Presencial siempre', p: { 'premier-kine': 1 } },
+      { t: 'Combino presencial y online', p: { conecta: 3 } },
+      { t: 'Casi todo online (viajo / vivo lejos)', p: { conecta: 4 } },
+    ],
+  },
+  {
+    q: '¿Querés un abordaje integral?',
+    opciones: [
+      { t: 'Solo kinesiología', p: { 'premier-kine': 1 } },
+      { t: 'Kine + osteo + nutrición', p: { performance: 2 } },
+      { t: 'Sumar nutrición para bajar de peso', p: { reinicio: 2 } },
+    ],
+  },
+];
+
+const resultados = {
+  'kine-10': { nombre: 'KINE 10', desc: 'Un tratamiento puntual de 10 sesiones para resolver tu lesión.', href: '/planes/kine-10' },
+  'premier-kine': { nombre: 'PREMIER KINE', desc: 'Kinesiología una vez por semana, con seguimiento y prioridad de turnos.', href: '/planes/premier-kine' },
+  'premier-kine-plus': { nombre: 'PREMIER KINE +', desc: 'Doble frecuencia para recuperarte más rápido.', href: '/planes/premier-kine-plus' },
+  performance: { nombre: 'PERFORMANCE', desc: 'Kine deportiva + osteopatía + nutrición para rendir.', href: '/planes/performance' },
+  conecta: { nombre: 'CONECTA', desc: 'Híbrido online + presencial, ideal si viajás o vivís lejos.', href: '/planes/conecta' },
+  'osteo-mantenimiento': { nombre: 'OSTEO MANTENIMIENTO', desc: 'Osteopatía cada 15 días para mantenerte en equilibrio.', href: '/planes/osteo-mantenimiento' },
+  reinicio: { nombre: 'Plan de nutrición', desc: 'Te orientamos para bajar de peso con nutrición y movimiento.', href: null },
+};
+---
+<div data-quiz>
+  <div data-quiz-body>
+    <div class="flex items-center justify-between text-xs text-cream/55 mb-3">
+      <span data-quiz-progress>Pregunta 1 de {preguntas.length}</span>
+      <button data-quiz-reset class="hidden underline hover:text-cream">Reiniciar</button>
+    </div>
+    <div class="h-1.5 bg-white/10 rounded-full overflow-hidden mb-5">
+      <div data-quiz-bar class="h-full bg-accent-mint transition-all" style="width: 0%"></div>
+    </div>
+    <h3 data-quiz-question class="text-lg font-bold text-cream mb-4"></h3>
+    <div data-quiz-options class="grid gap-2"></div>
+  </div>
+
+  <div data-quiz-result class="hidden text-center">
+    <div class="text-xs uppercase tracking-widest text-cream/55">Tu plan ideal</div>
+    <div data-result-nombre class="text-2xl font-bold text-accent-mint mt-1"></div>
+    <p data-result-desc class="text-sm text-cream/80 mt-2 max-w-md mx-auto"></p>
+    <div class="flex flex-wrap gap-3 justify-center mt-5">
+      <a data-result-link class="bg-accent-mint text-accent-mint-dark px-5 py-2.5 rounded-pill text-sm font-bold hover:opacity-90 transition hidden">Ver el plan →</a>
+      <a data-result-wa target="_blank" rel="noopener" class="border border-cream/30 text-cream px-5 py-2.5 rounded-pill text-sm font-bold hover:bg-white/10 transition">📱 Consultar</a>
+    </div>
+    <button data-quiz-reset2 class="block mx-auto mt-5 text-xs text-cream/55 underline hover:text-cream">Volver a empezar</button>
+  </div>
+</div>
+
+<script define:vars={{ preguntas, resultados, wa }}>
+  document.querySelectorAll('[data-quiz]').forEach((root) => {
+    const elBody = root.querySelector('[data-quiz-body]');
+    const elResult = root.querySelector('[data-quiz-result]');
+    const elProgress = root.querySelector('[data-quiz-progress]');
+    const elBar = root.querySelector('[data-quiz-bar]');
+    const elQ = root.querySelector('[data-quiz-question]');
+    const elOpts = root.querySelector('[data-quiz-options]');
+    let idx = 0;
+    let scores = {};
+
+    function render() {
+      const pre = preguntas[idx];
+      elProgress.textContent = `Pregunta ${idx + 1} de ${preguntas.length}`;
+      elBar.style.width = `${(idx / preguntas.length) * 100}%`;
+      elQ.textContent = pre.q;
+      elOpts.innerHTML = '';
+      pre.opciones.forEach((op) => {
+        const b = document.createElement('button');
+        b.className = 'text-left text-sm text-cream/90 bg-white/5 hover:bg-white/12 border border-white/10 rounded-card px-4 py-3 transition';
+        b.textContent = op.t;
+        b.addEventListener('click', () => {
+          for (const k in op.p) scores[k] = (scores[k] || 0) + op.p[k];
+          idx++;
+          if (idx < preguntas.length) render();
+          else finish();
+        });
+        elOpts.appendChild(b);
+      });
+    }
+
+    function finish() {
+      let best = null, bestVal = -1;
+      for (const k in scores) if (scores[k] > bestVal) { bestVal = scores[k]; best = k; }
+      const r = resultados[best] || resultados['premier-kine'];
+      root.querySelector('[data-result-nombre]').textContent = r.nombre;
+      root.querySelector('[data-result-desc]').textContent = r.desc;
+      const link = root.querySelector('[data-result-link]');
+      if (r.href) { link.href = r.href; link.classList.remove('hidden'); }
+      else link.classList.add('hidden');
+      root.querySelector('[data-result-wa]').href =
+        `${wa}?text=${encodeURIComponent(`Hola! Hice el test de la web y me recomendó: ${r.nombre}. Quería consultar.`)}`;
+      elBody.classList.add('hidden');
+      elResult.classList.remove('hidden');
+    }
+
+    function reset() {
+      idx = 0; scores = {};
+      elResult.classList.add('hidden');
+      elBody.classList.remove('hidden');
+      render();
+    }
+
+    root.querySelectorAll('[data-quiz-reset], [data-quiz-reset2]').forEach((b) =>
+      b.addEventListener('click', reset));
+    render();
+  });
+</script>

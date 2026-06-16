@@ -22,6 +22,7 @@ const PAGES = [
   { path: '/packs/post-cirugia', name: 'Pack Post Cirugía' },
   { path: '/packs/empresa-10', name: 'Pack Empresa 10' },
   { path: '/servicios-sueltos', name: 'Servicios sueltos' },
+  { path: '/tests', name: 'Tests interactivos' },
   { path: '/equipo', name: 'Equipo' },
   { path: '/obras-sociales', name: 'Obras sociales' },
   { path: '/faq', name: 'FAQ' },
