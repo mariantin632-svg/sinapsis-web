@@ -268,5 +268,41 @@
       "Informe escrito",
       "Sin suscripción"
     ]
+  },
+  {
+    "slug": "reinicio",
+    "nombre": "REINICIO",
+    "orden": 7,
+    "tipo": "finito",
+    "subtitulo": "Descenso de peso · 12 semanas",
+    "hook": "Bajá de peso de forma saludable, con kinesiología y nutrición.",
+    "color_hex": "#E8835C",
+    "para_quien": "Para quienes quieren bajar de peso y recomponer su cuerpo de forma sostenible, sin dietas mágicas, con un marco de 12 semanas y seguimiento profesional.",
+    "duraciones": [
+      {
+        "periodo": "unico",
+        "label": "Programa 12 semanas",
+        "sesiones": "24 kine · 6 nutri · 3 evaluaciones · 8 presoterapia",
+        "total": 799000,
+        "equiv_valor": 266000,
+        "equiv_label": "/mes",
+        "ahorro_label": "$204.000 off",
+        "tarjeta_1pago": 878900
+      }
+    ],
+    "incluye": [
+      "24 sesiones de kinesiología / ejercicio terapéutico (2 por semana) — Lic. Martín Niro",
+      "6 consultas de nutrición (inicial + 5 controles quincenales) — Lic. Jimena Avalos",
+      "Plan alimentario personalizado con ajuste continuo",
+      "3 evaluaciones funcionales + composición corporal con informe escrito (inicio, semana 6 y cierre)",
+      "8 sesiones de presoterapia (botas de compresión)",
+      "Programa cerrado de 12 semanas (vigencia 14 semanas)",
+      "Ventana de arrepentimiento de 7 días + pausa por causa médica (hasta 90 días)"
+    ],
+    "beneficios_destacados": [
+      "Kine + Nutrición",
+      "12 semanas",
+      "Descenso de peso sostenible"
+    ]
   }
 ]
