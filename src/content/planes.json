@@ -304,5 +304,44 @@
       "12 semanas",
       "Descenso de peso sostenible"
     ]
+  },
+  {
+    "slug": "premier-osteo",
+    "nombre": "PREMIER OSTEO",
+    "orden": 4.5,
+    "tipo": "suscripcion",
+    "subtitulo": "Osteopatía semanal · anual",
+    "hook": "Trabajo osteopático sostenido, semana a semana, todo el año.",
+    "color_hex": "#3FB7B0",
+    "para_quien": "Para quienes quieren una rutina osteopática constante todo el año: tensiones crónicas, dolores recurrentes o restricciones de movilidad que mejoran con el trabajo manual sostenido.",
+    "duraciones": [
+      {
+        "periodo": "anual",
+        "label": "Plan anual",
+        "sesiones": "48 sesiones de osteopatía (1 por semana)",
+        "total": 1800000,
+        "equiv_valor": 150000,
+        "equiv_label": "/mes",
+        "ahorro_label": "$560.000 off",
+        "tarjeta_1pago": 1980000
+      }
+    ],
+    "incluye": [
+      "48 sesiones de osteopatía (60 min, 1 por semana) — Lic. Martín Niro",
+      "Evaluación osteopática inicial con informe escrito",
+      "Revaluación osteopática semestral con informe",
+      "2 consultas de nutrición (inicial + a los 6 meses)",
+      "2 consultas de traumatología (semestrales)",
+      "4 órdenes médicas digitales (1 cada 3 meses; adicionales 15% off)",
+      "Pautas de autocuidado para casa",
+      "Prioridad de turnos",
+      "Consultas clínicas por WhatsApp",
+      "10% off en prestaciones extra"
+    ],
+    "beneficios_destacados": [
+      "Osteopatía semanal",
+      "48 sesiones / año",
+      "Nutri + traumat incluidas"
+    ]
   }
 ]
