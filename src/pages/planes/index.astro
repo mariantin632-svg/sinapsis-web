@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ComparativaPlanes from '../../components/planes/ComparativaPlanes.astro';
 import PlanesSection from '../../components/home/PlanesSection.astro';
+import QuizPlan from '../../components/tests/QuizPlan.astro';
 ---
 <BaseLayout title="Planes de suscripción · Sinapsis">
   <section class="bg-white px-6 py-12">
@@ -13,6 +14,19 @@ import PlanesSection from '../../components/home/PlanesSection.astro';
   </section>
 
   <PlanesSection />
+
+  <section class="bg-violet-deep px-6 py-12 md:py-16 border-t border-white/10">
+    <div class="max-w-2xl mx-auto">
+      <div class="text-center mb-8">
+        <div class="text-xs text-cream/50 uppercase tracking-widest">¿No sabés cuál elegir?</div>
+        <h2 class="text-2xl md:text-3xl font-bold text-cream mt-1">Descubrí tu plan ideal</h2>
+        <p class="text-cream/60 text-sm mt-2">4 preguntas y te decimos cuál te queda mejor.</p>
+      </div>
+      <div class="bg-violet-mid rounded-card p-6">
+        <QuizPlan />
+      </div>
+    </div>
+  </section>
 
   <section class="bg-violet-mid px-6 py-12">
     <div class="max-w-5xl mx-auto">
