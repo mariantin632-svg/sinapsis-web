@@ -77,6 +77,7 @@ export interface ServicioSuelto {
   nombre: string;
   modalidades: { tipo: 'presencial' | 'online' | 'domicilio'; precio: number }[];
   descripcion?: string;
+  nota?: string;
 }
 
 // Equipo
