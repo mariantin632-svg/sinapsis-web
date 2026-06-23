@@ -6,7 +6,7 @@ import '@fontsource/inter/700.css';
 import '../styles/global.css';
 import Nav from '../components/layout/Nav.astro';
 import Footer from '../components/layout/Footer.astro';
-import WhatsAppFloat from '../components/layout/WhatsAppFloat.astro';
+import ChatWidget from '../components/layout/ChatWidget.astro';
 import SEO from '../components/shared/SEO.astro';
 
 interface Props {
@@ -34,6 +34,6 @@ const { title, description, image, noindex } = Astro.props;
       <slot />
     </main>
     <Footer />
-    <WhatsAppFloat />
+    <ChatWidget />
   </body>
 </html>

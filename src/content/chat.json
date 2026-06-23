@@ -1,0 +1,48 @@
+{
+  "saludo": "¡Hola! 👋 Soy el asistente de Sinapsis. Tocá una opción y te ayudo al toque.",
+  "items": [
+    {
+      "q": "📅 Sacar un turno",
+      "a": "Reservás online en segundos: elegís profesional y horario. Si preferís, también podés escribirnos por WhatsApp.",
+      "cta": { "label": "Agendar turno", "action": "turnito" }
+    },
+    {
+      "q": "💲 Precios de las sesiones",
+      "a": "Kinesiología: $30.000 presencial / $25.000 online. Osteopatía: $50.000. Consulta traumatológica: $30.000. Consulta nutricional: $30.000. Sesión a domicilio: $50.000.",
+      "cta": { "label": "Ver servicios", "action": "/servicios-sueltos" }
+    },
+    {
+      "q": "💻 ¿Atienden online?",
+      "a": "Sí. Todos nuestros profesionales atienden también de forma online, estés donde estés.",
+      "cta": { "label": "Agendar turno", "action": "turnito" }
+    },
+    {
+      "q": "📍 Dónde estamos y horarios",
+      "a": "Estamos en Alfredo Nobel 336, José C. Paz. Lunes a viernes de 8 a 12 y de 14 a 19; sábados de 8 a 14.",
+      "cta": { "label": "Cómo llegar", "action": "/contacto" }
+    },
+    {
+      "q": "🩺 ¿Necesito orden médica?",
+      "a": "No es obligatoria para una consulta inicial. Si vas a presentar la sesión a tu obra social, la mayoría la pide.",
+      "cta": { "label": "Obras sociales", "action": "/obras-sociales" }
+    },
+    {
+      "q": "🧩 Planes y suscripciones",
+      "a": "Tenemos planes anuales y semestrales (kinesiología, osteopatía, performance, online) y tratamientos puntuales, pensados para cuidarte todo el año.",
+      "cta": { "label": "Ver planes", "action": "/planes" }
+    },
+    {
+      "q": "🤲 ¿Qué es la osteopatía?",
+      "a": "Es un abordaje manual que busca el origen del problema, no solo el síntoma: trabaja la movilidad de articulaciones, músculos y tejidos para que tu cuerpo recupere su equilibrio.",
+      "cta": { "label": "Agendar turno", "action": "turnito" }
+    },
+    {
+      "q": "💳 Formas de pago",
+      "a": "Transferencia, efectivo o tarjeta de crédito (10% de recargo en 1 pago). Los planes se abonan al activarse."
+    },
+    {
+      "q": "❓ ¿Puedo cancelar un plan?",
+      "a": "Las suscripciones no se cancelan una vez iniciadas y no hay reembolsos; el plan finaliza solo al cumplirse el período contratado."
+    }
+  ]
+}
