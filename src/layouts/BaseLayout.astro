@@ -21,6 +21,7 @@ const { title, description, image, noindex } = Astro.props;
 <!DOCTYPE html>
 <html lang="es-AR">
   <head>
+    <script is:inline>document.documentElement.classList.add('js')</script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
@@ -35,5 +36,24 @@ const { title, description, image, noindex } = Astro.props;
     </main>
     <Footer />
     <ChatWidget />
+    <script>
+      const secciones = document.querySelectorAll('main > section');
+      if (!('IntersectionObserver' in window)) {
+        secciones.forEach((s) => s.classList.add('is-visible'));
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-visible');
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.12 }
+        );
+        secciones.forEach((s) => io.observe(s));
+      }
+    </script>
   </body>
 </html>
