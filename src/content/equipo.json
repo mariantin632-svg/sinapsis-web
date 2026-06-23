@@ -7,7 +7,7 @@
     "especialidades": ["Kinesiología", "Osteopatía"],
     "bio_corta": "Director del centro. Kinesiólogo y osteópata.",
     "foto": "/equipo/martin-niro.jpg",
-    "modalidades": ["Presencial"],
+    "modalidades": ["Presencial", "Online"],
     "turnito": "https://turnito.app/c/Dp6r8VFBxNgAiY"
   },
   {
@@ -30,7 +30,7 @@
     "especialidades": ["Kinesiología deportiva"],
     "bio_corta": "Kinesiólogo deportivo.",
     "foto": "/equipo/santiago-duhau.jpg",
-    "modalidades": ["Presencial"],
+    "modalidades": ["Presencial", "Online"],
     "turnito": "https://turnito.app/c/aJJQ3bDYbHG8Ny"
   },
   {
@@ -41,7 +41,7 @@
     "especialidades": ["Nutrición clínica", "Nutrición deportiva"],
     "bio_corta": "Nutricionista. Acompaña la salud, el rendimiento y la mejora de hábitos alimentarios.",
     "foto": "/equipo/jimena-avalos.jpg",
-    "modalidades": ["Presencial"],
+    "modalidades": ["Presencial", "Online"],
     "turnito": "https://turnito.app/c/7f4JQjTZTdWqzZ"
   }
 ]
