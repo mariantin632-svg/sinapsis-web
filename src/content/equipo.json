@@ -6,16 +6,32 @@
     "matricula": "MP 9561",
     "especialidades": ["Kinesiología", "Osteopatía"],
     "bio_corta": "Director del centro. Kinesiólogo y osteópata.",
-    "foto": "/equipo/martin-niro.jpg"
+    "foto": "/equipo/martin-niro.jpg",
+    "modalidades": ["Presencial"],
+    "turnito": "https://turnito.app/c/Dp6r8VFBxNgAiY"
   },
   {
-    "slug": "santiago-duahu",
+    "slug": "dante-centellas",
+    "nombre": "Dante",
+    "apellido": "Centellas",
+    "matricula": "",
+    "especialidades": ["Traumatología", "Clínica médica"],
+    "bio_corta": "Médico traumatólogo y clínico. Especialista en rodilla.",
+    "foto": "/equipo/dante-centellas.jpg",
+    "modalidades": ["Presencial", "Online"],
+    "destacado_label": "Esp. rodilla",
+    "turnito": "https://turnito.app/c/3EmPXSBaUUF7Pe"
+  },
+  {
+    "slug": "santiago-duhau",
     "nombre": "Santiago",
     "apellido": "Duhau",
     "matricula": "MN PLACEHOLDER",
     "especialidades": ["Kinesiología deportiva"],
     "bio_corta": "Kinesiólogo deportivo.",
-    "foto": "/equipo/santiago-duahu.jpg"
+    "foto": "/equipo/santiago-duhau.jpg",
+    "modalidades": ["Presencial"],
+    "turnito": "https://turnito.app/c/aJJQ3bDYbHG8Ny"
   },
   {
     "slug": "jimena-avalos",
@@ -24,6 +40,8 @@
     "matricula": "MP PLACEHOLDER",
     "especialidades": ["Nutrición clínica", "Nutrición deportiva"],
     "bio_corta": "Nutricionista. Acompaña la salud, el rendimiento y la mejora de hábitos alimentarios.",
-    "foto": "/equipo/jimena-avalos.jpg"
+    "foto": "/equipo/jimena-avalos.jpg",
+    "modalidades": ["Presencial"],
+    "turnito": "https://turnito.app/c/7f4JQjTZTdWqzZ"
   }
 ]

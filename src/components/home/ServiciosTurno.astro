@@ -1,0 +1,51 @@
+---
+import servicios from '../../content/servicios-sueltos.json';
+import sitio from '../../content/sitio.json';
+import type { ServicioSuelto } from '../../content/_types';
+import { formatARS } from '../../lib/precios';
+
+const serviciosTipados = servicios as ServicioSuelto[];
+const turnitoUrl = sitio.turnito?.hub ?? '#';
+
+const modalidadLabel: Record<string, string> = {
+  presencial: 'Presencial',
+  online: 'Online',
+  domicilio: 'A domicilio',
+};
+---
+<section class="bg-white px-6 py-12 md:py-16 border-t border-gray-100">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-8">
+      <div>
+        <div class="text-xs text-accent-mint uppercase tracking-widest font-semibold">Reservá tu turno</div>
+        <h2 class="text-2xl md:text-3xl font-bold text-violet-deep mt-1">Sesiones y consultas</h2>
+        <p class="text-gray-600 text-sm mt-2">Elegí el servicio que buscás y agendá online en segundos.</p>
+      </div>
+      <a href={turnitoUrl} target="_blank" rel="noopener" class="self-start md:self-auto bg-accent-mint text-accent-mint-dark px-5 py-2.5 rounded-pill text-sm font-bold hover:opacity-90 transition whitespace-nowrap">
+        Agendar turno
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {serviciosTipados.map((s) => (
+        <div class="bg-cream-bg rounded-card p-5 shadow-card hover:shadow-card-hover transition flex flex-col">
+          <h3 class="font-bold text-violet-deep">{s.nombre}</h3>
+          {s.descripcion && <p class="text-xs text-gray-600 mt-1.5 leading-relaxed flex-1">{s.descripcion}</p>}
+          <div class="flex flex-wrap gap-x-4 gap-y-1 mt-3">
+            {s.modalidades.map((m) => (
+              <div class="text-sm">
+                <span class="text-gray-500 text-xs">{modalidadLabel[m.tipo] ?? m.tipo}</span>
+                <span class="font-bold text-sinapsis-purple ml-1.5">{formatARS(m.precio)}</span>
+              </div>
+            ))}
+          </div>
+          {s.nota && <div class="text-[11px] text-gray-400 mt-2">{s.nota}</div>}
+        </div>
+      ))}
+    </div>
+
+    <div class="text-center mt-6 text-xs">
+      <a href="/servicios-sueltos" class="text-sinapsis-purple underline font-semibold">Ver todos los servicios sueltos →</a>
+    </div>
+  </div>
+</section>

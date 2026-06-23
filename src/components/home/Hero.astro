@@ -1,38 +1,54 @@
 ---
 import sitio from '../../content/sitio.json';
-import CtaWhatsApp from '../shared/CtaWhatsApp.astro';
+import { buildWhatsAppUrl } from '../../lib/whatsapp';
+
+const turnitoUrl = sitio.turnito?.hub ?? '#';
+const whatsappUrl = buildWhatsAppUrl({
+  phone: sitio.contacto.whatsapp,
+  text: 'Hola! Quería hacer una consulta inicial.',
+});
 ---
 <section class="bg-white px-6 py-12 md:py-20">
   <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
     <div>
-      <div class="text-xs text-gray-500 uppercase tracking-widest">{sitio.tagline}</div>
+      <div class="text-xs text-accent-mint uppercase tracking-widest font-semibold">Kinesiología · Osteopatía · Traumatología</div>
       <h1 class="text-3xl md:text-5xl font-bold mt-3 leading-tight text-violet-deep">
-        Tu cuerpo en las mejores manos.<br />
-        <span class="text-sinapsis-purple">Cuidate todo el año.</span>
+        Tu cuerpo en las<br />
+        <span class="text-sinapsis-purple">mejores manos.</span>
       </h1>
       <p class="text-base text-gray-600 mt-4 leading-relaxed">
-        Suscripciones anuales o semestrales y sesiones sueltas. José C. Paz · presencial y online.
+        No tratamos síntomas: buscamos el origen. Reservá con el profesional que necesitás,
+        presencial u online, en José C. Paz.
       </p>
       <div class="flex flex-wrap gap-3 mt-6">
-        <a href="/servicios-sueltos" class="bg-sinapsis-purple text-white px-5 py-2.5 rounded-pill text-sm font-bold hover:opacity-90 transition">
-          Turno único
+        <a href={turnitoUrl} target="_blank" rel="noopener" class="bg-sinapsis-purple text-white px-5 py-2.5 rounded-pill text-sm font-bold hover:opacity-90 transition">
+          Agendar turno
         </a>
         <a href="/planes" class="border border-sinapsis-purple text-sinapsis-purple px-5 py-2.5 rounded-pill text-sm font-bold hover:bg-sinapsis-purple hover:text-white transition">
           Ver planes →
         </a>
-        <CtaWhatsApp text="Consultar por WhatsApp" message="Hola! Quería hacer una consulta inicial." variant="outline-dark" />
+        <a href={whatsappUrl} target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-violet-deep/30 text-violet-deep px-5 py-2.5 rounded-pill text-sm font-bold hover:bg-violet-deep/5 transition">
+          📱 Consultar
+        </a>
       </div>
-      <div class="mt-6 flex items-center gap-2 text-sm text-gray-600">
-        <span class="text-accent-yellow text-base">★★★★★</span>
-        <span>{sitio.google_reviews.rating} / 5 · {sitio.google_reviews.count} reseñas Google</span>
+      <div class="mt-7 flex flex-wrap items-center gap-x-7 gap-y-2 text-sm text-gray-600">
+        <span class="flex items-center gap-1.5">
+          <span class="text-accent-yellow text-base">★</span>
+          <b class="text-violet-deep">{sitio.google_reviews.rating}</b> · {sitio.google_reviews.count} reseñas
+        </span>
+        <span><b class="text-violet-deep">+600</b> pacientes</span>
+        <span><b class="text-violet-deep">5+</b> años</span>
       </div>
     </div>
-    <div class="rounded-card h-60 md:h-80 relative overflow-hidden bg-violet-deep flex items-center justify-center">
-      <!-- PLACEHOLDER mientras llegan las fotos del centro -->
-      <div class="absolute inset-0 opacity-30" style="background: radial-gradient(circle at 30% 30%, var(--color-sinapsis-purple) 0%, transparent 60%), radial-gradient(circle at 70% 70%, var(--color-accent-mint) 0%, transparent 50%);"></div>
-      <div class="relative text-center px-6">
-        <img src="/logo-sinapsis.jpg" alt="Sinapsis" class="h-12 md:h-16 w-auto mx-auto rounded-md shadow-lg" />
-      </div>
+    <div class="rounded-card h-72 md:h-96 relative overflow-hidden bg-violet-deep">
+      <img
+        src="/equipo/presentacion-martin-niro.jpg"
+        alt="Sinapsis — atención profesional en José C. Paz"
+        class="w-full h-full object-cover object-top"
+        loading="eager"
+        onerror="this.style.display='none'"
+      />
+      <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(180deg, transparent 55%, rgba(26,14,61,.55) 100%);"></div>
     </div>
   </div>
 </section>

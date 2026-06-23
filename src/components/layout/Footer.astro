@@ -36,9 +36,12 @@ const year = new Date().getFullYear();
     <div>
       <div class="text-cream/90 font-semibold mb-3 text-xs uppercase tracking-wider">Contacto</div>
       <ul class="space-y-1.5 text-xs">
+        {sitio.turnito?.hub && (
+          <li><a href={sitio.turnito.hub} target="_blank" rel="noopener" class="text-accent-mint font-semibold hover:opacity-80 transition">Agendar turno</a></li>
+        )}
         <li><a href={whatsappUrl} target="_blank" rel="noopener" class="hover:text-cream transition">WhatsApp</a></li>
-        {sitio.contacto.instagram && (
-          <li><a href={`https://instagram.com/${sitio.contacto.instagram.replace('@', '')}`} target="_blank" rel="noopener" class="hover:text-cream transition">Instagram</a></li>
+        {(sitio.contacto.instagram_url || sitio.contacto.instagram) && (
+          <li><a href={sitio.contacto.instagram_url ?? `https://instagram.com/${sitio.contacto.instagram?.replace('@', '')}`} target="_blank" rel="noopener" class="hover:text-cream transition">Instagram</a></li>
         )}
         <li><a href="/contacto" class="hover:text-cream transition">Cómo llegar</a></li>
       </ul>

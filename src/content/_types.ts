@@ -18,6 +18,10 @@ export interface Sitio {
     whatsapp_display: string; // +54 9 11 6367-8308 (formato visible)
     email?: string;
     instagram?: string;
+    instagram_url?: string;
+  };
+  turnito?: {
+    hub: string;           // URL del hub de reservas (todas las agendas)
   };
   google_reviews: {
     rating: number;        // 4.9
@@ -91,6 +95,9 @@ export interface Profesional {
   bio_larga?: string;
   foto: string;
   formacion?: string[];
+  modalidades?: string[];      // chips: "Presencial", "Online"
+  destacado_label?: string;    // chip extra, ej. "Esp. rodilla"
+  turnito?: string;            // URL de la agenda del profesional en turnito
 }
 
 // Obras sociales

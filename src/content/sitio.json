@@ -14,7 +14,11 @@
   "contacto": {
     "whatsapp": "5491163678308",
     "whatsapp_display": "+54 9 11 6367-8308",
-    "instagram": "@sinapsiskinesio"
+    "instagram": "@sinapsis.kinesio",
+    "instagram_url": "https://www.instagram.com/sinapsis.kinesio/"
+  },
+  "turnito": {
+    "hub": "https://turnito.app/p/940905mcy5gc5b9o"
   },
   "google_reviews": {
     "rating": 4.9,
