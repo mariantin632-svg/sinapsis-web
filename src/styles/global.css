@@ -26,6 +26,8 @@
 html {
   font-family: var(--font-sans);
   scroll-behavior: smooth;
+  /* Escala tipográfica global: ~16px en celular → ~18px en desktop */
+  font-size: clamp(16px, 14.8px + 0.32vw, 18px);
 }
 
 @media (prefers-reduced-motion: reduce) {
