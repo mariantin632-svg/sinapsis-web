@@ -102,7 +102,7 @@
     "tipo": "suscripcion",
     "subtitulo": "Rendimiento deportivo integral",
     "hook": "Kinesiología deportiva, osteopatía y nutrición en un solo plan.",
-    "color_hex": "#F4D03F",
+    "color_hex": "#D4A030",
     "para_quien": "Para deportistas que buscan rendir: trabajamos el gesto técnico, liberamos restricciones con terapia manual y ordenamos la alimentación.",
     "duraciones": [
       {
@@ -151,7 +151,7 @@
     "tipo": "suscripcion",
     "subtitulo": "Híbrido online + presencial",
     "hook": "Atención presencial cuando hacen falta manos, online para el resto.",
-    "color_hex": "#5BA8D4",
+    "color_hex": "#5DCAA5",
     "para_quien": "Para quienes viajan, viven lejos de José C. Paz o tienen agenda complicada y necesitan flexibilidad sin perder el seguimiento.",
     "duraciones": [
       {
@@ -201,7 +201,7 @@
     "tipo": "suscripcion",
     "subtitulo": "Osteopatía quincenal",
     "hook": "Osteopatía cada 15 días para sostener tu cuerpo en equilibrio.",
-    "color_hex": "#B98FE0",
+    "color_hex": "#D89B7A",
     "para_quien": "Para quienes ya pasaron la fase intensa o quieren prevenir, con un ritmo quincenal sostenible. Plan anual.",
     "duraciones": [
       {
@@ -276,7 +276,7 @@
     "tipo": "finito",
     "subtitulo": "Descenso de peso · 12 semanas",
     "hook": "Bajá de peso de forma saludable, con kinesiología y nutrición.",
-    "color_hex": "#E8835C",
+    "color_hex": "#D89B7A",
     "para_quien": "Para quienes quieren bajar de peso y recomponer su cuerpo de forma sostenible, sin dietas mágicas, con un marco de 12 semanas y seguimiento profesional.",
     "duraciones": [
       {
@@ -312,7 +312,7 @@
     "tipo": "suscripcion",
     "subtitulo": "Osteopatía semanal · anual",
     "hook": "Trabajo osteopático sostenido, semana a semana, todo el año.",
-    "color_hex": "#3FB7B0",
+    "color_hex": "#D89B7A",
     "para_quien": "Para quienes quieren una rutina osteopática constante todo el año: tensiones crónicas, dolores recurrentes o restricciones de movilidad que mejoran con el trabajo manual sostenido.",
     "duraciones": [
       {
