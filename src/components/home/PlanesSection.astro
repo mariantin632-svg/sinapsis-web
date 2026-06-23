@@ -16,8 +16,36 @@ const planesTipados = (planes as Plan[]).sort((a, b) => a.orden - b.orden);
       <DuracionToggle />
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      {planesTipados.map((plan) => <PlanCard plan={plan} />)}
+    <div class="relative" data-carousel>
+      <!-- Flechas -->
+      <button
+        type="button"
+        data-carousel-prev
+        aria-label="Plan anterior"
+        class="hidden md:flex absolute -left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 items-center justify-center rounded-full bg-cream text-violet-deep shadow-card-hover hover:bg-white transition disabled:opacity-30 disabled:cursor-not-allowed"
+      >
+        <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
+      </button>
+      <button
+        type="button"
+        data-carousel-next
+        aria-label="Plan siguiente"
+        class="hidden md:flex absolute -right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 items-center justify-center rounded-full bg-cream text-violet-deep shadow-card-hover hover:bg-white transition disabled:opacity-30 disabled:cursor-not-allowed"
+      >
+        <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6" /></svg>
+      </button>
+
+      <!-- Track -->
+      <div
+        data-carousel-track
+        class="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2 carousel-track"
+      >
+        {planesTipados.map((plan) => (
+          <div class="snap-start shrink-0 flex w-[85%] sm:w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-0.667rem)]">
+            <PlanCard plan={plan} />
+          </div>
+        ))}
+      </div>
     </div>
 
     <div class="text-center text-xs text-cream/60 mt-6">
@@ -26,3 +54,38 @@ const planesTipados = (planes as Plan[]).sort((a, b) => a.orden - b.orden);
     </div>
   </div>
 </section>
+
+<style>
+  .carousel-track { scrollbar-width: none; -ms-overflow-style: none; }
+  .carousel-track::-webkit-scrollbar { display: none; }
+</style>
+
+<script>
+  function initCarousel(root: HTMLElement) {
+    const track = root.querySelector<HTMLElement>('[data-carousel-track]');
+    const prev = root.querySelector<HTMLButtonElement>('[data-carousel-prev]');
+    const next = root.querySelector<HTMLButtonElement>('[data-carousel-next]');
+    if (!track) return;
+
+    const step = () => {
+      const first = track.firstElementChild as HTMLElement | null;
+      if (!first) return track.clientWidth;
+      const gap = parseFloat(getComputedStyle(track).columnGap || '16') || 16;
+      return first.getBoundingClientRect().width + gap;
+    };
+
+    const update = () => {
+      const maxScroll = track.scrollWidth - track.clientWidth - 1;
+      if (prev) prev.disabled = track.scrollLeft <= 0;
+      if (next) next.disabled = track.scrollLeft >= maxScroll;
+    };
+
+    prev?.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+    next?.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach(initCarousel);
+</script>
