@@ -10,3 +10,5 @@ test-results
 .netlify
 lighthouse-*.json
 .superpowers
+tests/qa-reports
+tests/screenshots
