@@ -1,34 +1,39 @@
 ---
 import sitio from '../../content/sitio.json';
-import CtaWhatsApp from '../shared/CtaWhatsApp.astro';
+import { buildWhatsAppUrl } from '../../lib/whatsapp';
+import Icon from '../shared/Icon.astro';
 
 const direccionEncoded = encodeURIComponent(`${sitio.direccion.calle}, ${sitio.direccion.ciudad}, ${sitio.direccion.provincia}`);
 const mapSrc = `https://www.google.com/maps?q=${direccionEncoded}&output=embed`;
+const whatsappUrl = buildWhatsAppUrl({
+  phone: sitio.contacto.whatsapp,
+  text: 'Hola! Quería reservar un turno.',
+});
 ---
-<section class="bg-cream-bg text-violet-deep px-6 py-12 md:py-16">
-  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 items-center">
+<section id="ubicacion" class="relative overflow-hidden mt-16" style="background: linear-gradient(135deg, #1f0f48 0%, #30166d 65%, #3a2178 100%);">
+  <div class="relative max-w-[1200px] mx-auto px-6 py-[84px] grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-11 items-center">
     <div>
-      <div class="text-xs text-gray-500 uppercase tracking-widest">Vení a Sinapsis</div>
-      <h2 class="text-2xl md:text-3xl font-bold mt-2">{sitio.direccion.calle}</h2>
-      <p class="text-sm text-gray-600 mt-1">{sitio.direccion.ciudad} · {sitio.direccion.provincia}</p>
-
-      <div class="text-sm text-gray-600 mt-4 space-y-1 leading-relaxed">
-        <div>📅 Lun-Vie: {sitio.horarios.lunes_viernes}</div>
-        <div>📅 Sábado: {sitio.horarios.sabado}</div>
-        <div>📱 {sitio.contacto.whatsapp_display}</div>
+      <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage">Vení a Sinapsis</p>
+      <h2 class="m-0 mb-1.5 font-display font-semibold text-[clamp(2rem,4.2vw,2.8rem)] leading-[1.08] tracking-[-0.02em] text-white">{sitio.direccion.calle}</h2>
+      <p class="m-0 mb-7 text-base text-white/70">{sitio.direccion.ciudad} · {sitio.direccion.provincia}</p>
+      <div class="flex flex-col gap-3.5 mb-8">
+        <div class="flex items-center gap-3 text-white/85 text-[15px]"><span class="text-sn-sage text-lg"><Icon name="calendar-week" /></span> Lun a Vie: {sitio.horarios.lunes_viernes}</div>
+        <div class="flex items-center gap-3 text-white/85 text-[15px]"><span class="text-sn-sage text-lg"><Icon name="calendar-check" /></span> Sábado: {sitio.horarios.sabado}</div>
+        <div class="flex items-center gap-3 text-white/85 text-[15px]"><span class="text-sn-sage text-lg"><Icon name="telephone" /></span> {sitio.contacto.whatsapp_display}</div>
       </div>
-
-      <div class="mt-5">
-        <CtaWhatsApp text="Reservar por WhatsApp" message="Hola! Quería reservar un turno." />
-      </div>
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener"
+        class="group inline-flex items-center gap-2.5 px-[26px] py-[15px] rounded-full bg-sn-sage text-sn-deep font-semibold text-[15px] transition-all duration-300 hover:bg-sn-sage-light hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(150,194,185,0.4)]"
+      ><span class="text-[17px]"><Icon name="whatsapp" /></span> Reservar por WhatsApp <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span></a>
     </div>
-
-    <div class="rounded-card overflow-hidden h-72 md:h-80 bg-gray-100 shadow-card">
+    <div class="rounded-[20px] overflow-hidden shadow-[0_12px_48px_rgba(0,0,0,0.3)] border-[6px] border-white/10 min-h-[320px]">
       <iframe
         src={mapSrc}
         width="100%"
-        height="100%"
-        style="border:0;"
+        height="360"
+        class="border-0 block"
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
         title="Mapa Sinapsis"

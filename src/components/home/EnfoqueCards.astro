@@ -1,34 +1,37 @@
 ---
+import Icon from '../shared/Icon.astro';
+
 const valores = [
   {
-    emoji: '🤝',
+    icono: 'heart-pulse',
     titulo: 'Atención humanizada',
-    descripcion: 'Sesiones uno a uno · seguimiento real',
+    descripcion: 'Sesiones uno a uno, con seguimiento real de tu evolución.',
   },
   {
-    emoji: '🎓',
+    icono: 'mortarboard',
     titulo: 'Profesionales matriculados',
-    descripcion: 'Equipo formado en traumatología, deporte y osteopatía',
+    descripcion: 'Equipo formado en traumatología, deporte y osteopatía.',
   },
   {
-    emoji: '🏥',
+    icono: 'hospital',
     titulo: 'Enfoque integral',
-    descripcion: 'Kinesiología + osteopatía + traumatología en un solo lugar',
+    descripcion: 'Kinesiología, osteopatía y traumatología en un solo lugar.',
   },
 ];
 ---
-<section class="bg-cream-bg px-6 py-12 md:py-16">
-  <div class="max-w-7xl mx-auto">
-    <div class="text-center mb-8">
-      <div class="text-xs text-gray-500 uppercase tracking-widest">Nuestro enfoque</div>
-    </div>
-
-    <div class="grid md:grid-cols-3 gap-3">
+<section class="relative overflow-hidden mt-16" style="background: linear-gradient(135deg, #1f0f48 0%, #30166d 70%, #3a2178 100%);">
+  <div class="absolute inset-0 opacity-5 pattern-cross"></div>
+  <div class="relative max-w-[1200px] mx-auto px-6 py-20">
+    <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage">Nuestro enfoque</p>
+    <h2 class="m-0 mb-12 font-display font-semibold text-[clamp(1.9rem,4vw,2.6rem)] leading-[1.12] tracking-[-0.02em] text-white max-w-[640px]">Un solo lugar para que tu cuerpo vuelva a moverse bien.</h2>
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-6">
       {valores.map((v) => (
-        <div class="bg-white rounded-card p-5 text-center border border-gray-100 hover:shadow-card-hover transition">
-          <div class="text-3xl">{v.emoji}</div>
-          <div class="font-semibold text-violet-deep mt-2">{v.titulo}</div>
-          <p class="text-sm text-gray-600 mt-1 leading-relaxed">{v.descripcion}</p>
+        <div class="border-t border-white/15 pt-6">
+          <span class="inline-flex items-center justify-center w-[52px] h-[52px] rounded-[14px] bg-sn-sage/15 text-sn-sage text-2xl mb-[18px]">
+            <Icon name={v.icono} />
+          </span>
+          <h3 class="m-0 mb-2 font-display font-semibold text-[19px] text-white">{v.titulo}</h3>
+          <p class="m-0 text-sm leading-relaxed text-white/70">{v.descripcion}</p>
         </div>
       ))}
     </div>

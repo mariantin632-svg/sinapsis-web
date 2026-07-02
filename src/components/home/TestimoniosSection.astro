@@ -5,27 +5,18 @@ import type { Testimonio } from '../../content/_types';
 
 const tipados = testimonios as Testimonio[];
 ---
-<section class="bg-cream-bg px-6 py-12 md:py-16">
-  <div class="max-w-7xl mx-auto">
-    <div class="text-center mb-8">
-      <div class="text-xs text-gray-500 uppercase tracking-widest">Lo que dicen nuestros pacientes</div>
-      <h2 class="text-xl md:text-2xl font-bold text-violet-deep mt-1">⭐ {sitio.google_reviews.rating} / 5 · {sitio.google_reviews.count} reseñas en Google</h2>
-    </div>
-
-    <div class="grid md:grid-cols-3 gap-3">
-      {tipados.map((t) => (
-        <div class="bg-white rounded-card p-4 border border-gray-100">
-          <div class="text-accent-yellow text-sm">{'★'.repeat(t.estrellas)}</div>
-          <p class="text-sm text-gray-700 mt-2 leading-relaxed">{t.texto}</p>
-          <div class="text-xs text-gray-400 mt-3">— {t.autor}</div>
-        </div>
-      ))}
-    </div>
-
-    <div class="text-center mt-6 text-xs">
-      <a href={sitio.google_reviews.url} target="_blank" rel="noopener" class="text-accent-mint underline">
-        Ver las {sitio.google_reviews.count} reseñas en Google →
-      </a>
-    </div>
+<section class="max-w-[1200px] mx-auto px-6 pt-24 pb-10">
+  <div class="text-center mb-11">
+    <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage-dark">Lo que dicen nuestros pacientes</p>
+    <h2 class="m-0 font-display font-semibold text-[clamp(1.7rem,3.5vw,2.3rem)] leading-[1.12] text-sn-violet">{sitio.google_reviews.rating} / 5 · {sitio.google_reviews.count} reseñas en Google</h2>
+  </div>
+  <div class="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-5">
+    {tipados.map((t) => (
+      <div class="bg-white rounded-2xl p-[26px] shadow-[0_2px_8px_rgba(48,22,109,0.08)] border border-gray-100 border-l-4 border-l-sn-sage flex flex-col">
+        <span class="text-[#ba7517] text-[15px] tracking-[2px] mb-3.5">{'★'.repeat(t.estrellas)}</span>
+        <p class="m-0 mb-[18px] text-[15px] leading-relaxed text-gray-600">"{t.texto}"</p>
+        <span class="mt-auto font-display font-semibold text-sm text-sn-violet">— {t.autor}</span>
+      </div>
+    ))}
   </div>
 </section>

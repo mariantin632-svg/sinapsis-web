@@ -1,4 +1,6 @@
 ---
+import { existsSync } from 'node:fs';
+import path from 'node:path';
 import type { Profesional } from '../../content/_types';
 import sitio from '../../content/sitio.json';
 import { buildWhatsAppUrl } from '../../lib/whatsapp';
@@ -10,6 +12,9 @@ interface Props {
 const { profesional } = Astro.props;
 
 const iniciales = `${profesional.nombre.charAt(0)}${profesional.apellido.charAt(0)}`;
+// Si no hay foto en public/ quedan las iniciales (Dante va sin foto a propósito)
+// y evitamos un 404 en consola.
+const fotoExiste = existsSync(path.join(process.cwd(), 'public', profesional.foto));
 const turnitoUrl = profesional.turnito || sitio.turnito?.hub || '#';
 const whatsappUrl = buildWhatsAppUrl({
   phone: sitio.contacto.whatsapp,
@@ -24,12 +29,13 @@ if (profesional.destacado_label) chips.push(profesional.destacado_label);
       <div class="absolute inset-0 rounded-full bg-gradient-to-br from-sinapsis-purple to-accent-mint flex items-center justify-center text-white font-bold">
         {iniciales}
       </div>
-      <img
-        src={profesional.foto}
-        alt={`${profesional.nombre} ${profesional.apellido}`}
-        class="absolute inset-0 w-full h-full rounded-full object-cover ring-2 ring-accent-mint"
-        onerror="this.style.display='none'"
-      />
+      {fotoExiste && (
+        <img
+          src={profesional.foto}
+          alt={`${profesional.nombre} ${profesional.apellido}`}
+          class="absolute inset-0 w-full h-full rounded-full object-cover ring-2 ring-accent-mint"
+        />
+      )}
     </div>
     <div class="min-w-0">
       <div class="font-bold text-violet-deep leading-tight">{profesional.nombre} {profesional.apellido}</div>

@@ -14,7 +14,17 @@
   --color-cream: #F5F2FF;
   --color-cream-bg: #F8F7FC;
 
+  /* Paleta rediseño home (Claude Design "Sinapsis Home", 2026-07) */
+  --color-sn-ink: #0d0829;
+  --color-sn-deep: #1f0f48;
+  --color-sn-violet: #30166d;
+  --color-sn-violet-light: #4a2b8f;
+  --color-sn-sage: #96c2b9;
+  --color-sn-sage-light: #b8ddd5;
+  --color-sn-sage-dark: #6da8a0;
+
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Poppins', 'Inter', system-ui, sans-serif;
 
   --radius-card: 14px;
   --radius-pill: 20px;
@@ -61,4 +71,9 @@ body {
   color: var(--color-violet-deep);
   background: #FFFFFF;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Trama de cruces sutil para bandas oscuras (rediseño home) */
+.pattern-cross {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g fill="none" stroke="%23ffffff" stroke-width="1.5"><path d="M16 10v12M10 16h12"/></g></svg>');
 }

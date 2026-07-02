@@ -1,54 +1,199 @@
 ---
 import sitio from '../../content/sitio.json';
 import { buildWhatsAppUrl } from '../../lib/whatsapp';
+import Icon from '../shared/Icon.astro';
 
 const turnitoUrl = sitio.turnito?.hub ?? '#';
 const whatsappUrl = buildWhatsAppUrl({
   phone: sitio.contacto.whatsapp,
-  text: 'Hola! Quería hacer una consulta inicial.',
+  text: 'Hola! Llegué desde la web y quería consultar.',
 });
+const instagramUrl = sitio.contacto.instagram_url;
+
+const anchors = [
+  { href: '#servicios', label: 'Servicios' },
+  { href: '#equipo', label: 'Equipo' },
+  { href: '#planes', label: 'Planes' },
+  { href: '#obras', label: 'Obras sociales' },
+  { href: '#faq', label: 'FAQ' },
+  { href: '#ubicacion', label: 'Ubicación' },
+];
 ---
-<section class="bg-white px-6 py-12 md:py-20">
-  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-    <div>
-      <div class="text-xs text-accent-mint uppercase tracking-widest font-semibold">Kinesiología · Osteopatía · Traumatología · Nutrición</div>
-      <h1 class="text-3xl md:text-5xl font-bold mt-3 leading-tight text-violet-deep">
-        Tu cuerpo en las<br />
-        <span class="text-sinapsis-purple">mejores manos.</span>
-      </h1>
-      <p class="text-base text-gray-600 mt-4 leading-relaxed">
-        No tratamos síntomas: buscamos el origen. Reservá con el profesional que necesitás,
-        presencial u online, en José C. Paz.
-      </p>
-      <div class="flex flex-wrap gap-3 mt-6">
-        <a href={turnitoUrl} target="_blank" rel="noopener" class="bg-sinapsis-purple text-white px-5 py-2.5 rounded-pill text-sm font-bold hover:opacity-90 transition">
-          Agendar turno
-        </a>
-        <a href="/planes" class="border border-sinapsis-purple text-sinapsis-purple px-5 py-2.5 rounded-pill text-sm font-bold hover:bg-sinapsis-purple hover:text-white transition">
-          Ver planes →
-        </a>
-        <a href={whatsappUrl} target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-violet-deep/30 text-violet-deep px-5 py-2.5 rounded-pill text-sm font-bold hover:bg-violet-deep/5 transition">
-          📱 Consultar
-        </a>
-      </div>
-      <div class="mt-7 flex flex-wrap items-center gap-x-7 gap-y-2 text-sm text-gray-600">
-        <span class="flex items-center gap-1.5">
-          <span class="text-accent-yellow text-base">★</span>
-          <b class="text-violet-deep">{sitio.google_reviews.rating}</b> · {sitio.google_reviews.count} reseñas
-        </span>
-        <span><b class="text-violet-deep">+600</b> pacientes</span>
-        <span><b class="text-violet-deep">5+</b> años</span>
-      </div>
+<section class="relative min-h-screen overflow-hidden bg-sn-ink">
+  <!-- fondo: gradiente base + video encima + overlays -->
+  <div class="absolute inset-0 z-0" style="background: linear-gradient(135deg, #1f0f48 0%, #30166d 55%, #96c2b9 130%);"></div>
+  <div class="absolute inset-0 z-0 overflow-hidden">
+    <video
+      id="hero-video"
+      autoplay
+      loop
+      muted
+      playsinline
+      preload="auto"
+      src="/hero-video.mp4"
+      class="absolute inset-0 w-full h-full object-cover"
+      style="object-position: 72% center;"
+    ></video>
+  </div>
+  <div class="absolute inset-0 z-[1]" style="background: linear-gradient(90deg, rgba(13,8,41,0.94) 0%, rgba(31,15,72,0.80) 42%, rgba(31,15,72,0.32) 78%, rgba(150,194,185,0.08) 100%);"></div>
+  <div class="absolute inset-0 z-[1]" style="background: linear-gradient(180deg, rgba(13,8,41,0.5) 0%, rgba(13,8,41,0) 26%, rgba(13,8,41,0) 60%, rgba(13,8,41,0.7) 100%);"></div>
+  <div class="absolute inset-0 z-[1] opacity-[0.045] pattern-cross"></div>
+
+  <!-- header integrado -->
+  <header class="relative z-20 max-w-[1200px] mx-auto px-6 py-[22px] flex items-center justify-between gap-5">
+    <a href="/" class="flex items-center shrink-0" aria-label="Sinapsis — inicio">
+      <img src="/logo-sinapsis-nav.png" alt="Sinapsis" class="h-[38px] w-auto block" width="287" height="48" />
+    </a>
+    <nav class="hidden lg:flex items-center gap-0.5 px-2 py-1.5 border border-white/15 rounded-full bg-white/5 backdrop-blur-md">
+      {anchors.map((l) => (
+        <a href={l.href} class="px-[13px] py-[7px] rounded-full text-[13px] text-white/80 hover:text-white hover:bg-white/10 transition">{l.label}</a>
+      ))}
+    </nav>
+    <div class="hidden lg:flex items-center gap-3 shrink-0">
+      {instagramUrl && (
+        <a
+          href={instagramUrl}
+          target="_blank"
+          rel="noopener"
+          aria-label="Instagram de Sinapsis"
+          class="inline-flex items-center justify-center w-[38px] h-[38px] rounded-full border border-white/15 text-white text-base hover:bg-white/10 hover:border-sn-sage transition"
+        ><Icon name="instagram" /></a>
+      )}
+      <a href={whatsappUrl} target="_blank" rel="noopener" class="text-[13px] text-white/80 hover:text-white transition">WhatsApp</a>
+      <a
+        href={turnitoUrl}
+        target="_blank"
+        rel="noopener"
+        class="group inline-flex items-center gap-1.5 px-[18px] py-2.5 rounded-full bg-sn-sage text-sn-deep font-semibold text-[13px] hover:bg-sn-sage-light hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(150,194,185,0.35)] transition-all duration-300"
+      >Agendar turno <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span></a>
     </div>
-    <div class="rounded-card h-72 md:h-96 relative overflow-hidden bg-violet-deep">
-      <img
-        src="/hero-fachada.jpg"
-        alt="Fachada de Sinapsis — Nobel 336, José C. Paz"
-        class="w-full h-full object-cover object-center"
-        loading="eager"
-        onerror="this.style.display='none'"
-      />
-      <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(180deg, transparent 60%, rgba(26,14,61,.45) 100%);"></div>
+    <button
+      type="button"
+      data-menu-toggle
+      aria-label="Menú"
+      aria-controls="menu-mobile"
+      aria-expanded="false"
+      class="lg:hidden flex flex-col gap-[5px] bg-transparent border border-white/15 rounded-xl p-[11px] cursor-pointer"
+    >
+      <span class="w-5 h-0.5 bg-white rounded-sm"></span>
+      <span class="w-5 h-0.5 bg-white rounded-sm"></span>
+      <span class="w-5 h-0.5 bg-white rounded-sm"></span>
+    </button>
+  </header>
+
+  <!-- menú mobile fullscreen -->
+  <div id="menu-mobile" class="hidden fixed inset-0 z-40 bg-sn-ink/[0.98] backdrop-blur-xl flex-col p-6">
+    <div class="flex items-center justify-between">
+      <img src="/logo-sinapsis-nav.png" alt="Sinapsis" class="h-[30px] w-auto block" />
+      <button type="button" data-menu-toggle aria-label="Cerrar menú" class="bg-transparent border-none text-white text-[32px] leading-none cursor-pointer">×</button>
+    </div>
+    <nav class="flex flex-col gap-0.5 mt-9">
+      {anchors.map((l) => (
+        <a href={l.href} class="font-display text-[28px] font-medium text-white py-[9px]">{l.label}</a>
+      ))}
+    </nav>
+    <div class="mt-auto flex gap-2.5 mb-3">
+      {instagramUrl && (
+        <a href={instagramUrl} target="_blank" rel="noopener" class="flex-1 flex items-center justify-center gap-2 p-3.5 rounded-full border border-white/20 text-white text-[15px]"><Icon name="instagram" /> Instagram</a>
+      )}
+      <a href={whatsappUrl} target="_blank" rel="noopener" class="flex-1 flex items-center justify-center gap-2 p-3.5 rounded-full border border-white/20 text-white text-[15px]"><Icon name="whatsapp" /> WhatsApp</a>
+    </div>
+    <a href={turnitoUrl} target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 p-4 rounded-full bg-sn-sage text-sn-deep font-semibold text-base">Agendar turno →</a>
+  </div>
+
+  <!-- contenido -->
+  <div class="relative z-10 max-w-[1200px] mx-auto px-6 pt-[30px] pb-[70px] flex flex-col justify-center min-h-[calc(100vh-84px)]">
+    <div class="inline-flex items-center gap-[9px] self-start px-[15px] py-2 rounded-full border border-sn-sage/40 bg-sn-sage/10 mb-[26px]">
+      <span class="dot-pulse w-2 h-2 rounded-full bg-sn-sage"></span>
+      <span class="text-xs font-medium tracking-[0.3px] text-white/90">Turnos abiertos esta semana</span>
+    </div>
+    <p class="m-0 mb-[18px] text-[13px] font-medium tracking-[2px] uppercase text-sn-sage">Kinesiología · Osteopatía · Traumatología · Nutrición</p>
+    <h1 class="m-0 font-display font-medium text-[clamp(2.75rem,8vw,7.5rem)] leading-[0.9] tracking-[-0.03em] text-white">
+      Tu cuerpo en<br />
+      <span class="shine-text">las mejores manos.</span>
+    </h1>
+    <p class="mt-[30px] mb-0 max-w-[540px] text-[17px] leading-relaxed text-white/80">
+      No tratamos síntomas: buscamos el origen. Reservá con el profesional que necesitás,
+      presencial u online, en José C. Paz.
+    </p>
+    <div class="flex flex-wrap gap-3.5 mt-[34px]">
+      <a
+        href={turnitoUrl}
+        target="_blank"
+        rel="noopener"
+        class="group inline-flex items-center gap-2.5 px-[26px] py-[15px] rounded-full bg-sn-sage text-sn-deep font-semibold text-[15px] hover:bg-sn-sage-light hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(150,194,185,0.4)] transition-all duration-300"
+      >Agendar turno <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span></a>
+      <a
+        href="#planes"
+        class="inline-flex items-center gap-2 px-[26px] py-[15px] rounded-full border-[1.5px] border-white/30 text-white font-medium text-[15px] hover:bg-white/10 hover:border-white/50 transition-all duration-300"
+      >Ver planes</a>
+    </div>
+    <div class="flex flex-wrap items-center gap-[22px] mt-[52px]">
+      <div class="flex flex-col gap-[3px]">
+        <div class="flex items-center gap-1.5">
+          <span class="text-sn-sage text-[15px] tracking-[1px]">★★★★★</span>
+          <span class="text-white font-bold text-base font-display">{sitio.google_reviews.rating}</span>
+        </div>
+        <span class="text-xs text-white/60">{sitio.google_reviews.count} reseñas en Google</span>
+      </div>
+      <div class="w-px h-[34px] bg-white/20"></div>
+      <div class="flex flex-col gap-[3px]">
+        <span class="text-white font-bold text-xl font-display">+600</span>
+        <span class="text-xs text-white/60">pacientes tratados</span>
+      </div>
+      <div class="w-px h-[34px] bg-white/20"></div>
+      <div class="flex flex-col gap-[3px]">
+        <span class="text-white font-bold text-xl font-display">5+</span>
+        <span class="text-xs text-white/60">años de trayectoria</span>
+      </div>
     </div>
   </div>
 </section>
+
+<style>
+  @keyframes shine {
+    to { background-position: -200% center; }
+  }
+  .shine-text {
+    background: linear-gradient(100deg, #96c2b9 0%, #96c2b9 35%, #ffffff 50%, #96c2b9 65%, #96c2b9 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: shine 3s linear infinite;
+  }
+  @keyframes dotPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(150, 194, 185, 0.7); }
+    50% { box-shadow: 0 0 0 8px rgba(150, 194, 185, 0); }
+  }
+  .dot-pulse {
+    animation: dotPulse 2s infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .shine-text, .dot-pulse { animation: none; }
+  }
+  /* el menú mobile usa flex-col pero arranca oculto */
+  #menu-mobile:not(.hidden) { display: flex; }
+</style>
+
+<script>
+  // Autoplay del video (algunos navegadores lo bloquean hasta forzar play)
+  const video = document.getElementById('hero-video');
+  if (video instanceof HTMLVideoElement) {
+    video.muted = true;
+    video.play()?.catch(() => {});
+  }
+
+  // Menú mobile
+  const menu = document.getElementById('menu-mobile');
+  const setOpen = (open: boolean) => {
+    menu?.classList.toggle('hidden', !open);
+    document.body.classList.toggle('overflow-hidden', open);
+    document.querySelectorAll('[data-menu-toggle]').forEach((b) => b.setAttribute('aria-expanded', String(open)));
+  };
+  document.querySelectorAll('[data-menu-toggle]').forEach((btn) => {
+    btn.addEventListener('click', () => setOpen(menu?.classList.contains('hidden') ?? false));
+  });
+  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+</script>

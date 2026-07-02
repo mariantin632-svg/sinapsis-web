@@ -1,0 +1,26 @@
+---
+import sitio from '../../content/sitio.json';
+import { buildWhatsAppUrl } from '../../lib/whatsapp';
+import Icon from '../shared/Icon.astro';
+
+const whatsappUrl = buildWhatsAppUrl({
+  phone: sitio.contacto.whatsapp,
+  text: 'Hola! Quería que me ayuden a elegir un plan.',
+});
+---
+<section class="max-w-[1200px] mx-auto mt-16 px-6">
+  <div class="relative overflow-hidden rounded-3xl px-10 py-14 flex flex-wrap items-center justify-between gap-7 shadow-[0_12px_48px_rgba(48,22,109,0.20)]" style="background: linear-gradient(120deg, #30166d 0%, #4a2b8f 55%, #6da8a0 130%);">
+    <div class="absolute inset-0 opacity-[0.06] pattern-cross"></div>
+    <div class="relative max-w-[560px]">
+      <p class="m-0 mb-2 text-xs font-semibold tracking-[1px] uppercase text-sn-sage">¿No sabés cuál elegir?</p>
+      <h2 class="m-0 mb-2.5 font-display font-semibold text-[clamp(1.7rem,3.5vw,2.3rem)] leading-[1.15] text-white">Te ayudamos a encontrar tu plan ideal</h2>
+      <p class="m-0 text-[15px] leading-relaxed text-white/80">Contanos qué te pasa y con qué frecuencia querés atenderte. En una charla corta por WhatsApp te recomendamos la opción justa.</p>
+    </div>
+    <a
+      href={whatsappUrl}
+      target="_blank"
+      rel="noopener"
+      class="group relative inline-flex items-center gap-2.5 px-7 py-4 rounded-full bg-white text-sn-violet font-semibold text-[15px] whitespace-nowrap transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(0,0,0,0.2)]"
+    ><span class="text-[17px]"><Icon name="whatsapp" /></span> Consultar por WhatsApp <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span></a>
+  </div>
+</section>

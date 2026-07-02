@@ -1,20 +1,30 @@
 ---
 import faq from '../../content/faq.json';
 import type { FaqItem } from '../../content/_types';
-import FaqAccordion from '../shared/FaqAccordion.astro';
+import Icon from '../shared/Icon.astro';
 
 const items = (faq as FaqItem[]).slice(0, 5);
 ---
-<section class="bg-white px-6 py-12 md:py-16">
-  <div class="max-w-7xl mx-auto">
-    <div class="text-center mb-8">
-      <div class="text-xs text-gray-500 uppercase tracking-widest">Preguntas frecuentes</div>
-    </div>
-
-    <FaqAccordion items={items} />
-
-    <div class="text-center mt-6 text-xs">
-      <a href="/faq" class="text-accent-mint underline">Ver todas las preguntas →</a>
-    </div>
+<section id="faq" class="max-w-[820px] mx-auto px-6 pt-24 pb-10">
+  <div class="text-center mb-11">
+    <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage-dark">Preguntas frecuentes</p>
+    <h2 class="m-0 font-display font-semibold text-[clamp(1.8rem,3.6vw,2.4rem)] leading-[1.12] text-sn-violet">Resolvemos tus dudas</h2>
+  </div>
+  <div class="flex flex-col gap-3">
+    {items.map((item, i) => (
+      <details name="faq-home" open={i === 0} class="bg-white rounded-xl border border-gray-100 shadow-[0_2px_8px_rgba(48,22,109,0.05)] overflow-hidden">
+        <summary class="list-none [&::-webkit-details-marker]:hidden w-full flex items-center justify-between gap-4 px-[22px] py-5 cursor-pointer text-left">
+          <span class="font-display font-medium text-base text-sn-violet">{item.pregunta}</span>
+          <span class="icono-abrir text-sn-violet text-xl shrink-0"><Icon name="plus-lg" /></span>
+          <span class="icono-cerrar text-sn-sage text-xl shrink-0"><Icon name="dash-lg" /></span>
+        </summary>
+        <p class="m-0 px-[22px] pb-[22px] text-sm leading-relaxed text-gray-500">{item.respuesta}</p>
+      </details>
+    ))}
   </div>
 </section>
+
+<style>
+  details[open] .icono-abrir { display: none; }
+  details:not([open]) .icono-cerrar { display: none; }
+</style>

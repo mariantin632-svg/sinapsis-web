@@ -1,54 +1,86 @@
 ---
 import sitio from '../../content/sitio.json';
-import planes from '../../content/planes.json';
 import { buildWhatsAppUrl } from '../../lib/whatsapp';
+import Icon from '../shared/Icon.astro';
 
 const whatsappUrl = buildWhatsAppUrl({ phone: sitio.contacto.whatsapp });
+const instagramUrl = sitio.contacto.instagram_url;
+const turnitoUrl = sitio.turnito?.hub ?? '#';
 const year = new Date().getFullYear();
+
+const planesLinks = [
+  { href: '/planes/premier-kine', label: 'Premier Kine' },
+  { href: '/planes/performance', label: 'Performance' },
+  { href: '/planes/conecta', label: 'Conecta' },
+  { href: '/planes/kine-10', label: 'Kine 10' },
+];
+const serviciosLinks = [
+  { href: '/servicios-sueltos', label: 'Sesiones sueltas' },
+  { href: '/equipo', label: 'Equipo' },
+  { href: '/obras-sociales', label: 'Obras sociales' },
+  { href: '/faq', label: 'Preguntas frecuentes' },
+];
 ---
-<footer class="bg-cream-bg text-gray-600 px-6 py-10 border-t border-gray-200">
-  <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-sm">
+<footer class="bg-sn-ink text-white/70">
+  <div class="max-w-[1200px] mx-auto px-6 pt-16 pb-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr] gap-10">
     <div>
-      <div class="text-violet-deep font-bold tracking-widest mb-3">SINAPSIS</div>
-      <p class="text-gray-500 text-xs leading-relaxed">{sitio.tagline}</p>
-      <p class="text-gray-500 text-xs mt-3">{sitio.direccion.calle}<br />{sitio.direccion.ciudad}</p>
+      <img
+        src="/logo-sinapsis-full.png"
+        alt="Sinapsis — Centro de Rehabilitación Traumatológica y Deportiva"
+        class="h-[46px] w-auto block mb-[18px]"
+      />
+      <p class="m-0 text-sm leading-relaxed">{sitio.direccion.calle}, {sitio.direccion.ciudad}.</p>
+      <div class="flex gap-3 mt-[18px]">
+        {instagramUrl && (
+          <a
+            href={instagramUrl}
+            target="_blank"
+            rel="noopener"
+            aria-label="Instagram de Sinapsis"
+            class="w-[38px] h-[38px] rounded-[10px] border border-white/15 flex items-center justify-center text-white text-[17px] hover:bg-white/10 hover:border-sn-sage transition"
+          ><Icon name="instagram" /></a>
+        )}
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener"
+          aria-label="WhatsApp de Sinapsis"
+          class="w-[38px] h-[38px] rounded-[10px] border border-white/15 flex items-center justify-center text-white text-[17px] hover:bg-white/10 hover:border-sn-sage transition"
+        ><Icon name="whatsapp" /></a>
+      </div>
     </div>
 
     <div>
-      <div class="text-violet-deep font-semibold mb-3 text-xs uppercase tracking-wider">Planes</div>
-      <ul class="space-y-1.5 text-xs">
-        {planes.map((p) => (
-          <li><a href={`/planes/${p.slug}`} class="hover:text-violet-deep transition">{p.nombre}</a></li>
+      <h4 class="m-0 mb-4 font-display font-semibold text-[13px] tracking-[0.5px] uppercase text-sn-sage">Planes</h4>
+      <div class="flex flex-col gap-2.5">
+        {planesLinks.map((l) => (
+          <a href={l.href} class="text-sm text-white/70 hover:text-white transition">{l.label}</a>
         ))}
-      </ul>
+      </div>
     </div>
 
     <div>
-      <div class="text-violet-deep font-semibold mb-3 text-xs uppercase tracking-wider">Servicios</div>
-      <ul class="space-y-1.5 text-xs">
-        <li><a href="/servicios-sueltos" class="hover:text-violet-deep transition">Sesiones sueltas</a></li>
-        <li><a href="/equipo" class="hover:text-violet-deep transition">Equipo</a></li>
-        <li><a href="/obras-sociales" class="hover:text-violet-deep transition">Obras sociales</a></li>
-        <li><a href="/faq" class="hover:text-violet-deep transition">Preguntas frecuentes</a></li>
-      </ul>
+      <h4 class="m-0 mb-4 font-display font-semibold text-[13px] tracking-[0.5px] uppercase text-sn-sage">Servicios</h4>
+      <div class="flex flex-col gap-2.5">
+        {serviciosLinks.map((l) => (
+          <a href={l.href} class="text-sm text-white/70 hover:text-white transition">{l.label}</a>
+        ))}
+      </div>
     </div>
 
     <div>
-      <div class="text-violet-deep font-semibold mb-3 text-xs uppercase tracking-wider">Contacto</div>
-      <ul class="space-y-1.5 text-xs">
-        {sitio.turnito?.hub && (
-          <li><a href={sitio.turnito.hub} target="_blank" rel="noopener" class="text-sinapsis-purple font-semibold hover:opacity-80 transition">Agendar turno</a></li>
+      <h4 class="m-0 mb-4 font-display font-semibold text-[13px] tracking-[0.5px] uppercase text-sn-sage">Contacto</h4>
+      <div class="flex flex-col gap-2.5">
+        <a href={turnitoUrl} target="_blank" rel="noopener" class="text-sm text-white/70 hover:text-white transition">Agendar turno</a>
+        <a href={whatsappUrl} target="_blank" rel="noopener" class="text-sm text-white/70 hover:text-white transition">WhatsApp</a>
+        {instagramUrl && (
+          <a href={instagramUrl} target="_blank" rel="noopener" class="text-sm text-white/70 hover:text-white transition">Instagram</a>
         )}
-        <li><a href={whatsappUrl} target="_blank" rel="noopener" class="hover:text-violet-deep transition">WhatsApp</a></li>
-        {(sitio.contacto.instagram_url || sitio.contacto.instagram) && (
-          <li><a href={sitio.contacto.instagram_url ?? `https://instagram.com/${sitio.contacto.instagram?.replace('@', '')}`} target="_blank" rel="noopener" class="hover:text-violet-deep transition">Instagram</a></li>
-        )}
-        <li><a href="/contacto" class="hover:text-violet-deep transition">Cómo llegar</a></li>
-      </ul>
+        <a href="/contacto" class="text-sm text-white/70 hover:text-white transition">Cómo llegar</a>
+      </div>
     </div>
   </div>
-
-  <div class="max-w-7xl mx-auto mt-8 pt-6 border-t border-gray-200 text-center text-xs text-gray-400">
-    © {year} Sinapsis · Todos los derechos reservados
+  <div class="border-t border-white/10">
+    <div class="max-w-[1200px] mx-auto px-6 py-[22px] text-xs text-white/50">© {year} Sinapsis · Todos los derechos reservados</div>
   </div>
 </footer>

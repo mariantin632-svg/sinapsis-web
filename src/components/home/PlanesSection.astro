@@ -1,91 +1,118 @@
 ---
 import planes from '../../content/planes.json';
 import type { Plan } from '../../content/_types';
-import PlanCard from '../planes/PlanCard.astro';
-import DuracionToggle from '../planes/DuracionToggle.astro';
+import { formatARS } from '../../lib/precios';
+import Icon from '../shared/Icon.astro';
 
 const planesTipados = (planes as Plan[]).sort((a, b) => a.orden - b.orden);
+
+const categorias = [
+  { value: 'all', label: 'Todos' },
+  { value: 'kinesiologia', label: 'Kinesiología' },
+  { value: 'osteopatia', label: 'Osteopatía' },
+  { value: 'rendimiento', label: 'Rendimiento' },
+];
+
+const categoriaPorSlug: Record<string, string> = {
+  'premier-kine': 'kinesiologia',
+  'premier-kine-plus': 'kinesiologia',
+  conecta: 'kinesiologia',
+  'kine-10': 'kinesiologia',
+  'premier-osteo': 'osteopatia',
+  'osteo-mantenimiento': 'osteopatia',
+  performance: 'rendimiento',
+  reinicio: 'rendimiento',
+};
+
+const cards = planesTipados.map((p) => {
+  const precio = p.duraciones[0]; // anual o único
+  const tipoLabel = p.tipo === 'suscripcion' ? 'Suscripción' : 'Tratamiento';
+  return {
+    ...p,
+    categoria: categoriaPorSlug[p.slug] ?? 'kinesiologia',
+    kind: `${tipoLabel} · ${p.subtitulo.replace(/^Tratamiento de\s+/i, '')}`,
+    descuento: precio.ahorro_label ? `${precio.label} · ${precio.ahorro_label}` : precio.label,
+    precioTotal: formatARS(precio.total),
+    equivalente: `≈ ${formatARS(precio.equiv_valor)} ${precio.equiv_label}`,
+  };
+});
 ---
-<section class="bg-white px-4 sm:px-6 py-10 md:py-14">
-  <div class="max-w-7xl mx-auto bg-violet-deep rounded-[28px] px-6 py-10 md:px-10 md:py-12 shadow-card-hover">
-    <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-8">
-      <div>
-        <div class="text-xs text-cream/50 uppercase tracking-widest">Planes & tratamientos</div>
-        <h2 class="text-2xl md:text-3xl font-bold text-cream mt-1">Encontrá tu plan ideal</h2>
-      </div>
-      <DuracionToggle />
-    </div>
-
-    <div class="relative" data-carousel>
-      <!-- Flechas -->
-      <button
-        type="button"
-        data-carousel-prev
-        aria-label="Plan anterior"
-        class="hidden md:flex absolute -left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 items-center justify-center rounded-full bg-cream text-violet-deep shadow-card-hover hover:bg-white transition disabled:opacity-30 disabled:cursor-not-allowed"
-      >
-        <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
-      </button>
-      <button
-        type="button"
-        data-carousel-next
-        aria-label="Plan siguiente"
-        class="hidden md:flex absolute -right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 items-center justify-center rounded-full bg-cream text-violet-deep shadow-card-hover hover:bg-white transition disabled:opacity-30 disabled:cursor-not-allowed"
-      >
-        <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6" /></svg>
-      </button>
-
-      <!-- Track -->
-      <div
-        data-carousel-track
-        class="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2 carousel-track"
-      >
-        {planesTipados.map((plan) => (
-          <div class="snap-start shrink-0 flex w-[85%] sm:w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-0.667rem)]">
-            <PlanCard plan={plan} />
-          </div>
-        ))}
-      </div>
-    </div>
-
-    <div class="text-center text-xs text-cream/60 mt-6">
-      Pago único al activar · transferencia, efectivo o tarjeta (10% de recargo en 1 pago) ·
-      <a href="/planes" class="text-accent-mint underline">comparar planes en detalle →</a>
-    </div>
+<section id="planes" class="max-w-[1200px] mx-auto px-6 pt-20 pb-10">
+  <div class="text-center max-w-[640px] mx-auto mb-9">
+    <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage-dark">Planes &amp; tratamientos</p>
+    <h2 class="m-0 mb-2.5 font-display font-semibold text-[clamp(1.9rem,4vw,2.6rem)] leading-[1.12] tracking-[-0.02em] text-sn-violet">Encontrá tu plan ideal</h2>
+    <p class="m-0 text-[15px] text-gray-500">Suscripciones y tratamientos con precio anual. Pago único al activar.</p>
   </div>
+
+  <div class="flex flex-wrap justify-center gap-2.5 mb-9">
+    {categorias.map((cat) => (
+      <button
+        type="button"
+        data-plan-filtro
+        data-cat={cat.value}
+        class={`px-[18px] py-[9px] rounded-full border-[1.5px] text-[13px] cursor-pointer transition ${
+          cat.value === 'all'
+            ? 'border-sn-violet bg-sn-violet text-white font-semibold'
+            : 'border-gray-200 bg-white text-gray-600 font-medium hover:border-gray-300'
+        }`}
+      >{cat.label}</button>
+    ))}
+  </div>
+
+  <div class="grid grid-cols-[repeat(auto-fill,minmax(278px,1fr))] gap-5">
+    {cards.map((p) => (
+      <div
+        data-plan-item
+        data-cat={p.categoria}
+        class="relative flex flex-col bg-white rounded-2xl p-6 shadow-[0_2px_8px_rgba(48,22,109,0.08)] border border-gray-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(48,22,109,0.16)]"
+      >
+        {p.destacado && (
+          <span class="absolute top-4 right-4 text-[10px] font-bold tracking-[0.5px] uppercase text-sn-deep bg-sn-sage px-2.5 py-1 rounded-full">Recomendado</span>
+        )}
+        <span class="font-display font-bold text-[17px] tracking-[0.5px] text-sn-violet">{p.nombre}</span>
+        <span class="text-xs text-gray-500 mt-1">{p.kind}</span>
+        <p class="text-sm text-gray-600 mt-3 mb-0 leading-normal">{p.hook}</p>
+        <div class="flex flex-col gap-[9px] mt-[18px]">
+          {p.beneficios_destacados.map((feat) => (
+            <div class="flex items-start gap-[9px] text-[13px] text-gray-600">
+              <span class="text-sn-sage-dark text-sm mt-px shrink-0"><Icon name="check-circle-fill" /></span>
+              <span>{feat}</span>
+            </div>
+          ))}
+        </div>
+        <div class="mt-auto pt-5">
+          <span class="inline-block text-[11px] font-semibold text-[#0f6e56] bg-[#e8f3ee] px-2.5 py-1 rounded-full mb-3">{p.descuento}</span>
+          <div class="font-display font-bold text-[26px] text-sn-deep leading-none">{p.precioTotal}</div>
+          <div class="text-xs text-gray-500 mt-[5px]">{p.equivalente}</div>
+          <a
+            href={`/planes/${p.slug}`}
+            class="group mt-[18px] flex items-center justify-center gap-2 py-3 rounded-[10px] bg-gradient-to-br from-sn-violet to-sn-violet-light text-white font-semibold text-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(48,22,109,0.25)]"
+          >Ver plan <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span></a>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <p class="text-center mt-7 mb-0 text-xs text-gray-400">Pago único al activar · transferencia, efectivo o tarjeta (10% de recargo en 1 pago)</p>
 </section>
 
-<style>
-  .carousel-track { scrollbar-width: none; -ms-overflow-style: none; }
-  .carousel-track::-webkit-scrollbar { display: none; }
-</style>
-
 <script>
-  function initCarousel(root: HTMLElement) {
-    const track = root.querySelector<HTMLElement>('[data-carousel-track]');
-    const prev = root.querySelector<HTMLButtonElement>('[data-carousel-prev]');
-    const next = root.querySelector<HTMLButtonElement>('[data-carousel-next]');
-    if (!track) return;
+  const activas = ['border-sn-violet', 'bg-sn-violet', 'text-white', 'font-semibold'];
+  const inactivas = ['border-gray-200', 'bg-white', 'text-gray-600', 'font-medium', 'hover:border-gray-300'];
 
-    const step = () => {
-      const first = track.firstElementChild as HTMLElement | null;
-      if (!first) return track.clientWidth;
-      const gap = parseFloat(getComputedStyle(track).columnGap || '16') || 16;
-      return first.getBoundingClientRect().width + gap;
-    };
+  document.querySelectorAll<HTMLButtonElement>('[data-plan-filtro]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const cat = btn.dataset.cat;
+      document.querySelectorAll<HTMLButtonElement>('[data-plan-filtro]').forEach((b) => {
+        b.classList.remove(...activas);
+        b.classList.add(...inactivas);
+      });
+      btn.classList.remove(...inactivas);
+      btn.classList.add(...activas);
 
-    const update = () => {
-      const maxScroll = track.scrollWidth - track.clientWidth - 1;
-      if (prev) prev.disabled = track.scrollLeft <= 0;
-      if (next) next.disabled = track.scrollLeft >= maxScroll;
-    };
-
-    prev?.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
-    next?.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
-    track.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-    update();
-  }
-
-  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach(initCarousel);
+      document.querySelectorAll<HTMLElement>('[data-plan-item]').forEach((item) => {
+        item.style.display = cat === 'all' || item.dataset.cat === cat ? '' : 'none';
+      });
+    });
+  });
 </script>

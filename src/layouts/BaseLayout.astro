@@ -3,6 +3,9 @@ import '@fontsource/inter/400.css';
 import '@fontsource/inter/500.css';
 import '@fontsource/inter/600.css';
 import '@fontsource/inter/700.css';
+import '@fontsource/poppins/500.css';
+import '@fontsource/poppins/600.css';
+import '@fontsource/poppins/700.css';
 import '../styles/global.css';
 import Nav from '../components/layout/Nav.astro';
 import Footer from '../components/layout/Footer.astro';
@@ -14,9 +17,11 @@ interface Props {
   description?: string;
   image?: string;
   noindex?: boolean;
+  /** La home trae su propio header integrado al hero */
+  hideNav?: boolean;
 }
 
-const { title, description, image, noindex } = Astro.props;
+const { title, description, image, noindex, hideNav } = Astro.props;
 ---
 <!DOCTYPE html>
 <html lang="es-AR">
@@ -30,7 +35,7 @@ const { title, description, image, noindex } = Astro.props;
     <SEO title={title} description={description} image={image} noindex={noindex} />
   </head>
   <body class="min-h-screen flex flex-col">
-    <Nav />
+    {!hideNav && <Nav />}
     <main class="flex-1">
       <slot />
     </main>

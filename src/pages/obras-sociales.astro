@@ -1,9 +1,15 @@
 ---
+import { existsSync } from 'node:fs';
+import path from 'node:path';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import obrasData from '../content/obras-sociales.json';
 import type { ObraSocial } from '../content/_types';
 
-const obras = obrasData as ObraSocial[];
+// El logo se muestra solo si el archivo existe en public/ (evita 404 en consola).
+const obras = (obrasData as ObraSocial[]).map((o) => ({
+  ...o,
+  logoExiste: existsSync(path.join(process.cwd(), 'public', o.logo)),
+}));
 ---
 <BaseLayout title="Obras sociales aceptadas · Sinapsis">
   <section class="bg-white px-6 py-12">
@@ -19,7 +25,7 @@ const obras = obrasData as ObraSocial[];
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
         {obras.map((o) => (
           <div class="bg-white rounded-card p-4 flex flex-col items-center justify-center border border-gray-100 min-h-28 text-center">
-            <img src={o.logo} alt={o.nombre} class="max-h-12 max-w-full object-contain" onerror="this.style.display='none'" />
+            {o.logoExiste && <img src={o.logo} alt={o.nombre} class="max-h-12 max-w-full object-contain" loading="lazy" />}
             <div class="text-sm font-medium text-gray-700 mt-2">{o.nombre}</div>
             {o.instrucciones && <div class="text-[11px] text-gray-500 mt-1 leading-snug">{o.instrucciones}</div>}
           </div>

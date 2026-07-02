@@ -1,0 +1,20 @@
+---
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+
+// Inlinea en build el SVG de bootstrap-icons (node_modules), sin CDN ni icon-font.
+// El ícono hereda color (currentColor) y tamaño (1em) del elemento contenedor.
+interface Props {
+  name: string;
+  class?: string;
+}
+
+const { name, class: className } = Astro.props;
+
+const file = path.join(process.cwd(), 'node_modules', 'bootstrap-icons', 'icons', `${name}.svg`);
+const svg = readFileSync(file, 'utf-8')
+  .replace('width="16"', 'width="1em"')
+  .replace('height="16"', 'height="1em"')
+  .replace('class="bi', `class="${className ? `${className} ` : ''}bi`);
+---
+<Fragment set:html={svg} />

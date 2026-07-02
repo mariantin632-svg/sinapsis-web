@@ -48,12 +48,16 @@ test('all WhatsApp links use wa.me with correct phone', async ({ page }) => {
   }
 });
 
-test('Toggle de duración en planes section funciona', async ({ page }) => {
+test('Filtros de planes en la home ocultan/muestran cards', async ({ page }) => {
   await page.goto('/');
-  const priceBefore = await page.locator('[data-plan-card][data-plan-slug="premier-kine"] [data-plan-total]').textContent();
-  await page.locator('[data-duracion-btn][data-periodo="semestral"]').click();
-  const priceAfter = await page.locator('[data-plan-card][data-plan-slug="premier-kine"] [data-plan-total]').textContent();
-  expect(priceBefore).not.toBe(priceAfter);
+  const total = await page.locator('[data-plan-item]').count();
+  expect(total).toBe(8);
+  await page.locator('[data-plan-filtro][data-cat="osteopatia"]').click();
+  const visibles = await page.locator('[data-plan-item]:visible').count();
+  expect(visibles).toBe(2);
+  await page.locator('[data-plan-filtro][data-cat="all"]').click();
+  const visiblesTodos = await page.locator('[data-plan-item]:visible').count();
+  expect(visiblesTodos).toBe(8);
 });
 
 test('Filtros de packs ocultan/muestran items', async ({ page }) => {

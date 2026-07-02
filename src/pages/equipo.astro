@@ -1,11 +1,18 @@
 ---
+import { existsSync } from 'node:fs';
+import path from 'node:path';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import equipoData from '../content/equipo.json';
 import sitio from '../content/sitio.json';
 import type { Profesional } from '../content/_types';
 import { buildWhatsAppUrl } from '../lib/whatsapp';
 
-const equipo = equipoData as Profesional[];
+// La foto se muestra solo si el archivo existe en public/ (evita 404 en consola;
+// Dante va sin foto a propósito → quedan las iniciales).
+const equipo = (equipoData as Profesional[]).map((prof) => ({
+  ...prof,
+  fotoExiste: existsSync(path.join(process.cwd(), 'public', prof.foto)),
+}));
 const turnitoHub = sitio.turnito?.hub ?? '#';
 ---
 <BaseLayout title="Equipo · Sinapsis">
@@ -25,7 +32,9 @@ const turnitoHub = sitio.turnito?.hub ?? '#';
             <div class="absolute inset-0 rounded-full bg-gradient-to-br from-sinapsis-purple to-accent-mint flex items-center justify-center text-white text-2xl font-bold">
               {prof.nombre.charAt(0)}{prof.apellido.charAt(0)}
             </div>
-            <img src={prof.foto} alt={`${prof.nombre} ${prof.apellido}`} class="absolute inset-0 w-full h-full rounded-full object-cover" onerror="this.style.display='none'" />
+            {prof.fotoExiste && (
+              <img src={prof.foto} alt={`${prof.nombre} ${prof.apellido}`} class="absolute inset-0 w-full h-full rounded-full object-cover" />
+            )}
           </div>
           <div>
             <h2 class="text-xl font-bold text-violet-deep">{prof.nombre} {prof.apellido}</h2>
