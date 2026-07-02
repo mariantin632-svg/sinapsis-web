@@ -4,7 +4,8 @@
 
 [build.environment]
   NODE_VERSION = "20"
-  PNPM_VERSION = "9"
+  # pnpm 9 no entiende pnpm-workspace.yaml con solo allowBuilds (exige "packages")
+  PNPM_VERSION = "11.3.0"
 
 [[headers]]
   for = "/*"
