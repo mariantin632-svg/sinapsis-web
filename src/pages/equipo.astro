@@ -6,109 +6,105 @@ import equipoData from '../content/equipo.json';
 import sitio from '../content/sitio.json';
 import type { Profesional } from '../content/_types';
 import { buildWhatsAppUrl } from '../lib/whatsapp';
+import Icon from '../components/shared/Icon.astro';
 
-// La foto se muestra solo si el archivo existe en public/ (evita 404 en consola;
+// Imagen del perfil: placa de presentación si existe, si no la foto de la card.
+// Solo se renderiza si el archivo está en public/ (evita 404 en consola;
 // Dante va sin foto a propósito → quedan las iniciales).
-const equipo = (equipoData as Profesional[]).map((prof) => ({
-  ...prof,
-  fotoExiste: existsSync(path.join(process.cwd(), 'public', prof.foto)),
-}));
-const turnitoHub = sitio.turnito?.hub ?? '#';
+const enPublic = (ruta: string) => existsSync(path.join(process.cwd(), 'public', ruta));
+
+const equipo = (equipoData as Profesional[]).map((prof) => {
+  const placa = `/equipo/presentacion-${prof.slug}.jpg`;
+  const imagen = enPublic(placa) ? placa : enPublic(prof.foto) ? prof.foto : null;
+  const chips = [...(prof.modalidades ?? [])];
+  if (prof.destacado_label) chips.push(prof.destacado_label);
+  return {
+    ...prof,
+    imagen,
+    iniciales: `${prof.nombre.charAt(0)}${prof.apellido.charAt(0)}`,
+    chips,
+    turnitoUrl: prof.turnito || sitio.turnito?.hub || '#',
+    whatsappUrl: buildWhatsAppUrl({
+      phone: sitio.contacto.whatsapp,
+      text: `Hola! Quería consultar un turno con ${prof.nombre} ${prof.apellido}.`,
+    }),
+  };
+});
 ---
-<BaseLayout title="Equipo · Sinapsis">
-  <section class="bg-white px-6 py-12">
-    <div class="max-w-3xl mx-auto text-center">
-      <div class="text-xs text-gray-500 uppercase tracking-widest">Equipo</div>
-      <h1 class="text-3xl md:text-4xl font-bold text-violet-deep mt-3">Nuestro equipo profesional</h1>
-      <p class="text-gray-600 mt-3">Profesionales matriculados con formación en kinesiología, osteopatía y deporte.</p>
+<BaseLayout
+  title="Equipo · Sinapsis"
+  description="Conocé al equipo de Sinapsis: kinesiología, osteopatía, traumatología y nutrición. Cada profesional con su propia agenda online."
+>
+  <section class="max-w-[1200px] mx-auto px-6 pt-16 pb-2 md:pt-24">
+    <div class="max-w-[640px]">
+      <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage-dark">Equipo</p>
+      <h1 class="m-0 mb-2.5 font-display font-semibold text-[clamp(2.1rem,5vw,3rem)] leading-[1.12] tracking-[-0.02em] text-sn-violet">Nuestro equipo profesional</h1>
+      <p class="m-0 text-[15px] text-gray-500">Profesionales matriculados con formación en kinesiología, osteopatía, traumatología, nutrición y deporte. Cada uno con su propia agenda: reservá online o escribinos.</p>
     </div>
   </section>
 
-  <section class="bg-cream-bg px-6 py-12">
-    <div class="max-w-5xl mx-auto space-y-6">
+  <section class="max-w-[1200px] mx-auto px-6 py-10 md:py-14">
+    <div class="space-y-7">
       {equipo.map((prof) => (
-        <article id={prof.slug} class="bg-white rounded-card p-6 grid md:grid-cols-[120px_1fr] gap-5 items-start shadow-card">
-          <div class="relative w-30 h-30">
-            <div class="absolute inset-0 rounded-full bg-gradient-to-br from-sinapsis-purple to-accent-mint flex items-center justify-center text-white text-2xl font-bold">
-              {prof.nombre.charAt(0)}{prof.apellido.charAt(0)}
-            </div>
-            {prof.fotoExiste && (
-              <img src={prof.foto} alt={`${prof.nombre} ${prof.apellido}`} class="absolute inset-0 w-full h-full rounded-full object-cover" />
+        <article
+          id={prof.slug}
+          class="bg-white rounded-2xl overflow-hidden shadow-[0_2px_8px_rgba(48,22,109,0.08)] border border-gray-100 grid md:grid-cols-[minmax(260px,340px)_1fr] transition-all duration-300 hover:shadow-[0_8px_32px_rgba(48,22,109,0.14)]"
+        >
+          <div class="relative aspect-square bg-gradient-to-br from-sn-violet to-sn-violet-light flex items-center justify-center overflow-hidden">
+            <span class="absolute font-display font-bold text-[clamp(64px,14vw,96px)] text-white/20 tracking-[4px]">{prof.iniciales}</span>
+            {prof.imagen && (
+              <img
+                src={prof.imagen}
+                alt={`${prof.nombre} ${prof.apellido} — ${prof.especialidades.join(' y ')}`}
+                class="absolute inset-0 w-full h-full object-cover object-top"
+                loading="lazy"
+              />
             )}
           </div>
-          <div>
-            <h2 class="text-xl font-bold text-violet-deep">{prof.nombre} {prof.apellido}</h2>
-            <div class="text-sm text-gray-500 mt-1">{prof.especialidades.join(' · ')}</div>
+
+          <div class="p-6 md:p-8 flex flex-col">
+            <h2 class="m-0 mb-1 font-display font-semibold text-[clamp(1.3rem,2.5vw,1.6rem)] text-gray-900">{prof.nombre} {prof.apellido}</h2>
+            <p class="m-0 mb-1 text-[13px] font-semibold text-sn-sage-dark">{prof.especialidades.join(' · ')}</p>
             {prof.matricula && !prof.matricula.includes('PLACEHOLDER') && (
-              <div class="text-xs text-gray-400 mt-1">Matrícula: {prof.matricula}</div>
+              <p class="m-0 mb-3 text-xs text-gray-400">Matrícula {prof.matricula}</p>
             )}
-            <p class="text-sm text-gray-700 mt-3 leading-relaxed">
-              {prof.bio_larga || prof.bio_corta}
-            </p>
+
+            {prof.chips.length > 0 && (
+              <div class="flex flex-wrap gap-1.5 mt-2 mb-4">
+                {prof.chips.map((c) => (
+                  <span class="text-[11px] font-medium text-gray-600 bg-[#f1f0f7] px-2.5 py-1 rounded-full">{c}</span>
+                ))}
+              </div>
+            )}
+
+            <p class="m-0 text-[14px] leading-relaxed text-gray-600">{prof.bio_larga || prof.bio_corta}</p>
+
             {prof.formacion && prof.formacion.length > 0 && (
-              <div class="mt-3">
-                <div class="text-xs uppercase text-gray-500 tracking-wider mb-1">Formación</div>
-                <ul class="text-sm text-gray-700 list-disc list-inside">
+              <div class="mt-4">
+                <p class="m-0 mb-1.5 text-[11px] font-semibold tracking-[1.5px] uppercase text-sn-sage-dark">Formación</p>
+                <ul class="m-0 pl-4 text-[13px] leading-relaxed text-gray-600 list-disc">
                   {prof.formacion.map((f) => <li>{f}</li>)}
                 </ul>
               </div>
             )}
-            <div class="flex flex-wrap gap-2 mt-4">
+
+            <div class="mt-auto pt-6 flex flex-wrap gap-2">
               <a
-                href={prof.turnito || turnitoHub}
+                href={prof.turnitoUrl}
                 target="_blank"
                 rel="noopener"
-                class="bg-accent-mint text-accent-mint-dark text-sm font-bold px-4 py-2 rounded-pill hover:opacity-90 transition"
-              >
-                Reservar turno
-              </a>
+                class="text-center px-6 py-2.5 rounded-[10px] bg-gradient-to-br from-sn-violet to-sn-violet-light text-white font-semibold text-[13px] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_6px_18px_rgba(48,22,109,0.25)]"
+              >Reservar turno</a>
               <a
-                href={buildWhatsAppUrl({ phone: sitio.contacto.whatsapp, text: `Hola! Quería consultar un turno con ${prof.nombre} ${prof.apellido}.` })}
+                href={prof.whatsappUrl}
                 target="_blank"
                 rel="noopener"
-                class="border border-sinapsis-purple text-sinapsis-purple text-sm font-bold px-4 py-2 rounded-pill hover:bg-sinapsis-purple hover:text-white transition"
-              >
-                Consultar
-              </a>
+                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] border-[1.5px] border-gray-200 text-sn-violet font-semibold text-[13px] hover:border-sn-sage hover:bg-[#f4faf8] transition"
+              ><Icon name="whatsapp" class="text-[15px]" /> Consultar</a>
             </div>
           </div>
         </article>
       ))}
-    </div>
-  </section>
-
-  <section class="bg-white px-6 py-14">
-    <div class="max-w-5xl mx-auto">
-      <div class="text-center mb-8">
-        <div class="text-xs text-gray-500 uppercase tracking-widest">Conocé al equipo</div>
-        <h2 class="text-2xl md:text-3xl font-bold text-violet-deep mt-2">Fotos de presentación</h2>
-      </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-        <figure class="rounded-card overflow-hidden shadow-card bg-violet-deep">
-          <img
-            src="/equipo/presentacion-martin-niro.jpg"
-            alt="Lic. Martín Niro — Kinesiología y Osteopatía"
-            class="w-full h-auto block"
-            loading="lazy"
-          />
-        </figure>
-        <figure class="rounded-card overflow-hidden shadow-card bg-violet-deep">
-          <img
-            src="/equipo/presentacion-santiago-duhau.jpg"
-            alt="Lic. Santiago Duhau — Kinesiología y Deporte"
-            class="w-full h-auto block"
-            loading="lazy"
-          />
-        </figure>
-        <figure class="rounded-card overflow-hidden shadow-card bg-violet-deep">
-          <img
-            src="/equipo/presentacion-jimena-avalos.jpg"
-            alt="Lic. Jimena Belén Avalos — Nutrición"
-            class="w-full h-auto block"
-            loading="lazy"
-          />
-        </figure>
-      </div>
     </div>
   </section>
 </BaseLayout>
