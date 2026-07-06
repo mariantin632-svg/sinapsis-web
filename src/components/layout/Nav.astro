@@ -1,9 +1,9 @@
 ---
 import sitio from '../../content/sitio.json';
 import { buildWhatsAppUrl } from '../../lib/whatsapp';
+import Icon from '../shared/Icon.astro';
 
 const links = [
-  { href: '/', label: 'Inicio' },
   { href: '/servicios-sueltos', label: 'Servicios' },
   { href: '/equipo', label: 'Equipo' },
   { href: '/planes', label: 'Planes' },
@@ -18,71 +18,108 @@ const whatsappUrl = buildWhatsAppUrl({
 });
 const turnitoUrl = sitio.turnito?.hub ?? '#';
 const instagramUrl = sitio.contacto.instagram_url;
+
+// Resaltar la página activa en la píldora (la home usa anclas y no lo necesita)
+const rutaActual = Astro.url.pathname.replace(/\/$/, '') || '/';
+const esActiva = (href: string) => rutaActual === href || rutaActual.startsWith(`${href}/`);
 ---
-<nav class="sticky top-0 z-50 bg-violet-mid border-b border-white/10">
-  <div class="max-w-7xl mx-auto px-6 py-2.5 flex items-center justify-between gap-4">
-    <a href="/" class="flex items-center" aria-label="Sinapsis — inicio">
+<nav class="sticky top-0 z-50 bg-sn-ink border-b border-white/10">
+  <div class="absolute inset-0 opacity-[0.045] pattern-cross pointer-events-none"></div>
+  <div class="relative max-w-[1200px] mx-auto px-6 py-3.5 flex items-center justify-between gap-5">
+    <a href="/" class="flex items-center shrink-0" aria-label="Sinapsis — inicio">
       <img
         src="/logo-sinapsis-nav.png"
         alt="Sinapsis — Centro de Rehabilitación Traumatológica y Deportiva"
-        class="h-9 md:h-10 w-auto"
+        class="h-[34px] md:h-[38px] w-auto block"
         width="287"
         height="48"
       />
     </a>
 
-    <div class="hidden md:flex gap-5 text-sm text-cream/80">
+    <div class="hidden lg:flex items-center gap-0.5 px-2 py-1.5 border border-white/15 rounded-full bg-white/5 backdrop-blur-md">
       {links.map((l) => (
-        <a href={l.href} class="hover:text-cream transition">{l.label}</a>
+        <a
+          href={l.href}
+          aria-current={esActiva(l.href) ? 'page' : undefined}
+          class:list={[
+            'px-[13px] py-[7px] rounded-full text-[13px] transition',
+            esActiva(l.href) ? 'text-white bg-white/10' : 'text-white/80 hover:text-white hover:bg-white/10',
+          ]}
+        >{l.label}</a>
       ))}
     </div>
 
-    <div class="flex items-center gap-2">
+    <div class="hidden lg:flex items-center gap-3 shrink-0">
       {instagramUrl && (
         <a
           href={instagramUrl}
           target="_blank"
           rel="noopener"
           aria-label="Instagram de Sinapsis"
-          class="hidden sm:inline-flex w-8 h-8 items-center justify-center rounded-full border border-white/20 text-cream/80 hover:text-cream hover:border-white/40 transition"
-        >
-          <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="2" y="2" width="20" height="20" rx="5" />
-            <circle cx="12" cy="12" r="4" />
-            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-          </svg>
-        </a>
+          class="inline-flex items-center justify-center w-[38px] h-[38px] rounded-full border border-white/15 text-white text-base hover:bg-white/10 hover:border-sn-sage transition"
+        ><Icon name="instagram" /></a>
       )}
-      <a
-        href={whatsappUrl}
-        target="_blank"
-        rel="noopener"
-        aria-label="WhatsApp de Sinapsis"
-        class="hidden sm:inline-flex items-center justify-center px-3 py-1.5 rounded-pill text-xs font-semibold border border-white/25 text-cream/90 hover:bg-white/10 transition"
-      >
-        WhatsApp
-      </a>
+      <a href={whatsappUrl} target="_blank" rel="noopener" class="text-[13px] text-white/80 hover:text-white transition">WhatsApp</a>
       <a
         href={turnitoUrl}
         target="_blank"
         rel="noopener"
-        class="bg-accent-mint text-accent-mint-dark px-4 py-1.5 rounded-pill text-xs font-bold hover:opacity-90 transition whitespace-nowrap"
-      >
-        Agendar turno
-      </a>
+        class="group inline-flex items-center gap-1.5 px-[18px] py-2.5 rounded-full bg-sn-sage text-sn-deep font-semibold text-[13px] hover:bg-sn-sage-light hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(150,194,185,0.35)] transition-all duration-300"
+      >Agendar turno <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span></a>
     </div>
-  </div>
 
-  <details class="md:hidden border-t border-white/10">
-    <summary class="text-cream/80 text-sm px-6 py-2 cursor-pointer">Menú</summary>
-    <div class="flex flex-col bg-violet-deep">
-      {links.map((l) => (
-        <a href={l.href} class="text-cream/80 px-6 py-3 border-t border-white/10 text-sm">{l.label}</a>
-      ))}
-      <a href={whatsappUrl} target="_blank" rel="noopener" class="text-cream/80 px-6 py-3 border-t border-white/10 text-sm">WhatsApp</a>
-      {instagramUrl && (
-        <a href={instagramUrl} target="_blank" rel="noopener" class="text-cream/80 px-6 py-3 border-t border-white/10 text-sm">Instagram</a>
-      )}
-    </div>
-  </details>
+    <button
+      type="button"
+      data-nav-menu-toggle
+      aria-label="Menú"
+      aria-controls="nav-menu-mobile"
+      aria-expanded="false"
+      class="lg:hidden flex flex-col gap-[5px] bg-transparent border border-white/15 rounded-xl p-[11px] cursor-pointer"
+    >
+      <span class="w-5 h-0.5 bg-white rounded-sm"></span>
+      <span class="w-5 h-0.5 bg-white rounded-sm"></span>
+      <span class="w-5 h-0.5 bg-white rounded-sm"></span>
+    </button>
+  </div>
 </nav>
+
+<!-- menú mobile fullscreen (mismo lenguaje que el header de la home) -->
+<div id="nav-menu-mobile" class="hidden fixed inset-0 z-[60] bg-sn-ink/[0.98] backdrop-blur-xl flex-col p-6">
+  <div class="flex items-center justify-between">
+    <a href="/" aria-label="Sinapsis — inicio">
+      <img src="/logo-sinapsis-nav.png" alt="Sinapsis" class="h-[30px] w-auto block" />
+    </a>
+    <button type="button" data-nav-menu-toggle aria-label="Cerrar menú" class="bg-transparent border-none text-white text-[32px] leading-none cursor-pointer">×</button>
+  </div>
+  <nav class="flex flex-col gap-0.5 mt-9">
+    <a href="/" class="font-display text-[28px] font-medium text-white py-[9px]">Inicio</a>
+    {links.map((l) => (
+      <a href={l.href} class="font-display text-[28px] font-medium text-white py-[9px]">{l.label}</a>
+    ))}
+  </nav>
+  <div class="mt-auto flex gap-2.5 mb-3">
+    {instagramUrl && (
+      <a href={instagramUrl} target="_blank" rel="noopener" class="flex-1 flex items-center justify-center gap-2 p-3.5 rounded-full border border-white/20 text-white text-[15px]"><Icon name="instagram" /> Instagram</a>
+    )}
+    <a href={whatsappUrl} target="_blank" rel="noopener" class="flex-1 flex items-center justify-center gap-2 p-3.5 rounded-full border border-white/20 text-white text-[15px]"><Icon name="whatsapp" /> WhatsApp</a>
+  </div>
+  <a href={turnitoUrl} target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 p-4 rounded-full bg-sn-sage text-sn-deep font-semibold text-base">Agendar turno →</a>
+</div>
+
+<style>
+  /* el menú mobile usa flex-col pero arranca oculto */
+  #nav-menu-mobile:not(.hidden) { display: flex; }
+</style>
+
+<script>
+  const menu = document.getElementById('nav-menu-mobile');
+  const setOpen = (open: boolean) => {
+    menu?.classList.toggle('hidden', !open);
+    document.body.classList.toggle('overflow-hidden', open);
+    document.querySelectorAll('[data-nav-menu-toggle]').forEach((b) => b.setAttribute('aria-expanded', String(open)));
+  };
+  document.querySelectorAll('[data-nav-menu-toggle]').forEach((btn) => {
+    btn.addEventListener('click', () => setOpen(menu?.classList.contains('hidden') ?? false));
+  });
+  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+</script>
