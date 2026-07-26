@@ -40,7 +40,7 @@ export interface DuracionPrecio {
   total: number;          // precio total upfront
   equiv_valor: number;    // equivalente: por mes (recurrente) o por sesión (finito)
   equiv_label: string;    // "/mes" · "/sesión"
-  ahorro_label?: string;  // "22% off" · "$77.000 off"
+  ahorro_label?: string;  // "22% off" · "Sin aumentos por 12 meses"
   tarjeta_1pago?: number; // total con tarjeta en 1 pago (+10%)
 }
 
@@ -71,7 +71,7 @@ export interface Pack {
   precio_carta: number;
   precio_sugerido: number;
   ahorro_pct: number;
-  margen_estimado?: number;
+  // Sin margen_estimado: este repo es público, los márgenes no van acá.
   descripcion_larga?: string;
 }
 

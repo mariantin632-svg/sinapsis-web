@@ -6,7 +6,8 @@ import { formatARS } from '../../lib/precios';
 const planesTipados = (planes as Plan[]).sort((a, b) => a.orden - b.orden);
 
 const filas = planesTipados.map((p) => {
-  const principal = p.duraciones.find((d) => d.periodo === 'anual') ?? p.duraciones[0];
+  // La columna dice "Desde": tiene que mostrar la duración más barata, no la anual.
+  const principal = [...p.duraciones].sort((a, b) => a.total - b.total)[0];
   return {
     plan: p,
     total: principal.total,

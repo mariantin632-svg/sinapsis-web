@@ -24,16 +24,26 @@ const categoriaPorSlug: Record<string, string> = {
   reinicio: 'rendimiento',
 };
 
+const toggleLabels: Record<string, string> = { anual: '12 meses', semestral: '6 meses' };
+
 const cards = planesTipados.map((p) => {
-  const precio = p.duraciones[0]; // anual o único
+  // La card entra por la duración más barata (semestral si existe) y ofrece el
+  // resto en un toggle: la escalera se lee de menos a más, no al revés.
+  const opciones = [...p.duraciones].sort((a, b) => a.total - b.total);
   const tipoLabel = p.tipo === 'suscripcion' ? 'Suscripción' : 'Tratamiento';
   return {
     ...p,
     categoria: categoriaPorSlug[p.slug] ?? 'kinesiologia',
     kind: `${tipoLabel} · ${p.subtitulo.replace(/^Tratamiento de\s+/i, '')}`,
-    descuento: precio.ahorro_label ? `${precio.label} · ${precio.ahorro_label}` : precio.label,
-    precioTotal: formatARS(precio.total),
-    equivalente: `≈ ${formatARS(precio.equiv_valor)} ${precio.equiv_label}`,
+    multiple: opciones.length > 1,
+    opciones: opciones.map((d, i) => ({
+      periodo: d.periodo,
+      toggleLabel: toggleLabels[d.periodo] ?? d.label,
+      anclaje: i === 0 ? 'Desde' : 'Total',
+      descuento: d.ahorro_label ? `${d.label} · ${d.ahorro_label}` : d.label,
+      precioTotal: formatARS(d.total),
+      equivalente: `≈ ${formatARS(d.equiv_valor)} ${d.equiv_label}`,
+    })),
   };
 });
 ---
@@ -41,7 +51,7 @@ const cards = planesTipados.map((p) => {
   <div class="text-center max-w-[640px] mx-auto mb-9">
     <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage-dark">Planes &amp; tratamientos</p>
     <h2 class="m-0 mb-2.5 font-display font-semibold text-[clamp(1.9rem,4vw,2.6rem)] leading-[1.12] tracking-[-0.02em] text-sn-violet">Encontrá tu plan ideal</h2>
-    <p class="m-0 text-[15px] text-gray-500">Suscripciones y tratamientos con precio anual. Pago único al activar.</p>
+    <p class="m-0 text-[15px] text-gray-500">Ordenados de menor a mayor, para que entres por donde te sirva. Pago único al activar.</p>
   </div>
 
   <div class="flex flex-wrap justify-center gap-2.5 mb-9">
@@ -81,9 +91,27 @@ const cards = planesTipados.map((p) => {
           ))}
         </div>
         <div class="mt-auto pt-5">
-          <span class="inline-block text-[11px] font-semibold text-[#0f6e56] bg-[#e8f3ee] px-2.5 py-1 rounded-full mb-3">{p.descuento}</span>
-          <div class="font-display font-bold text-[26px] text-sn-deep leading-none">{p.precioTotal}</div>
-          <div class="text-xs text-gray-500 mt-[5px]">{p.equivalente}</div>
+          {p.multiple && (
+            <div class="flex gap-1 p-1 mb-3 rounded-full bg-gray-100 w-fit" data-plan-toggle>
+              {p.opciones.map((o, i) => (
+                <button
+                  type="button"
+                  data-periodo={o.periodo}
+                  class={`px-3 py-1 rounded-full text-[11px] transition ${
+                    i === 0 ? 'bg-white text-sn-violet font-semibold shadow-sm' : 'text-gray-500 font-medium'
+                  }`}
+                >{o.toggleLabel}</button>
+              ))}
+            </div>
+          )}
+          {p.opciones.map((o, i) => (
+            <div data-plan-precio data-periodo={o.periodo} class={i === 0 ? '' : 'hidden'}>
+              <span class="inline-block text-[11px] font-semibold text-[#0f6e56] bg-[#e8f3ee] px-2.5 py-1 rounded-full mb-3">{o.descuento}</span>
+              {p.multiple && <div class="text-[11px] text-gray-400 leading-none mb-1">{o.anclaje}</div>}
+              <div class="font-display font-bold text-[26px] text-sn-deep leading-none">{o.precioTotal}</div>
+              <div class="text-xs text-gray-500 mt-[5px]">{o.equivalente}</div>
+            </div>
+          ))}
           <a
             href={`/planes/${p.slug}`}
             class="group mt-[18px] flex items-center justify-center gap-2 py-3 rounded-[10px] bg-gradient-to-br from-sn-violet to-sn-violet-light text-white font-semibold text-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(48,22,109,0.25)]"
@@ -112,6 +140,28 @@ const cards = planesTipados.map((p) => {
 
       document.querySelectorAll<HTMLElement>('[data-plan-item]').forEach((item) => {
         item.style.display = cat === 'all' || item.dataset.cat === cat ? '' : 'none';
+      });
+    });
+  });
+
+  // Toggle de duración por card: 6 meses (default, el más barato) ↔ 12 meses.
+  const periodoOn = ['bg-white', 'text-sn-violet', 'font-semibold', 'shadow-sm'];
+  const periodoOff = ['text-gray-500', 'font-medium'];
+
+  document.querySelectorAll<HTMLElement>('[data-plan-item]').forEach((card) => {
+    const botones = card.querySelectorAll<HTMLButtonElement>('[data-plan-toggle] button');
+    if (!botones.length) return;
+
+    botones.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        botones.forEach((b) => {
+          const activo = b === btn;
+          b.classList.remove(...(activo ? periodoOff : periodoOn));
+          b.classList.add(...(activo ? periodoOn : periodoOff));
+        });
+        card.querySelectorAll<HTMLElement>('[data-plan-precio]').forEach((bloque) => {
+          bloque.classList.toggle('hidden', bloque.dataset.periodo !== btn.dataset.periodo);
+        });
       });
     });
   });

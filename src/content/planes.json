@@ -2,7 +2,7 @@
   {
     "slug": "premier-kine",
     "nombre": "PREMIER KINE",
-    "orden": 1,
+    "orden": 2,
     "tipo": "suscripcion",
     "subtitulo": "Kinesiología semanal",
     "hook": "Tu kinesiólogo fijo, todas las semanas.",
@@ -50,7 +50,7 @@
   {
     "slug": "premier-kine-plus",
     "nombre": "PREMIER KINE +",
-    "orden": 2,
+    "orden": 5,
     "tipo": "suscripcion",
     "subtitulo": "Kinesiología intensiva 2x",
     "hook": "Doble frecuencia para recuperarte más rápido.",
@@ -98,7 +98,7 @@
   {
     "slug": "performance",
     "nombre": "PERFORMANCE",
-    "orden": 3,
+    "orden": 6,
     "tipo": "suscripcion",
     "destacado": true,
     "subtitulo": "Rendimiento deportivo integral",
@@ -148,7 +148,7 @@
   {
     "slug": "conecta",
     "nombre": "CONECTA",
-    "orden": 4,
+    "orden": 3,
     "tipo": "suscripcion",
     "subtitulo": "Híbrido online + presencial",
     "hook": "Atención presencial cuando hacen falta manos, online para el resto.",
@@ -198,7 +198,7 @@
   {
     "slug": "osteo-mantenimiento",
     "nombre": "OSTEO MANTENIMIENTO",
-    "orden": 5,
+    "orden": 7,
     "tipo": "suscripcion",
     "subtitulo": "Osteopatía quincenal",
     "hook": "Osteopatía cada 15 días para sostener tu cuerpo en equilibrio.",
@@ -209,11 +209,11 @@
         "periodo": "anual",
         "label": "Plan anual",
         "sesiones": "24 sesiones de osteopatía (1 cada 15 días)",
-        "total": 1099000,
-        "equiv_valor": 91583,
+        "total": 1299000,
+        "equiv_valor": 108250,
         "equiv_label": "/mes",
-        "ahorro_label": "$77.000 off",
-        "tarjeta_1pago": 1208900
+        "ahorro_label": "Sin aumentos por 12 meses",
+        "tarjeta_1pago": 1428900
       }
     ],
     "incluye": [
@@ -236,7 +236,7 @@
   {
     "slug": "kine-10",
     "nombre": "KINE 10",
-    "orden": 6,
+    "orden": 1,
     "tipo": "finito",
     "subtitulo": "Tratamiento de 10 sesiones",
     "hook": "Resolvé una lesión puntual con un tratamiento completo.",
@@ -247,11 +247,11 @@
         "periodo": "unico",
         "label": "10 sesiones",
         "sesiones": "10 sesiones de kinesiología",
-        "total": 249000,
-        "equiv_valor": 24900,
+        "total": 252000,
+        "equiv_valor": 25200,
         "equiv_label": "/sesión",
-        "ahorro_label": "11% off",
-        "tarjeta_1pago": 273900
+        "ahorro_label": "16% off",
+        "tarjeta_1pago": 277200
       }
     ],
     "incluye": [
@@ -273,7 +273,7 @@
   {
     "slug": "reinicio",
     "nombre": "REINICIO",
-    "orden": 7,
+    "orden": 4,
     "tipo": "finito",
     "subtitulo": "Descenso de peso · 12 semanas",
     "hook": "Bajá de peso de forma saludable, con kinesiología y nutrición.",
@@ -287,7 +287,7 @@
         "total": 799000,
         "equiv_valor": 266000,
         "equiv_label": "/mes",
-        "ahorro_label": "$204.000 off",
+        "ahorro_label": "20% off",
         "tarjeta_1pago": 878900
       }
     ],
@@ -309,7 +309,7 @@
   {
     "slug": "premier-osteo",
     "nombre": "PREMIER OSTEO",
-    "orden": 4.5,
+    "orden": 8,
     "tipo": "suscripcion",
     "subtitulo": "Osteopatía semanal · anual",
     "hook": "Trabajo osteopático sostenido, semana a semana, todo el año.",
@@ -320,11 +320,11 @@
         "periodo": "anual",
         "label": "Plan anual",
         "sesiones": "48 sesiones de osteopatía (1 por semana)",
-        "total": 1800000,
-        "equiv_valor": 150000,
+        "total": 2499000,
+        "equiv_valor": 208250,
         "equiv_label": "/mes",
-        "ahorro_label": "$560.000 off",
-        "tarjeta_1pago": 1980000
+        "ahorro_label": "Sin aumentos por 12 meses",
+        "tarjeta_1pago": 2748900
       }
     ],
     "incluye": [

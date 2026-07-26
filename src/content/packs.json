@@ -5,11 +5,13 @@
     "emoji": "🔥",
     "publico_ideal": "Dolor agudo, primera vez",
     "categoria": "dolor_agudo",
-    "incluye": ["2 kinesiología", "1 osteopatía"],
+    "incluye": [
+      "2 kinesiología",
+      "1 osteopatía"
+    ],
     "precio_carta": 101000,
     "precio_sugerido": 84900,
-    "ahorro_pct": 16,
-    "margen_estimado": 38
+    "ahorro_pct": 16
   },
   {
     "slug": "reset-lumbar",
@@ -17,11 +19,13 @@
     "emoji": "🦴",
     "publico_ideal": "Dolor lumbar crónico",
     "categoria": "dolor_agudo",
-    "incluye": ["1 evaluación", "4 kinesiología"],
+    "incluye": [
+      "1 evaluación",
+      "4 kinesiología"
+    ],
     "precio_carta": 152000,
     "precio_sugerido": 129000,
-    "ahorro_pct": 15,
-    "margen_estimado": 36
+    "ahorro_pct": 15
   },
   {
     "slug": "cuello-libre",
@@ -29,11 +33,14 @@
     "emoji": "💆",
     "publico_ideal": "Estrés cervical, oficina",
     "categoria": "oficina",
-    "incluye": ["3 kinesiología", "1 osteopatía", "Plan de ejercicios"],
+    "incluye": [
+      "3 kinesiología",
+      "1 osteopatía",
+      "Plan de ejercicios"
+    ],
     "precio_carta": 129000,
     "precio_sugerido": 109000,
-    "ahorro_pct": 16,
-    "margen_estimado": 38
+    "ahorro_pct": 16
   },
   {
     "slug": "postura-pro",
@@ -41,11 +48,15 @@
     "emoji": "🧍",
     "publico_ideal": "Sedentarios, home office",
     "categoria": "oficina",
-    "incluye": ["1 evaluación", "2 kinesiología", "1 osteopatía", "Plan de ejercicios"],
+    "incluye": [
+      "1 evaluación",
+      "2 kinesiología",
+      "1 osteopatía",
+      "Plan de ejercicios"
+    ],
     "precio_carta": 169000,
     "precio_sugerido": 139000,
-    "ahorro_pct": 18,
-    "margen_estimado": 35
+    "ahorro_pct": 18
   },
   {
     "slug": "rodilla-total",
@@ -53,11 +64,15 @@
     "emoji": "🦵",
     "publico_ideal": "Lesión de rodilla, post artroscopía",
     "categoria": "post_quirurgico",
-    "incluye": ["1 traumatología", "1 evaluación", "6 kinesiología", "2 botas presoterapia"],
+    "incluye": [
+      "1 traumatología",
+      "1 evaluación",
+      "6 kinesiología",
+      "2 botas presoterapia"
+    ],
     "precio_carta": 283000,
     "precio_sugerido": 229000,
-    "ahorro_pct": 19,
-    "margen_estimado": 34
+    "ahorro_pct": 19
   },
   {
     "slug": "recovery-athlete",
@@ -65,11 +80,14 @@
     "emoji": "🏃",
     "publico_ideal": "Deportistas amateur",
     "categoria": "deportistas",
-    "incluye": ["4 botas presoterapia", "2 kinesiología deportiva", "1 evaluación"],
+    "incluye": [
+      "4 botas presoterapia",
+      "2 kinesiología deportiva",
+      "1 evaluación"
+    ],
     "precio_carta": 196000,
     "precio_sugerido": 159000,
-    "ahorro_pct": 19,
-    "margen_estimado": 34
+    "ahorro_pct": 19
   },
   {
     "slug": "retorno-seguro",
@@ -77,11 +95,15 @@
     "emoji": "🏆",
     "publico_ideal": "Deportistas competitivos post lesión",
     "categoria": "deportistas",
-    "incluye": ["1 evaluación", "1 traumatología", "6 kinesiología deportiva", "4 botas presoterapia"],
+    "incluye": [
+      "1 evaluación",
+      "1 traumatología",
+      "6 kinesiología deportiva",
+      "4 botas presoterapia"
+    ],
     "precio_carta": 333000,
     "precio_sugerido": 269000,
-    "ahorro_pct": 19,
-    "margen_estimado": 33
+    "ahorro_pct": 19
   },
   {
     "slug": "movilidad-60",
@@ -89,11 +111,14 @@
     "emoji": "👵",
     "publico_ideal": "Adultos mayores",
     "categoria": "mayor_60",
-    "incluye": ["1 evaluación", "6 kinesiología", "2 sesiones a domicilio"],
+    "incluye": [
+      "1 evaluación",
+      "6 kinesiología",
+      "2 sesiones a domicilio"
+    ],
     "precio_carta": 308000,
     "precio_sugerido": 249000,
-    "ahorro_pct": 19,
-    "margen_estimado": 30
+    "ahorro_pct": 19
   },
   {
     "slug": "mujer-bienestar",
@@ -101,11 +126,15 @@
     "emoji": "👩",
     "publico_ideal": "Mujer 30-55, prevención",
     "categoria": "mujer",
-    "incluye": ["1 evaluación", "3 kinesiología", "1 osteopatía", "2 botas presoterapia"],
+    "incluye": [
+      "1 evaluación",
+      "3 kinesiología",
+      "1 osteopatía",
+      "2 botas presoterapia"
+    ],
     "precio_carta": 221000,
     "precio_sugerido": 179000,
-    "ahorro_pct": 19,
-    "margen_estimado": 35
+    "ahorro_pct": 19
   },
   {
     "slug": "post-cirugia",
@@ -113,11 +142,15 @@
     "emoji": "🏥",
     "publico_ideal": "Recuperación post quirúrgica",
     "categoria": "post_quirurgico",
-    "incluye": ["1 traumatología", "1 evaluación", "8 kinesiología", "4 botas presoterapia"],
+    "incluye": [
+      "1 traumatología",
+      "1 evaluación",
+      "8 kinesiología",
+      "4 botas presoterapia"
+    ],
     "precio_carta": 389000,
     "precio_sugerido": 309000,
-    "ahorro_pct": 21,
-    "margen_estimado": 32
+    "ahorro_pct": 21
   },
   {
     "slug": "empresa-10",
@@ -125,10 +158,11 @@
     "emoji": "🏢",
     "publico_ideal": "Convenios PyME",
     "categoria": "empresas",
-    "incluye": ["10 sesiones distribuibles entre empleados"],
+    "incluye": [
+      "10 sesiones distribuibles entre empleados"
+    ],
     "precio_carta": 280000,
     "precio_sugerido": 229000,
-    "ahorro_pct": 18,
-    "margen_estimado": 33
+    "ahorro_pct": 18
   }
 ]
