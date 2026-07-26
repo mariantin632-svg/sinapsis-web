@@ -320,11 +320,11 @@
         "periodo": "anual",
         "label": "Plan anual",
         "sesiones": "48 sesiones de osteopatía (1 por semana)",
-        "total": 2499000,
-        "equiv_valor": 208250,
+        "total": 1799000,
+        "equiv_valor": 149917,
         "equiv_label": "/mes",
-        "ahorro_label": "Sin aumentos por 12 meses",
-        "tarjeta_1pago": 2748900
+        "ahorro_label": "25% off",
+        "tarjeta_1pago": 1978900
       }
     ],
     "incluye": [

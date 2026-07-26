@@ -15,7 +15,7 @@ test.describe('Planes — escalera de menos a más', () => {
     await expect(cards.first()).toContainText('KINE 10');
     await expect(cards.first()).toContainText('$252.000');
     await expect(cards.last()).toContainText('PREMIER OSTEO');
-    await expect(cards.last()).toContainText('$2.499.000');
+    await expect(cards.last()).toContainText('$1.799.000');
 
     expect(errors, `Errores de consola:\n${errors.join('\n')}`).toHaveLength(0);
   });
@@ -44,12 +44,19 @@ test.describe('Planes — escalera de menos a más', () => {
     await expect(visible).not.toContainText('$599.000');
   });
 
-  test('los planes anuales de osteopatía no prometen un ahorro que no existe', async ({ page }) => {
+  test('ningun plan promete un ahorro que no existe', async ({ page }) => {
     await page.goto('/planes');
     await page.waitForLoadState('networkidle');
 
-    const osteo = page.locator('[data-plan-item]', { hasText: 'PREMIER OSTEO' }).first();
-    await expect(osteo).toContainText('Sin aumentos por 12 meses');
-    await expect(osteo).not.toContainText('% off');
+    // PREMIER OSTEO: 48 osteo sueltas son $2.400.000, el plan sale $1.799.000.
+    // El 25% es real, va como % off.
+    const premierOsteo = page.locator('[data-plan-item]', { hasText: 'PREMIER OSTEO' }).first();
+    await expect(premierOsteo).toContainText('25% off');
+
+    // OSTEO MANTENIMIENTO: contra 24 osteo sueltas el ahorro es de apenas 8%,
+    // no da para mostrarlo como descuento. Va el anclaje anti-inflación.
+    const osteoMant = page.locator('[data-plan-item]', { hasText: 'OSTEO MANTENIMIENTO' }).first();
+    await expect(osteoMant).toContainText('Sin aumentos por 12 meses');
+    await expect(osteoMant).not.toContainText('% off');
   });
 });
