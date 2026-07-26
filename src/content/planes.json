@@ -50,7 +50,7 @@
   {
     "slug": "premier-kine-plus",
     "nombre": "PREMIER KINE +",
-    "orden": 5,
+    "orden": 6,
     "tipo": "suscripcion",
     "subtitulo": "Kinesiología intensiva 2x",
     "hook": "Doble frecuencia para recuperarte más rápido.",
@@ -98,7 +98,7 @@
   {
     "slug": "performance",
     "nombre": "PERFORMANCE",
-    "orden": 6,
+    "orden": 7,
     "tipo": "suscripcion",
     "destacado": true,
     "subtitulo": "Rendimiento deportivo integral",
@@ -198,7 +198,7 @@
   {
     "slug": "osteo-mantenimiento",
     "nombre": "OSTEO MANTENIMIENTO",
-    "orden": 7,
+    "orden": 5,
     "tipo": "suscripcion",
     "subtitulo": "Osteopatía quincenal",
     "hook": "Osteopatía cada 15 días para sostener tu cuerpo en equilibrio.",
@@ -209,11 +209,11 @@
         "periodo": "anual",
         "label": "Plan anual",
         "sesiones": "24 sesiones de osteopatía (1 cada 15 días)",
-        "total": 1299000,
-        "equiv_valor": 108250,
+        "total": 1099000,
+        "equiv_valor": 91583,
         "equiv_label": "/mes",
         "ahorro_label": "Sin aumentos por 12 meses",
-        "tarjeta_1pago": 1428900
+        "tarjeta_1pago": 1208900
       }
     ],
     "incluye": [
