@@ -1,37 +1,32 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ComparativaPlanes from '../../components/planes/ComparativaPlanes.astro';
 import PlanesSection from '../../components/home/PlanesSection.astro';
-import QuizPlan from '../../components/tests/QuizPlan.astro';
+import CtaWhatsApp from '../../components/shared/CtaWhatsApp.astro';
 ---
-<BaseLayout title="Planes de suscripción · Sinapsis">
+<BaseLayout title="Planes y evaluaciones · Sinapsis">
   <section class="bg-white px-6 py-12">
     <div class="max-w-3xl mx-auto text-center">
-      <div class="text-xs text-gray-500 uppercase tracking-widest">Planes & tratamientos</div>
+      <div class="text-xs text-gray-500 uppercase tracking-widest">Planes & evaluaciones</div>
       <h1 class="text-3xl md:text-4xl font-bold text-violet-deep mt-3">Elegí tu plan de cuidado</h1>
-      <p class="text-gray-600 mt-3">Planes de suscripción anual o semestral y tratamientos puntuales, para acompañarte sin importar tu objetivo.</p>
+      <p class="text-gray-600 mt-3">Tratamientos de kinesiología y evaluaciones profesionales, con precio cerrado y todo por escrito.</p>
     </div>
   </section>
 
   <PlanesSection />
 
   <section class="bg-violet-deep px-6 py-12 md:py-16 border-t border-white/10">
-    <div class="max-w-2xl mx-auto">
-      <div class="text-center mb-8">
-        <div class="text-xs text-cream/50 uppercase tracking-widest">¿No sabés cuál elegir?</div>
-        <h2 class="text-2xl md:text-3xl font-bold text-cream mt-1">Descubrí tu plan ideal</h2>
-        <p class="text-cream/60 text-sm mt-2">4 preguntas y te decimos cuál te queda mejor.</p>
-      </div>
-      <div class="bg-violet-mid rounded-card p-6">
-        <QuizPlan />
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-violet-mid px-6 py-12">
-    <div class="max-w-5xl mx-auto">
-      <h2 class="text-cream text-2xl font-bold mb-6 text-center">Comparativa rápida</h2>
-      <ComparativaPlanes />
+    <div class="max-w-2xl mx-auto text-center">
+      <div class="text-xs text-cream/50 uppercase tracking-widest">¿Necesitás otra cosa?</div>
+      <h2 class="text-2xl md:text-3xl font-bold text-cream mt-1">Armamos planes a tu medida</h2>
+      <p class="text-cream/60 text-sm mt-2 mb-6">
+        Osteopatía, planes deportivos de largo plazo, atención a domicilio o suscripciones anuales:
+        contanos qué necesitás y te preparamos una propuesta personalizada.
+      </p>
+      <CtaWhatsApp
+        text="Consultar por WhatsApp"
+        message="Hola! Quería consultar por un plan a medida."
+        size="lg"
+      />
     </div>
   </section>
 </BaseLayout>

@@ -7,47 +7,37 @@ const preguntas = [
   {
     q: '¿Cuál es tu objetivo principal?',
     opciones: [
-      { t: 'Recuperarme de una lesión o dolor', p: { 'kine-10': 2, 'premier-kine': 1 } },
-      { t: 'Mantenerme y prevenir', p: { 'osteo-mantenimiento': 2, 'premier-kine': 1 } },
-      { t: 'Rendir en mi deporte', p: { performance: 3 } },
-      { t: 'Bajar de peso y ordenar hábitos', p: { reinicio: 3 } },
+      { t: 'Resolver una molestia reciente o leve', p: { 'kine-inicio': 3 } },
+      { t: 'Tratar una lesión con diagnóstico', p: { 'kine-10': 3 } },
+      { t: 'Conocer mi punto de partida antes de entrenar', p: { 'evaluacion-postural': 2, 'evaluacion-deportiva': 1 } },
+      { t: 'Medir mi rendimiento deportivo', p: { 'evaluacion-deportiva': 3 } },
     ],
   },
   {
-    q: '¿Con qué frecuencia querés venir?',
+    q: '¿Cuántas sesiones creés que necesitás?',
     opciones: [
-      { t: 'Algo puntual, pocas sesiones', p: { 'kine-10': 2 } },
-      { t: '1 vez por semana', p: { 'premier-kine': 2 } },
-      { t: '2 o más por semana', p: { 'premier-kine-plus': 2, performance: 1 } },
-      { t: 'Cada 15 días', p: { 'osteo-mantenimiento': 2 } },
+      { t: 'Pocas, es algo puntual', p: { 'kine-inicio': 2 } },
+      { t: 'Un tratamiento completo hasta el alta', p: { 'kine-10': 2 } },
+      { t: 'Por ahora solo quiero evaluarme', p: { 'evaluacion-postural': 1, 'evaluacion-deportiva': 1, 'evaluacion-nutricional': 1 } },
     ],
   },
   {
-    q: '¿Cómo preferís atenderte?',
+    q: 'Si te evaluaras hoy, ¿qué te gustaría conocer?',
     opciones: [
-      { t: 'Presencial siempre', p: { 'premier-kine': 1 } },
-      { t: 'Combino presencial y online', p: { conecta: 3 } },
-      { t: 'Casi todo online (viajo / vivo lejos)', p: { conecta: 4 } },
-    ],
-  },
-  {
-    q: '¿Querés un abordaje integral?',
-    opciones: [
-      { t: 'Solo kinesiología', p: { 'premier-kine': 1 } },
-      { t: 'Kine + osteo + nutrición', p: { performance: 2 } },
-      { t: 'Sumar nutrición para bajar de peso', p: { reinicio: 2 } },
+      { t: 'Mi postura y de dónde viene el dolor', p: { 'evaluacion-postural': 2 } },
+      { t: 'Mi fuerza, saltos y asimetrías', p: { 'evaluacion-deportiva': 2 } },
+      { t: 'Mi composición corporal y alimentación', p: { 'evaluacion-nutricional': 3 } },
+      { t: 'Nada puntual, vengo por tratamiento', p: { 'kine-10': 1, 'kine-inicio': 1 } },
     ],
   },
 ];
 
 const resultados = {
-  'kine-10': { nombre: 'KINE 10', desc: 'Un tratamiento puntual de 10 sesiones para resolver tu lesión.', href: '/planes/kine-10' },
-  'premier-kine': { nombre: 'PREMIER KINE', desc: 'Kinesiología una vez por semana, con seguimiento y prioridad de turnos.', href: '/planes/premier-kine' },
-  'premier-kine-plus': { nombre: 'PREMIER KINE +', desc: 'Doble frecuencia para recuperarte más rápido.', href: '/planes/premier-kine-plus' },
-  performance: { nombre: 'PERFORMANCE', desc: 'Kine deportiva + osteopatía + nutrición para rendir.', href: '/planes/performance' },
-  conecta: { nombre: 'CONECTA', desc: 'Híbrido online + presencial, ideal si viajás o vivís lejos.', href: '/planes/conecta' },
-  'osteo-mantenimiento': { nombre: 'OSTEO MANTENIMIENTO', desc: 'Osteopatía cada 15 días para mantenerte en equilibrio.', href: '/planes/osteo-mantenimiento' },
-  reinicio: { nombre: 'REINICIO', desc: 'Programa de 12 semanas (kinesiología + nutrición) para bajar de peso de forma sostenible.', href: '/planes/reinicio' },
+  'kine-inicio': { nombre: 'KINE INICIO', desc: 'Cinco sesiones con evaluación incluida para resolver lo puntual. Si necesitás continuar, pasás al KINE 10 pagando la diferencia.', href: '/planes/kine-inicio' },
+  'kine-10': { nombre: 'KINE 10', desc: 'Un tratamiento completo de 10 sesiones, de la evaluación al alta.', href: '/planes/kine-10' },
+  'evaluacion-postural': { nombre: 'EVALUACIÓN POSTURAL', desc: 'Un diagnóstico claro de tu postura, con informe escrito.', href: '/planes/evaluacion-postural' },
+  'evaluacion-deportiva': { nombre: 'EVALUACIÓN DEPORTIVA', desc: 'Saltos, fuerza y asimetrías medidos con datos reales.', href: '/planes/evaluacion-deportiva' },
+  'evaluacion-nutricional': { nombre: 'EVALUACIÓN NUTRICIONAL', desc: 'Composición corporal, hábitos y laboratorio interpretados por una nutricionista.', href: '/planes/evaluacion-nutricional' },
 };
 ---
 <div data-quiz>

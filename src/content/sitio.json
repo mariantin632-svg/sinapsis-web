@@ -7,8 +7,8 @@
     "provincia": "Buenos Aires"
   },
   "horarios": {
-    "lunes_viernes": "8:00 a 12:00 / 14:00 a 19:00",
-    "sabado": "8:00 a 14:00",
+    "lunes_viernes": "9:00 a 12:00 / 14:00 a 18:00",
+    "sabado": "9:00 a 12:00",
     "domingo": "Cerrado"
   },
   "contacto": {

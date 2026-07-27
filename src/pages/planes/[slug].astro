@@ -6,7 +6,7 @@ import type { Plan } from '../../content/_types';
 import { formatARS } from '../../lib/precios';
 
 export async function getStaticPaths() {
-  const planes = planesData as Plan[];
+  const planes = (planesData as Plan[]).filter((plan) => !plan.oculto);
   return planes.map((plan) => ({ params: { slug: plan.slug }, props: { plan } }));
 }
 
@@ -16,7 +16,7 @@ interface Props {
 
 const { plan } = Astro.props;
 const colorHex = plan.color_hex;
-const tipoLabel = plan.tipo === 'finito' ? 'Tratamiento' : 'Suscripción';
+const tipoLabel = plan.tipo_label ?? (plan.tipo === 'finito' ? 'Tratamiento' : 'Suscripción');
 
 // De menos a más: la duración más barata va primero y es la destacada.
 const duraciones = [...plan.duraciones].sort((a, b) => a.total - b.total);
@@ -78,8 +78,16 @@ const mensajeWhatsApp = `Hola! Me interesa el Plan ${plan.nombre} (${principal.l
         ))}
       </ul>
 
-      <div class="mt-8">
+      <div class="mt-8 flex flex-wrap items-center gap-3">
         <CtaWhatsApp text={`Quiero el Plan ${plan.nombre}`} message={mensajeWhatsApp} size="lg" />
+        {plan.pdf && (
+          <a
+            href={plan.pdf}
+            download
+            class="inline-flex items-center gap-2 px-5 py-3 rounded-pill border-2 text-sm font-bold transition hover:opacity-80"
+            style={`border-color: ${colorHex}; color: #1A1033;`}
+          >⬇ Descargar plan en PDF</a>
+        )}
       </div>
     </div>
   </section>

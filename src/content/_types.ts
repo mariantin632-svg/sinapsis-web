@@ -49,10 +49,13 @@ export interface Plan {
   nombre: string;
   orden: number;
   tipo: 'suscripcion' | 'finito';
+  tipo_label?: string;    // pisa el label derivado de tipo (ej. "Evaluación")
   subtitulo: string;      // kicker corto bajo el nombre
   hook: string;
   color_hex: string;      // color firma del plan (ej. "#5DCAA5")
   destacado?: boolean;
+  oculto?: boolean;       // true = no se lista ni se genera su página (el plan sigue existiendo en el centro)
+  pdf?: string;           // ruta pública al brochure descargable (ej. "/planes/pdf/plan-kine-10.pdf")
   duraciones: DuracionPrecio[];
   incluye: string[];
   beneficios_destacados: string[];

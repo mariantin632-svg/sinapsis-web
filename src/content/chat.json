@@ -18,7 +18,7 @@
     },
     {
       "q": "📍 Dónde estamos y horarios",
-      "a": "Estamos en Alfredo Nobel 336, José C. Paz. Lunes a viernes de 8 a 12 y de 14 a 19; sábados de 8 a 14.",
+      "a": "Estamos en Alfredo Nobel 336, José C. Paz. Lunes a viernes de 9 a 12 y de 14 a 18; sábados de 9 a 12.",
       "cta": { "label": "Cómo llegar", "action": "/contacto" }
     },
     {
@@ -28,7 +28,7 @@
     },
     {
       "q": "🧩 Planes y suscripciones",
-      "a": "Tenemos planes anuales y semestrales (kinesiología, osteopatía, performance, online) y tratamientos puntuales, pensados para cuidarte todo el año.",
+      "a": "Tenemos tratamientos de kinesiología de 5 y 10 sesiones con evaluación incluida, y evaluaciones profesionales (postural, deportiva y nutricional). ¿Necesitás otra cosa? Escribinos y armamos un plan a tu medida.",
       "cta": { "label": "Ver planes", "action": "/planes" }
     },
     {

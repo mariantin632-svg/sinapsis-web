@@ -3,12 +3,11 @@ import { test, expect } from '@playwright/test';
 const PAGES = [
   { path: '/', name: 'Home' },
   { path: '/planes', name: 'Planes index' },
-  { path: '/planes/premier-kine', name: 'Plan PREMIER KINE' },
-  { path: '/planes/premier-kine-plus', name: 'Plan PREMIER KINE +' },
-  { path: '/planes/performance', name: 'Plan PERFORMANCE' },
-  { path: '/planes/conecta', name: 'Plan CONECTA' },
-  { path: '/planes/osteo-mantenimiento', name: 'Plan Osteo Mantenimiento' },
+  { path: '/planes/kine-inicio', name: 'Plan KINE INICIO' },
   { path: '/planes/kine-10', name: 'Plan Kine 10' },
+  { path: '/planes/evaluacion-postural', name: 'Evaluación postural' },
+  { path: '/planes/evaluacion-deportiva', name: 'Evaluación deportiva' },
+  { path: '/planes/evaluacion-nutricional', name: 'Evaluación nutricional' },
   { path: '/packs', name: 'Packs index' },
   { path: '/packs/sos-express', name: 'Pack SOS Express' },
   { path: '/packs/reset-lumbar', name: 'Pack Reset Lumbar' },
@@ -51,13 +50,13 @@ test('all WhatsApp links use wa.me with correct phone', async ({ page }) => {
 test('Filtros de planes en la home ocultan/muestran cards', async ({ page }) => {
   await page.goto('/');
   const total = await page.locator('[data-plan-item]').count();
-  expect(total).toBe(8);
-  await page.locator('[data-plan-filtro][data-cat="osteopatia"]').click();
+  expect(total).toBe(5);
+  await page.locator('[data-plan-filtro][data-cat="evaluaciones"]').click();
   const visibles = await page.locator('[data-plan-item]:visible').count();
-  expect(visibles).toBe(2);
+  expect(visibles).toBe(3);
   await page.locator('[data-plan-filtro][data-cat="all"]').click();
   const visiblesTodos = await page.locator('[data-plan-item]:visible').count();
-  expect(visiblesTodos).toBe(8);
+  expect(visiblesTodos).toBe(5);
 });
 
 test('Filtros de packs ocultan/muestran items', async ({ page }) => {

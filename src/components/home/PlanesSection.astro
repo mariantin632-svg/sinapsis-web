@@ -4,33 +4,31 @@ import type { Plan } from '../../content/_types';
 import { formatARS } from '../../lib/precios';
 import Icon from '../shared/Icon.astro';
 
-const planesTipados = (planes as Plan[]).sort((a, b) => a.orden - b.orden);
+const planesTipados = (planes as Plan[])
+  .filter((p) => !p.oculto)
+  .sort((a, b) => a.orden - b.orden);
 
 const categorias = [
   { value: 'all', label: 'Todos' },
   { value: 'kinesiologia', label: 'Kinesiología' },
-  { value: 'osteopatia', label: 'Osteopatía' },
-  { value: 'rendimiento', label: 'Rendimiento' },
+  { value: 'evaluaciones', label: 'Evaluaciones' },
 ];
 
 const categoriaPorSlug: Record<string, string> = {
-  'premier-kine': 'kinesiologia',
-  'premier-kine-plus': 'kinesiologia',
-  conecta: 'kinesiologia',
+  'kine-inicio': 'kinesiologia',
   'kine-10': 'kinesiologia',
-  'premier-osteo': 'osteopatia',
-  'osteo-mantenimiento': 'osteopatia',
-  performance: 'rendimiento',
-  reinicio: 'rendimiento',
+  'evaluacion-postural': 'evaluaciones',
+  'evaluacion-deportiva': 'evaluaciones',
+  'evaluacion-nutricional': 'evaluaciones',
 };
 
 const toggleLabels: Record<string, string> = { anual: '12 meses', semestral: '6 meses' };
 
 const cards = planesTipados.map((p) => {
-  // La card entra por la duración más barata (semestral si existe) y ofrece el
-  // resto en un toggle: la escalera se lee de menos a más, no al revés.
+  // La card entra por la duración más barata y ofrece el resto en un toggle:
+  // la escalera se lee de menos a más, no al revés.
   const opciones = [...p.duraciones].sort((a, b) => a.total - b.total);
-  const tipoLabel = p.tipo === 'suscripcion' ? 'Suscripción' : 'Tratamiento';
+  const tipoLabel = p.tipo_label ?? (p.tipo === 'suscripcion' ? 'Suscripción' : 'Tratamiento');
   return {
     ...p,
     categoria: categoriaPorSlug[p.slug] ?? 'kinesiologia',
@@ -51,7 +49,7 @@ const cards = planesTipados.map((p) => {
   <div class="text-center max-w-[640px] mx-auto mb-9">
     <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage-dark">Planes &amp; tratamientos</p>
     <h2 class="m-0 mb-2.5 font-display font-semibold text-[clamp(1.9rem,4vw,2.6rem)] leading-[1.12] tracking-[-0.02em] text-sn-violet">Encontrá tu plan ideal</h2>
-    <p class="m-0 text-[15px] text-gray-500">Ordenados de menor a mayor, para que entres por donde te sirva. Pago único al activar.</p>
+    <p class="m-0 text-[15px] text-gray-500">Tratamientos y evaluaciones con precio cerrado. Pago único al activar.</p>
   </div>
 
   <div class="flex flex-wrap justify-center gap-2.5 mb-9">

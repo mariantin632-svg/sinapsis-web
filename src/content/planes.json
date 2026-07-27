@@ -1,8 +1,229 @@
 [
   {
+    "slug": "kine-inicio",
+    "nombre": "KINE INICIO",
+    "orden": 1,
+    "tipo": "finito",
+    "subtitulo": "Tratamiento de 5 sesiones",
+    "hook": "Cinco sesiones para resolver lo puntual, con evaluación incluida.",
+    "color_hex": "#5DCAA5",
+    "pdf": "/planes/pdf/plan-kine-inicio-5.pdf",
+    "para_quien": "Para una molestia reciente o lesión leve que necesita pocas sesiones con seguimiento real. Tu puerta de entrada al abordaje de Sinapsis.",
+    "duraciones": [
+      {
+        "periodo": "unico",
+        "label": "5 sesiones",
+        "sesiones": "5 sesiones de kinesiología + evaluación inicial",
+        "total": 149000,
+        "equiv_valor": 24833,
+        "equiv_label": "/sesión",
+        "ahorro_label": "$31.000 off",
+        "tarjeta_1pago": 163900
+      }
+    ],
+    "incluye": [
+      "5 sesiones de kinesiología (50 min, 1-2 por semana)",
+      "Evaluación funcional inicial con informe escrito",
+      "Pase al KINE 10: si necesitás continuar, pagás solo la diferencia",
+      "Rutina de ejercicios personalizada para casa",
+      "Consultas por WhatsApp (respuesta en 24 hs hábiles)",
+      "Acceso preferencial a la agenda",
+      "10% off en osteopatía y evaluaciones",
+      "Ventana de arrepentimiento de 7 días + pausa por causa médica (hasta 60 días)"
+    ],
+    "beneficios_destacados": [
+      "5 sesiones + evaluación",
+      "Pase al KINE 10 por diferencia",
+      "El más accesible"
+    ]
+  },
+  {
+    "slug": "kine-10",
+    "nombre": "KINE 10",
+    "orden": 2,
+    "tipo": "finito",
+    "destacado": true,
+    "subtitulo": "Tratamiento de 10 sesiones",
+    "hook": "Resolvé una lesión puntual con un tratamiento completo.",
+    "color_hex": "#C0C0C0",
+    "pdf": "/planes/pdf/plan-kine-10.pdf",
+    "para_quien": "Para una lesión con diagnóstico que necesita un tratamiento acotado y completo, de la evaluación al alta, sin compromiso de suscripción.",
+    "duraciones": [
+      {
+        "periodo": "unico",
+        "label": "10 sesiones",
+        "sesiones": "10 sesiones de kinesiología + evaluaciones",
+        "total": 249000,
+        "equiv_valor": 24900,
+        "equiv_label": "/sesión",
+        "ahorro_label": "$51.000 off",
+        "tarjeta_1pago": 273900
+      }
+    ],
+    "incluye": [
+      "10 sesiones de kinesiología (50 min, 1-2 por semana)",
+      "Evaluación funcional inicial con informe escrito",
+      "Evaluación final con informe de alta — a pedido, sin costo extra",
+      "Rutina de ejercicios personalizada para casa",
+      "Consultas por WhatsApp (respuesta en 24 hs hábiles)",
+      "Acceso preferencial a la agenda",
+      "10% off en osteopatía y evaluaciones",
+      "Ventana de arrepentimiento de 7 días + pausa por causa médica (hasta 90 días)"
+    ],
+    "beneficios_destacados": [
+      "10 sesiones + evaluación",
+      "Informes escritos",
+      "Sin suscripción"
+    ]
+  },
+  {
+    "slug": "evaluacion-postural",
+    "nombre": "EVALUACIÓN POSTURAL",
+    "orden": 3,
+    "tipo": "finito",
+    "tipo_label": "Evaluación",
+    "subtitulo": "Postura completa + informe",
+    "hook": "Un diagnóstico claro de tu postura para saber por dónde empezar.",
+    "color_hex": "#7DC4B5",
+    "pdf": "/planes/pdf/evaluacion-postural.pdf",
+    "para_quien": "Para dolores de cuello, espalda o zona lumbar sin causa clara, cambios posturales o un punto de partida objetivo antes de entrenar. La realiza el Lic. Martín Niro.",
+    "duraciones": [
+      {
+        "periodo": "unico",
+        "label": "Evaluación",
+        "sesiones": "1 sesión · devolución en la misma sesión + informe",
+        "total": 55000,
+        "equiv_valor": 55000,
+        "equiv_label": "/evaluación",
+        "tarjeta_1pago": 60500
+      },
+      {
+        "periodo": "unico",
+        "label": "Antes y después",
+        "sesiones": "2 evaluaciones: pre y post tratamiento · informe comparativo",
+        "total": 89000,
+        "equiv_valor": 44500,
+        "equiv_label": "/evaluación",
+        "ahorro_label": "$21.000 off",
+        "tarjeta_1pago": 97900
+      }
+    ],
+    "incluye": [
+      "Evaluación postural estática en los tres planos (con plomada)",
+      "Análisis de marcha y dinámica",
+      "Test de cadenas musculares (acortamientos y compensaciones)",
+      "Evaluación respiratoria / diafragmática",
+      "Registro fotográfico postural para comparativa futura",
+      "Devolución de resultados en la misma sesión",
+      "Informe clínico escrito (PDF) dentro de las 48 hs",
+      "Opción ANTES Y DESPUÉS: segunda evaluación al terminar tu tratamiento (dentro de los 6 meses) con informe comparativo"
+    ],
+    "beneficios_destacados": [
+      "Informe clínico escrito",
+      "Devolución en la misma sesión",
+      "Lic. Martín Niro"
+    ]
+  },
+  {
+    "slug": "evaluacion-deportiva",
+    "nombre": "EVALUACIÓN DEPORTIVA",
+    "orden": 4,
+    "tipo": "finito",
+    "tipo_label": "Evaluación",
+    "subtitulo": "Rendimiento con datos reales",
+    "hook": "Medí tu rendimiento con datos reales. Entrená con propósito.",
+    "color_hex": "#D4A030",
+    "pdf": "/planes/pdf/evaluacion-deportiva.pdf",
+    "para_quien": "Para deportistas que quieren conocer su nivel de base, volver a entrenar después de una lesión o detectar asimetrías de riesgo. La realiza el Lic. Santiago Duhau.",
+    "duraciones": [
+      {
+        "periodo": "unico",
+        "label": "Evaluación",
+        "sesiones": "1 sesión · devolución en la misma sesión + informe",
+        "total": 55000,
+        "equiv_valor": 55000,
+        "equiv_label": "/evaluación",
+        "tarjeta_1pago": 60500
+      },
+      {
+        "periodo": "unico",
+        "label": "Antes y después",
+        "sesiones": "2 evaluaciones: pre y post tratamiento · informe comparativo",
+        "total": 89000,
+        "equiv_valor": 44500,
+        "equiv_label": "/evaluación",
+        "ahorro_label": "$21.000 off",
+        "tarjeta_1pago": 97900
+      }
+    ],
+    "incluye": [
+      "Test de saltos (CMJ, SJ, Drop Jump) con índices RSI y elástico",
+      "Dinamometría bilateral de miembros inferiores (H:Q ratio y LSI)",
+      "Handgrip bilateral de miembros superiores",
+      "Test de esfuerzo aeróbico (VO₂ estimado)",
+      "Análisis de marcha y carrera",
+      "Devolución de resultados en la misma sesión",
+      "Informe deportivo escrito con rangos de referencia bibliográficos (48 hs)",
+      "Opción ANTES Y DESPUÉS: segunda batería al terminar tu proceso (dentro de los 6 meses) con comparativo de índices"
+    ],
+    "beneficios_destacados": [
+      "Datos objetivos (saltos, fuerza, VO₂)",
+      "Índices con referencia científica",
+      "Lic. Santiago Duhau"
+    ]
+  },
+  {
+    "slug": "evaluacion-nutricional",
+    "nombre": "EVALUACIÓN NUTRICIONAL",
+    "orden": 5,
+    "tipo": "finito",
+    "tipo_label": "Evaluación",
+    "subtitulo": "Composición corporal + hábitos",
+    "hook": "Un punto de partida real para comer mejor y rendir más.",
+    "color_hex": "#D89B7A",
+    "pdf": "/planes/pdf/evaluacion-nutricional.pdf",
+    "para_quien": "Para conocer tu composición corporal más allá de la balanza, interpretar tus análisis y arrancar un plan de alimentación con datos objetivos. La realiza la Lic. Jimena Avalos.",
+    "duraciones": [
+      {
+        "periodo": "unico",
+        "label": "Evaluación",
+        "sesiones": "1 sesión · devolución en la misma sesión + informe",
+        "total": 55000,
+        "equiv_valor": 55000,
+        "equiv_label": "/evaluación",
+        "tarjeta_1pago": 60500
+      },
+      {
+        "periodo": "unico",
+        "label": "Antes y después",
+        "sesiones": "2 evaluaciones: pre y post tratamiento · informe comparativo",
+        "total": 89000,
+        "equiv_valor": 44500,
+        "equiv_label": "/evaluación",
+        "ahorro_label": "$21.000 off",
+        "tarjeta_1pago": 97900
+      }
+    ],
+    "incluye": [
+      "Antropometría completa (IMC, ICC, ICT)",
+      "Composición corporal por pliegues o bioimpedancia",
+      "Análisis de hábitos alimentarios y escala MEDAS-14",
+      "Interpretación de análisis bioquímicos (si traés laboratorio reciente)",
+      "Devolución de resultados en la misma sesión",
+      "Informe nutricional escrito con rangos de referencia (48 hs)",
+      "Opción ANTES Y DESPUÉS: segunda evaluación al terminar tu proceso (dentro de los 6 meses) con comparativo"
+    ],
+    "beneficios_destacados": [
+      "Composición corporal real",
+      "Interpretación de laboratorio",
+      "Lic. Jimena Avalos"
+    ]
+  },
+  {
     "slug": "premier-kine",
     "nombre": "PREMIER KINE",
-    "orden": 2,
+    "orden": 11,
+    "oculto": true,
     "tipo": "suscripcion",
     "subtitulo": "Kinesiología semanal",
     "hook": "Tu kinesiólogo fijo, todas las semanas.",
@@ -34,23 +255,23 @@
       "1 sesión de kinesiología por semana",
       "Evaluación funcional inicial con informe escrito",
       "Revaluaciones con informe (2 en anual · 1 en semestral)",
-      "Órdenes médicas digitales sin límite",
-      "Consultas clínicas por WhatsApp sin límite",
+      "Consultas por WhatsApp (respuesta en 24 hs hábiles)",
       "Prioridad de turnos (lugar fijo en agenda)",
-      "10% off en prestaciones extra (osteopatía, presoterapia, domicilio)",
+      "10% off en osteopatía y evaluaciones",
       "Ventana de arrepentimiento de 7 días",
       "Pausa por causa médica (hasta 90 días en anual · 60 en semestral)"
     ],
     "beneficios_destacados": [
       "1 kinesio / semana",
-      "Órdenes digitales sin límite",
+      "Lugar fijo en agenda",
       "Prioridad de turnos"
     ]
   },
   {
     "slug": "premier-kine-plus",
     "nombre": "PREMIER KINE +",
-    "orden": 6,
+    "orden": 12,
+    "oculto": true,
     "tipo": "suscripcion",
     "subtitulo": "Kinesiología intensiva 2x",
     "hook": "Doble frecuencia para recuperarte más rápido.",
@@ -82,25 +303,24 @@
       "2 sesiones de kinesiología por semana",
       "Evaluación funcional inicial con informe escrito",
       "Revaluaciones semestrales con informe (2 en anual · 1 en semestral)",
-      "Órdenes médicas digitales sin límite",
-      "Consultas clínicas por WhatsApp sin límite",
+      "Consultas por WhatsApp (respuesta en 24 hs hábiles)",
       "Prioridad de turnos (lugar fijo en agenda)",
-      "10% off en prestaciones extra (osteopatía, presoterapia, domicilio)",
+      "10% off en osteopatía y evaluaciones",
       "Ventana de arrepentimiento de 7 días",
       "Pausa por causa médica (hasta 90 días en anual · 60 en semestral)"
     ],
     "beneficios_destacados": [
       "2 kinesio / semana",
       "Recuperación acelerada",
-      "Órdenes sin límite"
+      "Lugar fijo en agenda"
     ]
   },
   {
     "slug": "performance",
     "nombre": "PERFORMANCE",
-    "orden": 7,
+    "orden": 13,
+    "oculto": true,
     "tipo": "suscripcion",
-    "destacado": true,
     "subtitulo": "Rendimiento deportivo integral",
     "hook": "Kinesiología deportiva, osteopatía y nutrición en un solo plan.",
     "color_hex": "#D4A030",
@@ -133,10 +353,9 @@
       "1 consulta de nutrición deportiva / mes — Lic. Jimena Avalos",
       "Evaluación funcional deportiva con informe",
       "Revaluaciones con informe",
-      "Órdenes médicas digitales sin límite",
-      "Consultas clínicas por WhatsApp sin límite",
+      "Consultas por WhatsApp (respuesta en 24 hs hábiles)",
       "Prioridad de turnos",
-      "10% off en prestaciones extra",
+      "10% off en osteopatía y evaluaciones",
       "Ventana de arrepentimiento de 7 días + pausa por causa médica"
     ],
     "beneficios_destacados": [
@@ -148,7 +367,8 @@
   {
     "slug": "conecta",
     "nombre": "CONECTA",
-    "orden": 3,
+    "orden": 14,
+    "oculto": true,
     "tipo": "suscripcion",
     "subtitulo": "Híbrido online + presencial",
     "hook": "Atención presencial cuando hacen falta manos, online para el resto.",
@@ -183,10 +403,9 @@
       "1 consulta traumatológica online trimestral — Dr. Dante Centellas",
       "Evaluación inicial presencial con informe",
       "Revaluaciones con informe",
-      "Órdenes médicas digitales sin límite",
-      "Consultas clínicas por WhatsApp sin límite",
+      "Consultas por WhatsApp (respuesta en 24 hs hábiles)",
       "Prioridad de turnos",
-      "10% off en prestaciones extra",
+      "10% off en osteopatía y evaluaciones",
       "Ventana de arrepentimiento de 7 días + pausa por causa médica"
     ],
     "beneficios_destacados": [
@@ -198,7 +417,8 @@
   {
     "slug": "osteo-mantenimiento",
     "nombre": "OSTEO MANTENIMIENTO",
-    "orden": 5,
+    "orden": 15,
+    "oculto": true,
     "tipo": "suscripcion",
     "subtitulo": "Osteopatía quincenal",
     "hook": "Osteopatía cada 15 días para sostener tu cuerpo en equilibrio.",
@@ -212,7 +432,7 @@
         "total": 1099000,
         "equiv_valor": 91583,
         "equiv_label": "/mes",
-        "ahorro_label": "Sin aumentos por 12 meses",
+        "ahorro_label": "$101.000 off",
         "tarjeta_1pago": 1208900
       }
     ],
@@ -221,11 +441,10 @@
       "Evaluación inicial + revaluación semestral con informe escrito",
       "2 consultas de nutrición (inicial + 6 meses)",
       "2 consultas de traumatología (semestrales)",
-      "4 órdenes médicas digitales",
       "Pautas de autocuidado",
       "Prioridad de turnos",
-      "Consultas clínicas por WhatsApp",
-      "10% off en prestaciones extra"
+      "Consultas por WhatsApp (respuesta en 24 hs hábiles)",
+      "10% off en osteopatía y evaluaciones"
     ],
     "beneficios_destacados": [
       "Osteopatía quincenal",
@@ -234,82 +453,45 @@
     ]
   },
   {
-    "slug": "kine-10",
-    "nombre": "KINE 10",
-    "orden": 1,
-    "tipo": "finito",
-    "subtitulo": "Tratamiento de 10 sesiones",
-    "hook": "Resolvé una lesión puntual con un tratamiento completo.",
-    "color_hex": "#C0C0C0",
-    "para_quien": "Para una lesión o dolor puntual que necesita un tratamiento acotado y completo, sin compromiso de suscripción.",
-    "duraciones": [
-      {
-        "periodo": "unico",
-        "label": "10 sesiones",
-        "sesiones": "10 sesiones de kinesiología",
-        "total": 252000,
-        "equiv_valor": 25200,
-        "equiv_label": "/sesión",
-        "ahorro_label": "16% off",
-        "tarjeta_1pago": 277200
-      }
-    ],
-    "incluye": [
-      "10 sesiones de kinesiología",
-      "Evaluación funcional inicial con informe escrito",
-      "Revaluación intermedia con informe",
-      "2 órdenes médicas digitales",
-      "Plan de ejercicios para casa",
-      "10% off en prestaciones extra (osteopatía, presoterapia, eval funcional adicional)",
-      "Consultas clínicas por WhatsApp",
-      "Ventana de arrepentimiento de 7 días + pausa por causa médica (hasta 90 días)"
-    ],
-    "beneficios_destacados": [
-      "10 sesiones",
-      "Informe escrito",
-      "Sin suscripción"
-    ]
-  },
-  {
     "slug": "reinicio",
     "nombre": "REINICIO",
-    "orden": 4,
+    "orden": 16,
+    "oculto": true,
     "tipo": "finito",
-    "subtitulo": "Descenso de peso · 12 semanas",
-    "hook": "Bajá de peso de forma saludable, con kinesiología y nutrición.",
+    "subtitulo": "Postura · kine + osteopatía",
+    "hook": "Dolor cervical o lumbar por trabajo sedentario: reordenamos tu postura.",
     "color_hex": "#D89B7A",
-    "para_quien": "Para quienes quieren bajar de peso y recomponer su cuerpo de forma sostenible, sin dietas mágicas, con un marco de 12 semanas y seguimiento profesional.",
+    "para_quien": "Para dolor cervical/lumbar por trabajo sedentario: evaluación postural, kinesiología y osteopatía coordinadas en 2 meses.",
     "duraciones": [
       {
         "periodo": "unico",
-        "label": "Programa 12 semanas",
-        "sesiones": "24 kine · 6 nutri · 3 evaluaciones · 8 presoterapia",
-        "total": 799000,
-        "equiv_valor": 266000,
-        "equiv_label": "/mes",
-        "ahorro_label": "20% off",
-        "tarjeta_1pago": 878900
+        "label": "Programa 2 meses",
+        "sesiones": "Eval postural · 8 kine · 2 osteo",
+        "total": 299000,
+        "equiv_valor": 29900,
+        "equiv_label": "/sesión",
+        "ahorro_label": "19% off",
+        "tarjeta_1pago": 328900
       }
     ],
     "incluye": [
-      "24 sesiones de kinesiología / ejercicio terapéutico (2 por semana) — Lic. Martín Niro",
-      "6 consultas de nutrición (inicial + 5 controles quincenales) — Lic. Jimena Avalos",
-      "Plan alimentario personalizado con ajuste continuo",
-      "3 evaluaciones funcionales + composición corporal con informe escrito (inicio, semana 6 y cierre)",
-      "8 sesiones de presoterapia (botas de compresión)",
-      "Programa cerrado de 12 semanas (vigencia 14 semanas)",
-      "Ventana de arrepentimiento de 7 días + pausa por causa médica (hasta 90 días)"
+      "Evaluación postural integral con informe",
+      "8 sesiones de kinesiología",
+      "2 sesiones de osteopatía — Lic. Martín Niro",
+      "Rutina de pausas activas y ergonomía",
+      "Ventana de arrepentimiento de 7 días + pausa por causa médica"
     ],
     "beneficios_destacados": [
-      "Kine + Nutrición",
-      "12 semanas",
-      "Descenso de peso sostenible"
+      "Kine + Osteopatía",
+      "Evaluación postural",
+      "2 meses"
     ]
   },
   {
     "slug": "premier-osteo",
     "nombre": "PREMIER OSTEO",
-    "orden": 8,
+    "orden": 17,
+    "oculto": true,
     "tipo": "suscripcion",
     "subtitulo": "Osteopatía semanal · anual",
     "hook": "Trabajo osteopático sostenido, semana a semana, todo el año.",
@@ -321,7 +503,7 @@
         "label": "Plan anual",
         "sesiones": "48 sesiones de osteopatía (1 por semana)",
         "total": 1799000,
-        "equiv_valor": 149917,
+        "equiv_valor": 149916,
         "equiv_label": "/mes",
         "ahorro_label": "25% off",
         "tarjeta_1pago": 1978900
@@ -333,11 +515,10 @@
       "Revaluación osteopática semestral con informe",
       "2 consultas de nutrición (inicial + a los 6 meses)",
       "2 consultas de traumatología (semestrales)",
-      "4 órdenes médicas digitales (1 cada 3 meses; adicionales 15% off)",
       "Pautas de autocuidado para casa",
       "Prioridad de turnos",
-      "Consultas clínicas por WhatsApp",
-      "10% off en prestaciones extra"
+      "Consultas por WhatsApp (respuesta en 24 hs hábiles)",
+      "10% off en osteopatía y evaluaciones"
     ],
     "beneficios_destacados": [
       "Osteopatía semanal",
