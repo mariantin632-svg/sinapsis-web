@@ -94,7 +94,7 @@ const cards = planesTipados.map((p) => {
               {p.opciones.map((o, i) => (
                 <button
                   type="button"
-                  data-periodo={o.periodo}
+                  data-idx={i}
                   class={`px-3 py-1 rounded-full text-[11px] transition ${
                     i === 0 ? 'bg-white text-sn-violet font-semibold shadow-sm' : 'text-gray-500 font-medium'
                   }`}
@@ -103,7 +103,7 @@ const cards = planesTipados.map((p) => {
             </div>
           )}
           {p.opciones.map((o, i) => (
-            <div data-plan-precio data-periodo={o.periodo} class={i === 0 ? '' : 'hidden'}>
+            <div data-plan-precio data-idx={i} class={i === 0 ? '' : 'hidden'}>
               <span class="inline-block text-[11px] font-semibold text-[#0f6e56] bg-[#e8f3ee] px-2.5 py-1 rounded-full mb-3">{o.descuento}</span>
               {p.multiple && <div class="text-[11px] text-gray-400 leading-none mb-1">{o.anclaje}</div>}
               <div class="font-display font-bold text-[26px] text-sn-deep leading-none">{o.precioTotal}</div>
@@ -158,7 +158,7 @@ const cards = planesTipados.map((p) => {
           b.classList.add(...(activo ? periodoOn : periodoOff));
         });
         card.querySelectorAll<HTMLElement>('[data-plan-precio]').forEach((bloque) => {
-          bloque.classList.toggle('hidden', bloque.dataset.periodo !== btn.dataset.periodo);
+          bloque.classList.toggle('hidden', bloque.dataset.idx !== btn.dataset.idx);
         });
       });
     });
