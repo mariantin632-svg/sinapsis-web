@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 const VISIBLES = [
   { slug: 'kine-inicio', nombre: 'KINE INICIO', precio: '$149.000', pdf: '/planes/pdf/plan-kine-inicio-5.pdf' },
-  { slug: 'kine-10', nombre: 'KINE 10', precio: '$249.000', pdf: '/planes/pdf/plan-kine-10.pdf' },
+  { slug: 'kine-10', nombre: 'KINE 10', precio: '$269.000', pdf: '/planes/pdf/plan-kine-10.pdf' },
   { slug: 'evaluacion-postural', nombre: 'EVALUACIÓN POSTURAL', precio: '$55.000', pdf: '/planes/pdf/evaluacion-postural.pdf' },
   { slug: 'evaluacion-deportiva', nombre: 'EVALUACIÓN DEPORTIVA', precio: '$55.000', pdf: '/planes/pdf/evaluacion-deportiva.pdf' },
   { slug: 'evaluacion-nutricional', nombre: 'EVALUACIÓN NUTRICIONAL', precio: '$55.000', pdf: '/planes/pdf/evaluacion-nutricional.pdf' },
