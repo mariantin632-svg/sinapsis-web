@@ -77,9 +77,47 @@
     ]
   },
   {
+    "slug": "osteo-4",
+    "nombre": "OSTEO 4",
+    "orden": 3,
+    "tipo": "finito",
+    "subtitulo": "Ciclo corto de osteopatía",
+    "hook": "Un ciclo corto de osteopatía para destrabar lo que el cuerpo viene arrastrando.",
+    "color_hex": "#D89B7A",
+    "pdf": "/planes/pdf/plan-osteo-4.pdf",
+    "para_quien": "Para tensiones recurrentes, dolor de espalda o restricciones de movilidad que no ceden con descanso — o para conocer el abordaje osteopático del centro en un ciclo corto e intensivo. Las cuatro sesiones las cubre personalmente el Lic. Martín Niro.",
+    "nota_pago": "Pago único al activar el plan. El precio ya incluye el 10% de descuento por pago único con transferencia o efectivo; con tarjeta de crédito el descuento no aplica (1 pago de $200.000, cuotas a consultar).",
+    "duraciones": [
+      {
+        "periodo": "unico",
+        "label": "4 sesiones",
+        "sesiones": "4 sesiones de osteopatía (60 min) + evaluación inicial",
+        "total": 179000,
+        "equiv_valor": 44750,
+        "equiv_label": "/sesión",
+        "ahorro_label": "$21.000 off",
+        "tarjeta_1pago": 200000
+      }
+    ],
+    "incluye": [
+      "4 sesiones de osteopatía (60 min, semanal o quincenal según el caso) — Lic. Martín Niro",
+      "Evaluación osteopática inicial en la primera sesión, con informe escrito",
+      "Técnicas estructurales, fasciales, viscerales y de regulación del sistema nervioso autónomo",
+      "Pautas de autocuidado para casa, actualizadas sesión a sesión",
+      "Consultas por WhatsApp (respuesta en 24 hs hábiles)",
+      "10% off en kinesiología y evaluaciones durante el plan",
+      "Ventana de arrepentimiento de 7 días + pausa por causa médica (hasta 60 días)"
+    ],
+    "beneficios_destacados": [
+      "4 sesiones + evaluación",
+      "Todas con el director",
+      "10% off ya aplicado"
+    ]
+  },
+  {
     "slug": "evaluacion-postural",
     "nombre": "EVALUACIÓN POSTURAL",
-    "orden": 3,
+    "orden": 4,
     "tipo": "finito",
     "tipo_label": "Evaluación",
     "subtitulo": "Postura completa + informe",
@@ -127,7 +165,7 @@
   {
     "slug": "evaluacion-deportiva",
     "nombre": "EVALUACIÓN DEPORTIVA",
-    "orden": 4,
+    "orden": 5,
     "tipo": "finito",
     "tipo_label": "Evaluación",
     "subtitulo": "Rendimiento con datos reales",
@@ -175,7 +213,7 @@
   {
     "slug": "evaluacion-nutricional",
     "nombre": "EVALUACIÓN NUTRICIONAL",
-    "orden": 5,
+    "orden": 6,
     "tipo": "finito",
     "tipo_label": "Evaluación",
     "subtitulo": "Composición corporal + hábitos",

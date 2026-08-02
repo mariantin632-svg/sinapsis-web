@@ -56,6 +56,7 @@ export interface Plan {
   destacado?: boolean;
   oculto?: boolean;       // true = no se lista ni se genera su página (el plan sigue existiendo en el centro)
   pdf?: string;           // ruta pública al brochure descargable (ej. "/planes/pdf/plan-kine-10.pdf")
+  nota_pago?: string;     // pisa la nota genérica de métodos de pago (ej. osteo-4: tarjeta sin descuento, no +10%)
   duraciones: DuracionPrecio[];
   incluye: string[];
   beneficios_destacados: string[];

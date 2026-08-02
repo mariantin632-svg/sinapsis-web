@@ -61,7 +61,7 @@ const mensajeWhatsApp = `Hola! Me interesa el Plan ${plan.nombre} (${principal.l
         ))}
       </div>
       <p class="text-[11px] opacity-55 mt-4">
-        Pago único al activar el plan. Métodos: transferencia, efectivo en el centro o tarjeta de crédito (10% de recargo en 1 pago; cuotas a consultar).
+        {plan.nota_pago ?? 'Pago único al activar el plan. Métodos: transferencia, efectivo en el centro o tarjeta de crédito (10% de recargo en 1 pago; cuotas a consultar).'}
       </p>
     </div>
   </section>

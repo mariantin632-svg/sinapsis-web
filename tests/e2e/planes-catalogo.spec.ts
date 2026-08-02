@@ -3,6 +3,7 @@ import { test, expect } from '@playwright/test';
 const VISIBLES = [
   { slug: 'kine-inicio', nombre: 'KINE INICIO', precio: '$149.000', pdf: '/planes/pdf/plan-kine-inicio-5.pdf' },
   { slug: 'kine-10', nombre: 'KINE 10', precio: '$269.000', pdf: '/planes/pdf/plan-kine-10.pdf' },
+  { slug: 'osteo-4', nombre: 'OSTEO 4', precio: '$179.000', pdf: '/planes/pdf/plan-osteo-4.pdf' },
   { slug: 'evaluacion-postural', nombre: 'EVALUACIÓN POSTURAL', precio: '$55.000', pdf: '/planes/pdf/evaluacion-postural.pdf' },
   { slug: 'evaluacion-deportiva', nombre: 'EVALUACIÓN DEPORTIVA', precio: '$55.000', pdf: '/planes/pdf/evaluacion-deportiva.pdf' },
   { slug: 'evaluacion-nutricional', nombre: 'EVALUACIÓN NUTRICIONAL', precio: '$55.000', pdf: '/planes/pdf/evaluacion-nutricional.pdf' },
@@ -19,7 +20,7 @@ const OCULTOS = [
 ];
 
 test.describe('Catálogo de planes reducido', () => {
-  test('/planes lista exactamente los 5 planes visibles, sin quiz ni comparativa', async ({ page }) => {
+  test('/planes lista exactamente los 6 planes visibles, sin quiz ni comparativa', async ({ page }) => {
     const errors: string[] = [];
     page.on('console', (msg) => {
       if (msg.type() === 'error') errors.push(msg.text());
@@ -79,7 +80,7 @@ test.describe('Catálogo de planes reducido', () => {
     });
   }
 
-  test('Home: sección de planes muestra solo los 5 visibles', async ({ page }) => {
+  test('Home: sección de planes muestra solo los 6 visibles', async ({ page }) => {
     const errors: string[] = [];
     page.on('console', (msg) => {
       if (msg.type() === 'error') errors.push(msg.text());

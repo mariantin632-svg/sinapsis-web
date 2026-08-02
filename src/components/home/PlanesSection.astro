@@ -11,12 +11,14 @@ const planesTipados = (planes as Plan[])
 const categorias = [
   { value: 'all', label: 'Todos' },
   { value: 'kinesiologia', label: 'Kinesiología' },
+  { value: 'osteopatia', label: 'Osteopatía' },
   { value: 'evaluaciones', label: 'Evaluaciones' },
 ];
 
 const categoriaPorSlug: Record<string, string> = {
   'kine-inicio': 'kinesiologia',
   'kine-10': 'kinesiologia',
+  'osteo-4': 'osteopatia',
   'evaluacion-postural': 'evaluaciones',
   'evaluacion-deportiva': 'evaluaciones',
   'evaluacion-nutricional': 'evaluaciones',
