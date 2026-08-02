@@ -37,20 +37,20 @@ const esActiva = (href: string) => rutaActual === href || rutaActual.startsWith(
       />
     </a>
 
-    <div class="hidden lg:flex items-center gap-0.5 px-2 py-1.5 border border-white/15 rounded-full bg-white/5 backdrop-blur-md">
+    <div class="hidden xl:flex items-center gap-0.5 px-2 py-1.5 border border-white/15 rounded-full bg-white/5 backdrop-blur-md">
       {links.map((l) => (
         <a
           href={l.href}
           aria-current={esActiva(l.href) ? 'page' : undefined}
           class:list={[
-            'px-[13px] py-[7px] rounded-full text-[13px] transition',
+            'px-[11px] py-[7px] rounded-full text-[13px] whitespace-nowrap transition',
             esActiva(l.href) ? 'text-white bg-white/10' : 'text-white/80 hover:text-white hover:bg-white/10',
           ]}
         >{l.label}</a>
       ))}
     </div>
 
-    <div class="hidden lg:flex items-center gap-3 shrink-0">
+    <div class="hidden xl:flex items-center gap-3 shrink-0">
       {instagramUrl && (
         <a
           href={instagramUrl}
@@ -75,7 +75,7 @@ const esActiva = (href: string) => rutaActual === href || rutaActual.startsWith(
       aria-label="Menú"
       aria-controls="nav-menu-mobile"
       aria-expanded="false"
-      class="lg:hidden flex flex-col gap-[5px] bg-transparent border border-white/15 rounded-xl p-[11px] cursor-pointer"
+      class="xl:hidden flex flex-col gap-[5px] bg-transparent border border-white/15 rounded-xl p-[11px] cursor-pointer"
     >
       <span class="w-5 h-0.5 bg-white rounded-sm"></span>
       <span class="w-5 h-0.5 bg-white rounded-sm"></span>
