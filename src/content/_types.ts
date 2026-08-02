@@ -103,6 +103,39 @@ export interface Profesional {
   turnito?: string;            // URL de la agenda del profesional en turnito
 }
 
+// Patologías (Qué tratamos)
+export interface PatologiaFase {
+  num: string;            // "0".."3" o "✓"
+  cuando: string;         // "Semanas 0 – 2" · "Primera sesión" · "Alta"
+  titulo: string;
+  texto: string;
+}
+
+export interface Patologia {
+  slug: string;
+  nombre: string;
+  orden: number;
+  icono: string;              // id en IconPatologia.astro
+  descripcion_corta: string;  // card del índice
+  pagina?: boolean;           // true = tiene página de detalle propia
+  // Campos de detalle (solo si pagina === true)
+  seo_title?: string;
+  seo_description?: string;
+  kicker?: string;            // "Tobillo · Lesión ligamentaria"
+  intro?: string;
+  whatsapp_text?: string;
+  chips?: string[];
+  razones?: { big: string; titulo: string; texto: string }[];
+  red_flags?: string[];
+  red_flags_nota?: string;
+  fases?: PatologiaFase[];
+  incluye?: { titulo: string; texto: string }[];
+  plan_slug?: string;         // plan sugerido (referencia a planes.json)
+  plan_bullets?: string[];
+  faq_titulo?: string;        // "Sobre el esguince de tobillo"
+  faq?: { pregunta: string; respuesta: string }[];
+}
+
 // Obras sociales
 export interface ObraSocial {
   nombre: string;

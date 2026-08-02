@@ -1,0 +1,258 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import patologiasData from '../../content/patologias.json';
+import planesData from '../../content/planes.json';
+import sitio from '../../content/sitio.json';
+import type { Patologia, Plan } from '../../content/_types';
+import { buildWhatsAppUrl } from '../../lib/whatsapp';
+import { formatARS } from '../../lib/precios';
+
+export async function getStaticPaths() {
+  const patologias = (patologiasData as Patologia[]).filter((p) => p.pagina);
+  return patologias.map((p) => ({ params: { slug: p.slug }, props: { patologia: p } }));
+}
+
+interface Props {
+  patologia: Patologia;
+}
+
+const { patologia } = Astro.props;
+const turnitoUrl = sitio.turnito?.hub ?? '#';
+const whatsappUrl = buildWhatsAppUrl({
+  phone: sitio.contacto.whatsapp,
+  text: patologia.whatsapp_text ?? `Hola! Quería consultar por ${patologia.nombre.toLowerCase()}.`,
+});
+
+// Plan sugerido: los datos (nombre, precio) salen de planes.json — una sola fuente de verdad.
+const plan = patologia.plan_slug
+  ? (planesData as Plan[]).find((p) => p.slug === patologia.plan_slug)
+  : undefined;
+const planDuracion = plan ? [...plan.duraciones].sort((a, b) => a.total - b.total)[0] : undefined;
+
+const bandaOscura = 'background: linear-gradient(135deg, #1f0f48 0%, #30166d 70%, #3a2178 100%);';
+---
+<BaseLayout
+  title={patologia.seo_title ?? `${patologia.nombre} · Sinapsis`}
+  description={patologia.seo_description ?? patologia.descripcion_corta}
+>
+  <!-- hero -->
+  <section class="relative overflow-hidden" style={bandaOscura}>
+    <div class="absolute inset-0 opacity-5 pattern-cross"></div>
+    <div class="relative max-w-[1200px] mx-auto px-6 pt-12 pb-16 md:pt-14 md:pb-[72px]">
+      <a href="/que-tratamos" class="inline-flex items-center gap-2 mb-6 text-[13px] font-semibold text-sn-sage-light hover:text-white transition">← Qué tratamos</a>
+      {patologia.kicker && (
+        <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage">{patologia.kicker}</p>
+      )}
+      <h1 class="m-0 font-display font-semibold text-[clamp(2.2rem,5vw,3.2rem)] leading-[1.12] tracking-[-0.02em] text-white max-w-[760px]">{patologia.nombre}</h1>
+      {patologia.intro && (
+        <p class="m-0 mt-[18px] text-[16px] leading-relaxed text-white/80 max-w-[640px]">{patologia.intro}</p>
+      )}
+      <div class="flex flex-wrap gap-3.5 mt-8">
+        <a
+          href={turnitoUrl}
+          target="_blank"
+          rel="noopener"
+          class="group inline-flex items-center gap-2.5 px-[26px] py-[15px] rounded-full bg-sn-sage text-sn-deep font-semibold text-[15px] hover:bg-sn-sage-light hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(150,194,185,0.4)] transition-all duration-300"
+        >Agendar evaluación <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span></a>
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-2.5 px-[26px] py-[15px] rounded-full border border-white/35 text-white font-semibold text-[15px] hover:border-sn-sage hover:text-sn-sage-light hover:-translate-y-0.5 transition-all duration-300"
+        >Consultar por WhatsApp</a>
+      </div>
+      {patologia.chips && (
+        <div class="flex flex-wrap gap-2.5 mt-[26px]">
+          {patologia.chips.map((chip) => (
+            <span class="inline-flex items-center gap-2 px-[15px] py-2 rounded-full bg-white/[0.07] border border-white/[0.14] text-[12.5px] font-medium text-white/85">
+              <span class="w-1.5 h-1.5 rounded-full bg-sn-sage"></span>
+              {chip}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- por qué tratarlo -->
+  {patologia.razones && (
+    <section class="max-w-[1200px] mx-auto px-6 pt-16 pb-14 md:pt-[72px]">
+      <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage-dark">Por qué tratarlo bien</p>
+      <h2 class="m-0 mb-10 font-display font-semibold text-[clamp(1.9rem,4vw,2.6rem)] leading-[1.12] tracking-[-0.02em] text-sn-violet max-w-[640px]">
+        El esguince se va.<br />La inestabilidad se queda.
+      </h2>
+      <div class="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-6">
+        {patologia.razones.map((r) => (
+          <div class="border-t-[3px] border-sn-sage pt-5">
+            <div class="m-0 mb-2 font-display font-bold text-[clamp(1.7rem,3vw,2.2rem)] leading-[1.1] text-sn-violet">{r.big}</div>
+            <h3 class="m-0 mb-1.5 font-display font-semibold text-[16px] text-gray-900">{r.titulo}</h3>
+            <p class="m-0 text-[13.5px] leading-relaxed text-gray-500">{r.texto}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- señales de alarma -->
+  {patologia.red_flags && (
+    <section class="max-w-[1200px] mx-auto px-6 pb-16">
+      <div class="bg-red-50 border border-red-200 rounded-2xl px-7 py-7 md:px-8">
+        <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-red-700">Señales de alarma</p>
+        <h3 class="m-0 mb-4 font-display font-semibold text-[19px] text-red-900">Consultá cuanto antes si notás alguna de estas señales</h3>
+        <ul class="m-0 p-0 list-none grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-x-6 gap-y-2.5">
+          {patologia.red_flags.map((flag) => (
+            <li class="relative pl-6 text-sm leading-relaxed text-stone-600">
+              <span class="absolute left-0 top-[3px] flex items-center justify-center w-4 h-4 rounded-full bg-red-600 text-white text-[11px] font-bold leading-none">!</span>
+              {flag}
+            </li>
+          ))}
+        </ul>
+        {patologia.red_flags_nota && (
+          <p class="m-0 mt-4 text-[12.5px] text-stone-500">{patologia.red_flags_nota}</p>
+        )}
+      </div>
+    </section>
+  )}
+
+  <!-- cómo lo tratamos -->
+  {patologia.fases && (
+    <section class="relative overflow-hidden" style={bandaOscura}>
+      <div class="absolute inset-0 opacity-5 pattern-cross"></div>
+      <div class="relative max-w-[1200px] mx-auto px-6 py-16 md:py-[72px]">
+        <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage">Cómo lo tratamos</p>
+        <h2 class="m-0 mb-12 font-display font-semibold text-[clamp(1.9rem,4vw,2.6rem)] leading-[1.12] tracking-[-0.02em] text-white max-w-[620px]">
+          Un plan por fases, con evaluación al principio y criterios de alta al final.
+        </h2>
+        <div>
+          {patologia.fases.map((fase, i) => (
+            <div class="fase relative pl-16 pb-9 last:pb-0">
+              <span class="absolute left-0 top-0 flex items-center justify-center w-11 h-11 rounded-full bg-sn-sage/15 border-[1.5px] border-sn-sage text-sn-sage-light font-display font-semibold text-[17px]">{fase.num}</span>
+              {i < patologia.fases!.length - 1 && (
+                <span class="absolute left-[21px] top-[46px] bottom-1 w-0.5 bg-white/15" aria-hidden="true"></span>
+              )}
+              <span class="block mb-1.5 text-xs font-semibold tracking-[1.2px] uppercase text-sn-sage">{fase.cuando}</span>
+              <h3 class="m-0 mb-2 font-display font-semibold text-[19px] text-white">{fase.titulo}</h3>
+              <p class="m-0 text-sm leading-relaxed text-white/[0.72] max-w-[640px]">{fase.texto}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- qué incluye -->
+  {patologia.incluye && (
+    <section class="max-w-[1200px] mx-auto px-6 pt-16 pb-14 md:pt-[72px]">
+      <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage-dark">Qué incluye tu tratamiento</p>
+      <h2 class="m-0 mb-9 font-display font-semibold text-[clamp(1.9rem,4vw,2.6rem)] leading-[1.12] tracking-[-0.02em] text-sn-violet max-w-[600px]">
+        Más que sesiones: seguimiento real.
+      </h2>
+      <div class="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-4">
+        {patologia.incluye.map((item) => (
+          <div class="flex gap-3.5 items-start bg-white rounded-[14px] border border-gray-100 shadow-[0_2px_8px_rgba(48,22,109,0.08)] p-[18px]">
+            <span class="shrink-0 flex items-center justify-center w-[26px] h-[26px] rounded-full bg-sn-sage-dark/[0.14] text-sn-sage-dark">
+              <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8.5 6 12l7.5-8"/></svg>
+            </span>
+            <div>
+              <h3 class="m-0 mb-[3px] font-display font-semibold text-[14.5px] text-gray-900">{item.titulo}</h3>
+              <p class="m-0 text-[12.5px] leading-normal text-gray-500">{item.texto}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- plan sugerido -->
+  {plan && planDuracion && (
+    <section class="max-w-[1200px] mx-auto px-6 pb-20">
+      <div class="relative overflow-hidden rounded-[22px] p-10 text-white grid md:grid-cols-[1.3fr_1fr] gap-10 items-center" style="background: linear-gradient(135deg, #1f0f48 0%, #30166d 80%, #3a2178 100%);">
+        <div class="absolute inset-0 opacity-[0.04] pattern-cross"></div>
+        <div class="relative">
+          <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage">Plan sugerido para esta lesión</p>
+          <h3 class="m-0 mb-3.5 font-display font-semibold text-[clamp(1.4rem,2.6vw,1.9rem)] leading-[1.2]">Plan {plan.nombre}<br />{planDuracion.label}</h3>
+          {patologia.plan_bullets && (
+            <ul class="m-0 p-0 list-none flex flex-col gap-[9px]">
+              {patologia.plan_bullets.map((bullet) => (
+                <li class="relative pl-6 text-[13.5px] leading-normal text-white/[0.78]">
+                  <span class="absolute left-0 font-bold text-sn-sage">✓</span>
+                  {bullet}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+        <div class="relative text-center">
+          <span class="block mb-2 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage">Pago único</span>
+          <div class="font-display font-bold text-[clamp(2rem,4vw,2.7rem)] leading-none">{formatARS(planDuracion.total)}</div>
+          <p class="m-0 mt-2 mb-5 text-[13px] text-white/[0.65]">Equivale a {formatARS(planDuracion.equiv_valor)} {planDuracion.equiv_label} · Precios 2026</p>
+          <a
+            href={`/planes/${plan.slug}`}
+            class="group inline-flex items-center gap-2.5 px-[26px] py-[15px] rounded-full bg-sn-sage text-sn-deep font-semibold text-[15px] hover:bg-sn-sage-light hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(150,194,185,0.4)] transition-all duration-300"
+          >Conocé el plan completo <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span></a>
+          <p class="m-0 mt-3.5 text-xs text-white/[0.55]">
+            ¿Preferís sesiones sueltas?
+            <a href="/servicios-sueltos" class="font-semibold text-sn-sage-light hover:text-white transition">Ver precios</a>
+          </p>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- FAQ -->
+  {patologia.faq && (
+    <section class="max-w-[860px] mx-auto px-6 pb-20">
+      <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage-dark">Preguntas frecuentes</p>
+      <h2 class="m-0 mb-8 font-display font-semibold text-[clamp(1.9rem,4vw,2.6rem)] leading-[1.12] tracking-[-0.02em] text-sn-violet">
+        {patologia.faq_titulo ?? 'Preguntas sobre esta lesión'}
+      </h2>
+      <div class="space-y-3">
+        {patologia.faq.map((item) => (
+          <details class="faq-item bg-white border border-gray-100 rounded-[14px] shadow-[0_2px_8px_rgba(48,22,109,0.08)] overflow-hidden">
+            <summary class="cursor-pointer px-[22px] py-[18px] font-display font-semibold text-[15.5px] text-gray-900 flex justify-between items-center gap-4">
+              {item.pregunta}
+              <span class="faq-marker shrink-0 text-[22px] font-normal text-sn-sage-dark transition-transform duration-200" aria-hidden="true">+</span>
+            </summary>
+            <p class="m-0 px-[22px] pb-5 text-sm leading-[1.7] text-gray-600 max-w-[760px]">{item.respuesta}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- CTA final -->
+  <section class="relative overflow-hidden" style={bandaOscura}>
+    <div class="absolute inset-0 opacity-5 pattern-cross"></div>
+    <div class="relative max-w-[1200px] mx-auto px-6 py-16 md:py-[76px] text-center">
+      <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage">Empezá hoy</p>
+      <h2 class="m-0 mx-auto mb-3.5 font-display font-semibold text-[clamp(1.9rem,4vw,2.6rem)] leading-[1.12] tracking-[-0.02em] text-white max-w-[680px]">
+        No esperes a que "se pase solo".
+      </h2>
+      <p class="m-0 mx-auto mb-8 text-[15px] leading-relaxed text-white/[0.78] max-w-[520px]">
+        Cuanto antes evaluamos tu lesión, más corta y más completa es la recuperación.
+        Presencial en José C. Paz u online.
+      </p>
+      <div class="flex flex-wrap gap-3.5 justify-center">
+        <a
+          href={turnitoUrl}
+          target="_blank"
+          rel="noopener"
+          class="group inline-flex items-center gap-2.5 px-[26px] py-[15px] rounded-full bg-sn-sage text-sn-deep font-semibold text-[15px] hover:bg-sn-sage-light hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(150,194,185,0.4)] transition-all duration-300"
+        >Agendar evaluación <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span></a>
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-2.5 px-[26px] py-[15px] rounded-full border border-white/35 text-white font-semibold text-[15px] hover:border-sn-sage hover:text-sn-sage-light hover:-translate-y-0.5 transition-all duration-300"
+        >Escribinos por WhatsApp</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* details/summary: sin marker nativo, el + rota a × al abrir */
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary { list-style: none; }
+  .faq-item[open] .faq-marker { transform: rotate(45deg); }
+</style>

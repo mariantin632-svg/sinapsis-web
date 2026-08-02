@@ -1,0 +1,156 @@
+[
+  {
+    "slug": "esguince-de-tobillo",
+    "nombre": "Esguince de tobillo",
+    "orden": 1,
+    "icono": "tobillo",
+    "descripcion_corta": "De la torcedura al retorno completo, sin dejar un tobillo inestable en el camino.",
+    "pagina": true,
+    "seo_title": "Esguince de tobillo: tratamiento y rehabilitación en José C. Paz · Sinapsis",
+    "seo_description": "Rehabilitación de esguince de tobillo en José C. Paz. Evaluación con informe, plan por fases y criterios objetivos de alta para que no se convierta en un tobillo inestable. Agendá online.",
+    "kicker": "Tobillo · Lesión ligamentaria",
+    "intro": "\"Ponete hielo y esperá\" es la receta para que se repita. Un esguince bien rehabilitado termina en un tobillo estable; uno mal curado, en torceduras a repetición. Acá te contamos cómo lo trabajamos.",
+    "whatsapp_text": "Hola! Tuve un esguince de tobillo y quería consultar.",
+    "chips": ["Grados I, II y III", "Recuperación típica: 4 a 12 semanas", "Ideal: evaluar en las primeras 72 h"],
+    "razones": [
+      {
+        "big": "4 de 10",
+        "titulo": "Tobillos que quedan inestables",
+        "texto": "Hasta 4 de cada 10 esguinces mal rehabilitados evolucionan a inestabilidad crónica: torceduras a repetición, desconfianza al pisar y dolor persistente."
+      },
+      {
+        "big": "Movimiento",
+        "titulo": "El reposo prolongado atrasa",
+        "texto": "La evidencia actual es clara: movilización temprana y carga progresiva recuperan antes y mejor que la inmovilización prolongada. El hielo alivia; el ejercicio cura."
+      },
+      {
+        "big": "Criterios",
+        "titulo": "El alta no la da el calendario",
+        "texto": "Volvés cuando tu tobillo demuestra fuerza, equilibrio y control comparables al otro lado — no cuando \"ya pasaron las semanas\". Por eso evaluamos, no adivinamos."
+      }
+    ],
+    "red_flags": [
+      "No podés dar cuatro pasos apoyando el pie, ni siquiera con dolor.",
+      "Dolor al tocar el hueso en los maléolos (los \"huesitos\" del tobillo) o en el borde externo del pie.",
+      "Deformidad evidente o hematoma inmediato y masivo.",
+      "Hormigueo, pie frío o cambio de color en los dedos."
+    ],
+    "red_flags_nota": "Con cualquiera de estas señales corresponde descartar fractura antes de empezar rehabilitación. Si hace falta, te derivamos con nuestro traumatólogo u orden de imágenes.",
+    "fases": [
+      {
+        "num": "0",
+        "cuando": "Primera sesión",
+        "titulo": "Evaluación inicial con informe",
+        "texto": "Descartamos fractura, evaluamos el grado del esguince, testeamos estabilidad y fuerza: nos acercamos lo más posible al diagnóstico y definimos el punto de partida. Te llevás un informe con lo que encontramos y el plan propuesto."
+      },
+      {
+        "num": "1",
+        "cuando": "Semanas 0 – 2",
+        "titulo": "Calmar y proteger, sin frenar",
+        "texto": "Control del dolor y la inflamación, protección de la zona y movilización temprana. Empezás a cargar peso de forma guiada desde el primer momento que es seguro hacerlo."
+      },
+      {
+        "num": "2",
+        "cuando": "Semanas 2 – 6",
+        "titulo": "Recuperar fuerza y control",
+        "texto": "Fuerza de los músculos que estabilizan el tobillo, rango completo de movimiento y trabajo de equilibrio y propiocepción. Acá se define si tu tobillo queda estable o no."
+      },
+      {
+        "num": "3",
+        "cuando": "Semanas 6 – 12",
+        "titulo": "Volver a tu actividad",
+        "texto": "Saltos, cambios de dirección, gestos de tu deporte o exigencias de tu trabajo. Progresamos la carga hasta que el tobillo responde igual que el sano."
+      },
+      {
+        "num": "✓",
+        "cuando": "Alta",
+        "titulo": "Alta con criterios objetivos",
+        "texto": "Comparamos fuerza, equilibrio y saltos contra tu lado sano. Si los números dan, estás de alta — y si lo necesitás, te llevás el informe de alta que lo documenta."
+      }
+    ],
+    "incluye": [
+      { "titulo": "Sesiones personalizadas", "texto": "Evaluación, tratamiento y progresiones pensados para vos, en cada sesión." },
+      { "titulo": "Ejercicios para casa", "texto": "Rutina personalizada con videos, actualizada según tu evolución." },
+      { "titulo": "Consultas por WhatsApp", "texto": "Dudas entre sesiones respondidas por tu kinesiólogo." },
+      { "titulo": "Evaluaciones funcionales", "texto": "Mediciones objetivas para decidir cada progresión y el alta." },
+      { "titulo": "Complemento osteopático", "texto": "Sesión manual uno a uno cuando la mecánica de la zona lo pide." },
+      { "titulo": "Informes clínicos", "texto": "Evaluación inicial documentada; informes para tu médico o tu club cuando los necesités." }
+    ],
+    "plan_slug": "kine-10",
+    "plan_bullets": [
+      "Evaluación inicial con informe + evaluación final (informe de alta a pedido)",
+      "Ejercicios personalizados para casa",
+      "10% off en osteopatía y evaluaciones durante el plan",
+      "Pausa médica si la recuperación se complica",
+      "7 días de ventana de arrepentimiento"
+    ],
+    "faq_titulo": "Sobre el esguince de tobillo",
+    "faq": [
+      {
+        "pregunta": "¿Cuánto tarda en curarse un esguince?",
+        "respuesta": "Depende del grado: uno leve puede resolverse en 2 a 4 semanas, uno moderado entre 4 y 8, y uno severo puede llevar 8 a 12 o más. Pero el número importa menos que los criterios: el alta la definen la fuerza, el equilibrio y el control de tu tobillo, no el calendario."
+      },
+      {
+        "pregunta": "¿Puedo seguir entrenando mientras me recupero?",
+        "respuesta": "En la mayoría de los casos, sí — adaptando. Mantener activo el resto del cuerpo acelera la recuperación y evita perder estado físico. Armamos juntos qué podés hacer en cada fase en lugar de frenar todo."
+      },
+      {
+        "pregunta": "¿Por qué siempre me tuerzo el mismo tobillo?",
+        "respuesta": "Porque el esguince anterior probablemente se \"curó\" cuando dejó de doler, pero nunca recuperó la fuerza ni el control que tenía. Esa es la inestabilidad crónica: el ligamento cicatrizó, el sistema que lo protege no volvió. Es exactamente lo que un buen plan de rehabilitación previene — y también se puede tratar aunque hayan pasado años."
+      },
+      {
+        "pregunta": "¿Hielo, venda y reposo no alcanzan?",
+        "respuesta": "Sirven los primeros días para manejar dolor e inflamación, y la protección inicial es parte del tratamiento. El problema es quedarse ahí: la inmovilización prolongada debilita y atrasa. Lo que define cómo queda tu tobillo es la carga progresiva y el trabajo de estabilidad que viene después."
+      }
+    ]
+  },
+  {
+    "slug": "post-quirurgico-lca",
+    "nombre": "Post-quirúrgico de LCA",
+    "orden": 2,
+    "icono": "rodilla-lca",
+    "descripcion_corta": "Rehabilitación completa de ligamento cruzado, con criterios objetivos de retorno al deporte."
+  },
+  {
+    "slug": "lumbalgia",
+    "nombre": "Lumbalgia",
+    "orden": 3,
+    "icono": "columna",
+    "descripcion_corta": "Dolor lumbar agudo o crónico: recuperar movimiento y confianza, no solo calmar el episodio."
+  },
+  {
+    "slug": "cervicalgia",
+    "nombre": "Cervicalgia",
+    "orden": 4,
+    "icono": "cervical",
+    "descripcion_corta": "Dolor de cuello, contracturas recurrentes y dolor que irradia al brazo o la cabeza."
+  },
+  {
+    "slug": "hombro-doloroso",
+    "nombre": "Hombro doloroso",
+    "orden": 5,
+    "icono": "hombro",
+    "descripcion_corta": "Manguito rotador, tendinopatías y hombro rígido: recuperar fuerza y rango sin miedo."
+  },
+  {
+    "slug": "tendinopatias",
+    "nombre": "Tendinopatías",
+    "orden": 6,
+    "icono": "mancuerna",
+    "descripcion_corta": "Rotuliana, aquileana, de codo: carga progresiva para tendones que duelen al exigirlos."
+  },
+  {
+    "slug": "desgarros-musculares",
+    "nombre": "Desgarros musculares",
+    "orden": 7,
+    "icono": "desgarro",
+    "descripcion_corta": "Isquiotibiales, gemelo, cuádriceps: cicatrizar bien y volver sin recaídas."
+  },
+  {
+    "slug": "recuperacion-post-fractura",
+    "nombre": "Recuperación post-fractura",
+    "orden": 8,
+    "icono": "hueso",
+    "descripcion_corta": "Después del yeso o la cirugía: recuperar movilidad, fuerza y función completa."
+  }
+]
