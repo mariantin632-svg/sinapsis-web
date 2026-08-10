@@ -3,7 +3,9 @@ import sitio from '../../content/sitio.json';
 import { buildWhatsAppUrl } from '../../lib/whatsapp';
 import Icon from '../shared/Icon.astro';
 
-const links = [
+// `labelCorto` es el texto que se usa en la píldora del desktop, donde el espacio
+// es justo; el menú mobile y el footer usan el nombre completo.
+const links: Array<{ href: string; label: string; labelCorto?: string }> = [
   { href: '/servicios-sueltos', label: 'Servicios' },
   { href: '/que-tratamos', label: 'Qué tratamos' },
   { href: '/equipo', label: 'Equipo' },
@@ -11,6 +13,7 @@ const links = [
   { href: '/obras-sociales', label: 'Obras sociales' },
   { href: '/faq', label: 'FAQ' },
   { href: '/contacto', label: 'Ubicación' },
+  { href: '/apoyar', label: 'Apoyá el proyecto', labelCorto: 'Apoyanos' },
 ];
 
 const whatsappUrl = buildWhatsAppUrl({
@@ -26,7 +29,7 @@ const esActiva = (href: string) => rutaActual === href || rutaActual.startsWith(
 ---
 <nav class="sticky top-0 z-50 bg-sn-ink border-b border-white/10">
   <div class="absolute inset-0 opacity-[0.045] pattern-cross pointer-events-none"></div>
-  <div class="relative max-w-[1200px] mx-auto px-6 py-3.5 flex items-center justify-between gap-5">
+  <div class="relative max-w-[1200px] mx-auto px-6 py-3.5 flex items-center justify-between gap-4">
     <a href="/" class="flex items-center shrink-0" aria-label="Sinapsis — inicio">
       <img
         src="/logo-sinapsis-nav.png"
@@ -43,10 +46,10 @@ const esActiva = (href: string) => rutaActual === href || rutaActual.startsWith(
           href={l.href}
           aria-current={esActiva(l.href) ? 'page' : undefined}
           class:list={[
-            'px-[11px] py-[7px] rounded-full text-[13px] whitespace-nowrap transition',
+            'px-[7px] py-[7px] rounded-full text-[13px] whitespace-nowrap transition',
             esActiva(l.href) ? 'text-white bg-white/10' : 'text-white/80 hover:text-white hover:bg-white/10',
           ]}
-        >{l.label}</a>
+        >{l.labelCorto ?? l.label}</a>
       ))}
     </div>
 

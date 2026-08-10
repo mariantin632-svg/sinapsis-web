@@ -26,6 +26,7 @@ const PAGES = [
   { path: '/obras-sociales', name: 'Obras sociales' },
   { path: '/faq', name: 'FAQ' },
   { path: '/contacto', name: 'Contacto' },
+  { path: '/apoyar', name: 'Apoyá el proyecto' },
 ];
 
 for (const page of PAGES) {

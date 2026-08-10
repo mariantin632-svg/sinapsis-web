@@ -1,0 +1,194 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import sitio from '../content/sitio.json';
+import { buildWhatsAppUrl } from '../lib/whatsapp';
+import Icon from '../components/shared/Icon.astro';
+
+// Mientras no exista la cuenta de Cafecito, el CTA principal cae a WhatsApp.
+const cafecitoUrl = sitio.apoyo?.cafecito_url?.trim() || null;
+
+const whatsappApoyo = buildWhatsAppUrl({
+  phone: sitio.contacto.whatsapp,
+  text: 'Hola! Llegué desde la web y quería colaborar con el proyecto de Sinapsis.',
+});
+const whatsappOtraForma = buildWhatsAppUrl({
+  phone: sitio.contacto.whatsapp,
+  text: 'Hola! Quería aportar de otra forma al centro (equipamiento, materiales, difusión).',
+});
+const instagramUrl = sitio.contacto.instagram_url;
+
+// La URL de reseñas todavía es un placeholder en sitio.json: si no es real, no linkeamos.
+const reseñasUrl = sitio.google_reviews?.url?.includes('PLACEHOLDER') ? null : sitio.google_reviews?.url;
+
+const destinos = [
+  {
+    icono: 'tools',
+    titulo: 'El lugar',
+    texto:
+      'Equipamiento, camillas, material de trabajo y arreglos del espacio. Cada mejora del centro se nota directo en la sesión.',
+  },
+  {
+    icono: 'heart-pulse',
+    titulo: 'La atención',
+    texto:
+      'Mejores herramientas para evaluar y medir, y más seguimiento entre sesiones. Que rehabilitarte sea un proceso acompañado, no un turno más.',
+  },
+  {
+    icono: 'people',
+    titulo: 'El equipo',
+    texto:
+      'Sumar profesionales que compartan la forma de trabajar —kinesiología, osteopatía, nutrición—. Un equipo estable atiende mejor que uno que rota.',
+  },
+  {
+    icono: 'buildings',
+    titulo: 'Un espacio más grande',
+    texto:
+      'El objetivo a futuro: un lugar pensado desde cero para rehabilitar, con gimnasio terapéutico y consultorios para desarrollar todo lo que hoy hacemos a media máquina.',
+  },
+];
+---
+<BaseLayout
+  title="Apoyá el proyecto · Sinapsis"
+  description="Sinapsis es un centro chico de rehabilitación en José C. Paz. Con tu aporte mejoramos el equipamiento, la atención al paciente y avanzamos hacia un espacio propio más grande."
+>
+  <!-- hero -->
+  <section class="relative overflow-hidden" style="background: linear-gradient(135deg, #1f0f48 0%, #30166d 70%, #3a2178 100%);">
+    <div class="absolute inset-0 opacity-5 pattern-cross"></div>
+    <div class="relative max-w-[1200px] mx-auto px-6 py-16 md:py-20">
+      <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage">Apoyá el proyecto</p>
+      <h1 class="m-0 font-display font-semibold text-[clamp(2.1rem,5vw,3rem)] leading-[1.12] tracking-[-0.02em] text-white max-w-[720px]">
+        Sinapsis se construye<br />de a poco. Podés ser parte.
+      </h1>
+      <p class="m-0 mt-[18px] text-[16px] leading-relaxed text-white/80 max-w-[620px]">
+        Somos un centro chico de rehabilitación en José C. Paz. Todo lo que hay acá
+        —los equipos, el espacio, la forma de trabajar— lo fuimos armando sesión a
+        sesión, con lo que entra. Si te sirvió lo que hacemos y querés empujar un
+        poco, esta página es para eso.
+      </p>
+    </div>
+  </section>
+
+  <!-- adónde va -->
+  <section class="max-w-[1200px] mx-auto px-6 pt-16 pb-14 md:pt-20">
+    <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage-dark">Adónde va tu aporte</p>
+    <h2 class="m-0 mb-9 font-display font-semibold text-[clamp(1.9rem,4vw,2.6rem)] leading-[1.12] tracking-[-0.02em] text-sn-violet max-w-[640px]">
+      Cuatro cosas que queremos hacer mejor.
+    </h2>
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-5">
+      {destinos.map((d) => (
+        <div class="bg-white rounded-2xl p-6 shadow-[0_2px_8px_rgba(48,22,109,0.08)] border border-gray-100 flex flex-col">
+          <span class="w-[46px] h-[46px] rounded-xl bg-gradient-to-br from-sn-violet to-sn-violet-light flex items-center justify-center text-white text-[22px] mb-4">
+            <Icon name={d.icono} />
+          </span>
+          <h3 class="m-0 mb-1.5 font-display font-semibold text-[17px] text-gray-900">{d.titulo}</h3>
+          <p class="m-0 text-[13px] leading-relaxed text-gray-500">{d.texto}</p>
+        </div>
+      ))}
+    </div>
+    <p class="m-0 mt-9 text-sm text-gray-500 max-w-[680px]">
+      No hay metas con números ni barritas de progreso: preferimos contarte adónde va
+      cuando pasa. Si querés saber en qué se usó lo que aportaste, preguntanos y te contestamos.
+    </p>
+  </section>
+
+  <!-- cómo colaborar -->
+  <section class="relative overflow-hidden" style="background: linear-gradient(135deg, #1f0f48 0%, #30166d 70%, #3a2178 100%);">
+    <div class="absolute inset-0 opacity-5 pattern-cross"></div>
+    <div class="relative max-w-[1200px] mx-auto px-6 py-16 md:py-20">
+      <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage">Cómo colaborar</p>
+      <h2 class="m-0 mb-4 font-display font-semibold text-[clamp(1.9rem,4vw,2.6rem)] leading-[1.12] tracking-[-0.02em] text-white max-w-[620px]">
+        Con un cafecito alcanza.
+      </h2>
+      <p class="m-0 mb-9 text-[15px] leading-relaxed text-white/75 max-w-[600px]">
+        {cafecitoUrl
+          ? 'Usamos Cafecito: elegís cuánto querés aportar, pagás con tarjeta o Mercado Pago y listo. Una vez o cuando quieras, sin suscripción.'
+          : 'Estamos terminando de dejar todo listo para recibir aportes online. Mientras tanto, escribinos por WhatsApp y coordinamos en el momento.'}
+      </p>
+      <div class="flex flex-wrap gap-3.5">
+        <a
+          href={cafecitoUrl ?? whatsappApoyo}
+          target="_blank"
+          rel="noopener"
+          class="group inline-flex items-center gap-2.5 px-[26px] py-[15px] rounded-full bg-sn-sage text-sn-deep font-semibold text-[15px] hover:bg-sn-sage-light hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(150,194,185,0.4)] transition-all duration-300"
+        >
+          <Icon name={cafecitoUrl ? 'cup-hot' : 'whatsapp'} />
+          {cafecitoUrl ? 'Invitanos un cafecito' : 'Quiero colaborar'}
+          <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+        </a>
+        <a
+          href={whatsappOtraForma}
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-2.5 px-[26px] py-[15px] rounded-full border border-white/35 text-white font-semibold text-[15px] hover:border-sn-sage hover:text-sn-sage-light hover:-translate-y-0.5 transition-all duration-300"
+        >Aportar de otra forma</a>
+      </div>
+
+      <div class="mt-11 flex items-start gap-3.5 max-w-[680px] border-t border-white/15 pt-[22px]">
+        <span class="text-sn-sage text-xl leading-none mt-0.5 shrink-0"><Icon name="shield-check" /></span>
+        <p class="m-0 text-[13.5px] leading-relaxed text-white/70">
+          <strong class="text-white/90 font-semibold">Es un aporte voluntario, sin contraprestación.</strong>
+          No da prioridad de turnos, ni descuentos, ni cambia en nada la atención: los
+          tratamientos, planes y sesiones se cobran como siempre. Si sos paciente, no
+          esperamos que colabores —tu tratamiento ya sostiene el centro.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- otras formas -->
+  <section class="max-w-[1200px] mx-auto px-6 pt-16 pb-20 md:pt-20">
+    <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage-dark">Sin poner un peso</p>
+    <h2 class="m-0 mb-9 font-display font-semibold text-[clamp(1.9rem,4vw,2.6rem)] leading-[1.12] tracking-[-0.02em] text-sn-violet max-w-[640px]">
+      Hay formas de ayudar que no cuestan nada.
+    </h2>
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-5">
+      <div class="bg-white rounded-2xl p-6 shadow-[0_2px_8px_rgba(48,22,109,0.08)] border border-gray-100 flex flex-col">
+        <span class="w-[46px] h-[46px] rounded-xl bg-sn-sage/20 flex items-center justify-center text-sn-sage-dark text-[22px] mb-4"><Icon name="megaphone" /></span>
+        <h3 class="m-0 mb-1.5 font-display font-semibold text-[17px] text-gray-900">Recomendanos</h3>
+        <p class="m-0 text-[13px] leading-relaxed text-gray-500">
+          Si te fue bien acá, contáselo a quien esté peleando con una lesión.
+          Así creció el centro hasta hoy: de paciente en paciente.
+        </p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 shadow-[0_2px_8px_rgba(48,22,109,0.08)] border border-gray-100 flex flex-col">
+        <span class="w-[46px] h-[46px] rounded-xl bg-sn-sage/20 flex items-center justify-center text-sn-sage-dark text-[22px] mb-4"><Icon name="star" /></span>
+        <h3 class="m-0 mb-1.5 font-display font-semibold text-[17px] text-gray-900">Dejá tu reseña</h3>
+        <p class="m-0 text-[13px] leading-relaxed text-gray-500">
+          Una reseña en Google nos hace visibles para alguien de la zona que hoy
+          no sabe a dónde ir con su dolor.
+        </p>
+        {reseñasUrl && (
+          <a
+            href={reseñasUrl}
+            target="_blank"
+            rel="noopener"
+            class="group mt-4 inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-sn-violet hover:text-sn-violet-light transition"
+          >Escribir reseña <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span></a>
+        )}
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 shadow-[0_2px_8px_rgba(48,22,109,0.08)] border border-gray-100 flex flex-col">
+        <span class="w-[46px] h-[46px] rounded-xl bg-sn-sage/20 flex items-center justify-center text-sn-sage-dark text-[22px] mb-4"><Icon name="share" /></span>
+        <h3 class="m-0 mb-1.5 font-display font-semibold text-[17px] text-gray-900">Compartí lo que publicamos</h3>
+        <p class="m-0 text-[13px] leading-relaxed text-gray-500">
+          Subimos ejercicios, casos y material de rehabilitación en Instagram.
+          Compartirlo ayuda a que llegue más lejos.
+        </p>
+        {instagramUrl && (
+          <a
+            href={instagramUrl}
+            target="_blank"
+            rel="noopener"
+            class="group mt-4 inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-sn-violet hover:text-sn-violet-light transition"
+          >{sitio.contacto.instagram} <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span></a>
+        )}
+      </div>
+    </div>
+
+    <p class="m-0 mt-11 font-display font-semibold text-[clamp(1.2rem,2.5vw,1.5rem)] leading-snug text-sn-violet max-w-[620px]">
+      A quienes ya nos dieron una mano, gracias. El centro que van a encontrar
+      la próxima vez que vengan va a estar un poco mejor por eso.
+    </p>
+  </section>
+</BaseLayout>
