@@ -48,16 +48,34 @@ test.describe('Apoyá el proyecto', () => {
     await expect(page.locator('#nav-menu-mobile a[href="/apoyar"]')).toBeVisible();
   });
 
-  test('el nav sigue entrando en una sola línea en desktop', async ({ page }) => {
-    for (const width of [1280, 1440, 1920]) {
-      await page.setViewportSize({ width, height: 900 });
-      await page.goto('/apoyar');
-      const fila = page.locator('body > nav > div.relative').first();
-      const { scrollWidth, clientWidth } = await fila.evaluate((el) => ({
-        scrollWidth: el.scrollWidth,
-        clientWidth: el.clientWidth,
-      }));
-      expect(scrollWidth, `overflow del nav a ${width}px`).toBeLessThanOrEqual(clientWidth + 1);
+  test('la home también la enlaza en su header propio (desktop y mobile)', async ({ page }) => {
+    // La home no usa el Nav de interiores: tiene su propio header dentro del Hero.
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/');
+    await expect(page.locator('header a[href="/apoyar"]')).toBeVisible();
+
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.reload();
+    await page.locator('button[data-menu-toggle]').first().click();
+    await expect(page.locator('#menu-mobile a[href="/apoyar"]')).toBeVisible();
+  });
+
+  test('las dos barras siguen entrando en una sola línea en desktop', async ({ page }) => {
+    const barras = [
+      { url: '/apoyar', selector: 'body > nav > div.relative', nombre: 'nav de interiores' },
+      { url: '/', selector: 'header', nombre: 'header de la home' },
+    ];
+    for (const barra of barras) {
+      for (const width of [1280, 1440, 1920]) {
+        await page.setViewportSize({ width, height: 900 });
+        await page.goto(barra.url);
+        const fila = page.locator(barra.selector).first();
+        const { scrollWidth, clientWidth } = await fila.evaluate((el) => ({
+          scrollWidth: el.scrollWidth,
+          clientWidth: el.clientWidth,
+        }));
+        expect(scrollWidth, `overflow del ${barra.nombre} a ${width}px`).toBeLessThanOrEqual(clientWidth + 1);
+      }
     }
   });
 });
