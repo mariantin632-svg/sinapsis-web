@@ -1,7 +1,7 @@
 # Orientador de pacientes — "¿Por dónde empiezo?" (diseño)
 
 **Fecha:** 2026-08-20
-**Estado:** Aprobado — pendiente de validación clínica del contenido por Tincho
+**Estado:** Implementado y ABIERTO AL PÚBLICO desde el 20/08/2026
 **Repo:** sinapsis-web (Astro 5 + TS + Tailwind 4)
 
 ## Objetivo
@@ -21,8 +21,9 @@ cuatro resultados posibles, cierre por WhatsApp con resumen prellenado.
 **No entra:** guardar respuestas, pedir nombre o mail, sugerir un plan comercial concreto,
 sumar nutrición / online / evaluación funcional como salidas, analytics.
 
-**No se toca:** el `MapaCorporal` de `/tests` sigue igual; solo se le agrega un link al
-orientador cuando el contenido esté validado (ver §8). Nada del resto de la web cambia.
+**Reemplaza:** el `MapaCorporal` de `/tests` — daba una recomendación fija por zona, sin
+banderas rojas ni criterio. Su lugar en la página lo toma el orientador (decisión de Tincho,
+20/08). El componente se borró; vive en la historia de git si alguna vez hace falta.
 
 ---
 
@@ -35,7 +36,8 @@ orientador cuando el contenido esté validado (ver §8). Nada del resto de la we
 | `src/content/orientador.json` | **Contenido clínico**: zonas, preguntas, banderas, textos |
 | `src/lib/orientador.ts` | **Motor**: `evaluar(respuestas) → Resultado`, función pura |
 | `tests/unit/orientador.test.ts` | Casos clínicos del motor (vitest, sin browser) |
-| `tests/e2e/orientador.spec.ts` | Playwright: flujo completo, corte, atrás, mobile |
+| `src/components/home/OrientadorCta.astro` | Bloque de la home: chips de zona que entran con deep link |
+| `tests/e2e/orientador.spec.ts` | Playwright: flujo completo, corte, atrás, deep link, mobile |
 
 **Principio de separación.** El motor no sabe nada de DOM y el JSON no sabe nada de lógica.
 Consecuencias buscadas:
@@ -235,7 +237,7 @@ queda como "si querés que te orientemos, escribinos" y Turnito no aparece.
 
 - Navegable por teclado completo; foco visible; opciones como `<button>` reales, no divs.
 - `aria-live` en el cambio de pregunta para que un lector de pantalla anuncie el avance.
-- Respeta `prefers-reduced-motion` (igual que `MapaCorporal`).
+- Respeta `prefers-reduced-motion`, como el resto de la web.
 - Mobile primero: una columna, targets de 44 px mínimo.
 - Tokens `sn-*` de `src/styles`, tipografía y paleta de la marca. Sin salmón.
 
@@ -255,22 +257,34 @@ queda como "si querés que te orientemos, escribinos" y Turnito no aparece.
 8. Rodilla + golpe hace 2 semanas → nunca osteopatía sola (guarda de seguridad).
 9. Caso ambiguo → combinado.
 
-**E2E (Playwright)** — flujo completo hasta resultado, corte por bandera roja, botón atrás,
+**E2E (Playwright)** — flujo completo hasta resultado, corte por bandera roja y por
+traumatología, botón atrás, deep link `?zona=`, links entrantes en las dos barras y el footer,
 link de WhatsApp bien formado, render en 375 / 768 / 1440.
 
 ---
 
-## 8 · Publicación por etapas
+## 8 · Publicación
 
-La v1 sale **en vivo pero sin difundir**, hasta que el contenido clínico tenga la revisión de
-Tincho. Concretamente: la página responde en `/orientador`, pero va con `noindex`, queda
-fuera del sitemap y no se linkea desde ningún lado.
+La v1 salió en vivo sin difundir (noindex, fuera del sitemap, sin links) el 20/08/2026 y se
+**abrió al público el mismo día**, por decisión de Tincho después de revisarla.
 
-Para abrirlo al público, tres cambios de una línea cada uno:
+Puntos de entrada, en orden de tráfico esperado:
 
-1. Sacar `noindex` de `src/pages/orientador.astro`.
-2. Sacar el `filter` del sitemap en `astro.config.mjs`.
-3. Sumar el link: al `Nav`, al footer y/o desde `/tests`.
+| Dónde | Qué |
+|---|---|
+| Home | Bloque `OrientadorCta` con los 8 chips de zona, después de `ServiciosTurno` |
+| Los dos menús | `Nav.astro` (interiores) y el header propio dentro de `Hero.astro` — son dos archivos, hay que tocar los dos |
+| Footer | Columna Servicios, primero de la lista |
+| `/tests` | Test 1, en el lugar que ocupaba el `MapaCorporal` |
+
+**Deep link.** Los chips de la home apuntan a `/orientador?zona=<id>`: el wizard entra con la
+primera pregunta ya contestada y el botón atrás sigue funcionando. Una zona inexistente en la
+query se ignora y el test arranca de cero.
+
+**Costo de la barra.** Con el link nuevo el nav pasó a 9 ítems y a 1280 px se desbordaba 54 px
+—lo cazó el test `apoyar.spec.ts` que mide las dos barras—. Se resolvió comprimiendo el
+espaciado de la píldora (`gap-0`, `px-1.5` en el contenedor, `px-[5px]` por link) en los dos
+archivos. **La píldora quedó sin holgura: un décimo ítem no entra sin sacar otro.**
 
 ## 9 · Encuadre medicolegal
 

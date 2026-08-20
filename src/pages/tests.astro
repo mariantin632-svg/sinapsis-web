@@ -1,26 +1,34 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import MapaCorporal from '../components/tests/MapaCorporal.astro';
 import QuizPlan from '../components/tests/QuizPlan.astro';
 import RuletaEstiramientos from '../components/tests/RuletaEstiramientos.astro';
 ---
-<BaseLayout title="Tests interactivos · Sinapsis" description="Probá nuestros tests: encontrá tu plan ideal, identificá tu dolor y llevate un estiramiento.">
+<BaseLayout title="Tests interactivos · Sinapsis" description="Probá nuestros tests: descubrí por dónde empezar, encontrá tu plan ideal y llevate un estiramiento.">
   <section class="bg-white px-6 py-12">
     <div class="max-w-3xl mx-auto text-center">
       <div class="text-xs text-gray-500 uppercase tracking-widest">Interactivo</div>
       <h1 class="text-3xl md:text-4xl font-bold text-violet-deep mt-3">Probate</h1>
-      <p class="text-gray-600 mt-3">Tres mini-tests para conocerte un poco más y encontrar lo que necesitás. Rápidos y sin compromiso.</p>
+      <p class="text-gray-600 mt-3">Tres tests para conocerte un poco más y encontrar lo que necesitás. Rápidos y sin compromiso.</p>
     </div>
   </section>
 
-  <!-- Mapa corporal -->
+  <!-- Orientador (reemplaza al viejo mapa corporal: mismo lugar, criterio de verdad) -->
   <section class="bg-violet-deep px-6 py-12 md:py-16">
-    <div class="max-w-4xl mx-auto">
-      <div class="text-center mb-8">
-        <div class="text-xs text-cream/50 uppercase tracking-widest">Test 1</div>
-        <h2 class="text-2xl md:text-3xl font-bold text-cream mt-1">¿Dónde te duele?</h2>
-      </div>
-      <MapaCorporal />
+    <div class="max-w-3xl mx-auto text-center">
+      <div class="text-xs text-cream/50 uppercase tracking-widest">Test 1</div>
+      <h2 class="text-2xl md:text-3xl font-bold text-cream mt-1">¿Por dónde empiezo?</h2>
+      <p class="text-cream/70 text-sm mt-3 max-w-xl mx-auto leading-relaxed">
+        Contanos qué te pasa —dónde, desde cuándo y cómo empezó— y te decimos si te
+        conviene arrancar por kinesiología, por osteopatía o por una consulta médica.
+        Nueve preguntas, sin datos personales.
+      </p>
+      <a
+        href="/orientador"
+        class="group inline-flex items-center gap-2 mt-7 bg-accent-mint text-accent-mint-dark px-6 py-3 rounded-pill text-sm font-bold hover:opacity-90 transition"
+      >Hacer el test <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span></a>
+      <p class="text-[11px] text-cream/45 mt-5">
+        Información orientativa, no reemplaza una consulta profesional.
+      </p>
     </div>
   </section>
 

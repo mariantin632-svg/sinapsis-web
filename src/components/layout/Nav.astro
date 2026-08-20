@@ -6,6 +6,7 @@ import Icon from '../shared/Icon.astro';
 // `labelCorto` es el texto que se usa en la píldora del desktop, donde el espacio
 // es justo; el menú mobile y el footer usan el nombre completo.
 const links: Array<{ href: string; label: string; labelCorto?: string }> = [
+  { href: '/orientador', label: '¿Por dónde empiezo?', labelCorto: 'Orientador' },
   { href: '/servicios-sueltos', label: 'Servicios' },
   { href: '/que-tratamos', label: 'Qué tratamos' },
   { href: '/equipo', label: 'Equipo' },
@@ -40,13 +41,13 @@ const esActiva = (href: string) => rutaActual === href || rutaActual.startsWith(
       />
     </a>
 
-    <div class="hidden xl:flex items-center gap-0.5 px-2 py-1.5 border border-white/15 rounded-full bg-white/5 backdrop-blur-md">
+    <div class="hidden xl:flex items-center gap-0 px-1.5 py-1.5 border border-white/15 rounded-full bg-white/5 backdrop-blur-md">
       {links.map((l) => (
         <a
           href={l.href}
           aria-current={esActiva(l.href) ? 'page' : undefined}
           class:list={[
-            'px-[7px] py-[7px] rounded-full text-[13px] whitespace-nowrap transition',
+            'px-[5px] py-[7px] rounded-full text-[13px] whitespace-nowrap transition',
             esActiva(l.href) ? 'text-white bg-white/10' : 'text-white/80 hover:text-white hover:bg-white/10',
           ]}
         >{l.labelCorto ?? l.label}</a>

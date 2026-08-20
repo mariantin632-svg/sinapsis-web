@@ -426,13 +426,29 @@ const turnitoUrl = sitio.turnito?.hub ?? '';
       resultado.classList.remove('hidden');
     }
 
-    function reiniciar() {
+    /**
+     * `/orientador?zona=rodilla` entra con la primera pregunta ya contestada: es el
+     * enganche de los chips de la home. Solo al cargar — "volver a empezar" arranca de cero.
+     */
+    function zonaDelLink(): string | null {
+      const z = new URLSearchParams(window.location.search).get('zona');
+      return contenido.zonas.some((x) => x.id === z) ? z : null;
+    }
+
+    function reiniciar(usarLink = false) {
       respuestas = { zona: 'cuello', banderas: [], ramaTags: [] };
       historial = [];
       ramaIds = [];
       seleccionMultiple = [];
       actual = 'zona';
       resultado.classList.add('hidden');
+
+      const zona = usarLink ? zonaDelLink() : null;
+      if (zona) {
+        respuestas.zona = zona as ZonaId;
+        historial = ['zona'];
+        actual = 'banderas';
+      }
       render();
     }
 
@@ -447,6 +463,6 @@ const turnitoUrl = sitio.turnito?.hub ?? '';
       reiniciar();
     });
 
-    reiniciar();
+    reiniciar(true);
   });
 </script>

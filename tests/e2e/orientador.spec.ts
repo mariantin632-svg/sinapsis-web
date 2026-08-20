@@ -33,9 +33,39 @@ test.describe('Orientador — ¿Por dónde empiezo?', () => {
     expect(errors, `Errores de consola:\n${errors.join('\n')}`).toHaveLength(0);
   });
 
-  test('no se indexa mientras el contenido clínico no esté validado', async ({ page }) => {
+  test('es indexable y está enlazada desde los dos menús, el footer y la home', async ({ page }) => {
     await page.goto('/orientador');
-    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
+    await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
+
+    // Nav de interiores (píldora desktop) + menú mobile + footer.
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/faq');
+    await expect(page.locator('body > nav a[href="/orientador"]')).toBeVisible();
+    await expect(page.locator('footer a[href="/orientador"]')).toBeVisible();
+
+    // Header propio de la home, que es otro archivo.
+    await page.goto('/');
+    await expect(page.locator('header a[href="/orientador"]').first()).toBeVisible();
+  });
+
+  test('los chips de la home entran con la zona ya contestada', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('a[href="/orientador?zona=rodilla"]').first().click();
+    await page.waitForURL('**/orientador?zona=rodilla');
+
+    // Arranca en la pregunta 2: la zona ya vino en el link.
+    await expect(page.locator('[data-pregunta]')).toContainText('¿Alguna de estas cosas');
+    await expect(page.locator('[data-atras]')).toBeVisible();
+
+    // Y el atrás lleva a la pregunta de zona, no a la nada.
+    await page.locator('[data-atras]').click();
+    await expect(page.locator('[data-pregunta]')).toHaveText('¿Dónde te molesta?');
+  });
+
+  test('una zona inventada en el link no rompe: arranca de cero', async ({ page }) => {
+    await page.goto('/orientador?zona=oreja');
+    await expect(page.locator('[data-pregunta]')).toHaveText('¿Dónde te molesta?');
+    await expect(page.locator('[data-progreso]')).toContainText('Pregunta 1 de 9');
   });
 
   test('una bandera roja corta el test y manda a consulta médica', async ({ page }) => {
