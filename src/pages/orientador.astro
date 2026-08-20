@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Orientador from '../components/orientador/Orientador.astro';
+import Icon from '../components/shared/Icon.astro';
+
+// Sin indexar hasta que el contenido clínico esté validado y firmado.
+const aclaraciones = [
+  {
+    icono: 'clipboard2-pulse',
+    titulo: 'Qué hace',
+    texto:
+      'Ordena lo que te está pasando y te dice por dónde conviene empezar: kinesiología, osteopatía o una consulta médica previa. Nada más que eso, pero bien hecho.',
+  },
+  {
+    icono: 'shield-exclamation',
+    titulo: 'Qué no hace',
+    texto:
+      'No diagnostica ni le pone nombre a tu dolor. Ningún cuestionario reemplaza a una evaluación presencial: acá vas a leer orientaciones, no conclusiones.',
+  },
+  {
+    icono: 'incognito',
+    titulo: 'Qué pasa con tus datos',
+    texto:
+      'Nada se guarda ni se envía. Las respuestas viven en tu navegador mientras hacés el test y se borran al cerrarlo. No te pedimos nombre, mail ni teléfono.',
+  },
+];
+---
+<BaseLayout
+  title="¿Por dónde empiezo? · Sinapsis"
+  description="Contanos qué te pasa y te orientamos: kinesiología, osteopatía o consulta médica primero. Un test corto, sin datos personales y sin compromiso."
+  noindex
+>
+  <!-- hero -->
+  <section class="relative overflow-hidden" style="background: linear-gradient(135deg, #1f0f48 0%, #30166d 70%, #3a2178 100%);">
+    <div class="absolute inset-0 opacity-5 pattern-cross"></div>
+    <div class="relative max-w-[1200px] mx-auto px-6 py-16 md:py-20">
+      <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage">Orientación</p>
+      <h1 class="m-0 font-display font-semibold text-[clamp(2.1rem,5vw,3rem)] leading-[1.12] tracking-[-0.02em] text-white max-w-[720px]">
+        ¿Por dónde empiezo?
+      </h1>
+      <p class="m-0 mt-[18px] text-[16px] leading-relaxed text-white/80 max-w-[620px]">
+        Te duele algo y no sabés si te corresponde kinesiología, osteopatía o ver
+        primero a un médico. Contestá unas preguntas y te decimos por dónde
+        arrancaríamos nosotros. Son dos minutos y no te pedimos ningún dato.
+      </p>
+    </div>
+  </section>
+
+  <!-- test -->
+  <section class="bg-sn-sage/5">
+    <div class="max-w-[760px] mx-auto px-6 pt-12 pb-16 md:pt-16 md:pb-20">
+      <Orientador />
+    </div>
+  </section>
+
+  <!-- qué es y qué no es -->
+  <section class="max-w-[1200px] mx-auto px-6 pt-14 pb-20 md:pt-16">
+    <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage-dark">Antes de que preguntes</p>
+    <h2 class="m-0 mb-9 font-display font-semibold text-[clamp(1.9rem,4vw,2.6rem)] leading-[1.12] tracking-[-0.02em] text-sn-violet max-w-[640px]">
+      Qué es esto, en criollo.
+    </h2>
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-5">
+      {aclaraciones.map((a) => (
+        <div class="bg-white rounded-2xl p-6 shadow-[0_2px_8px_rgba(48,22,109,0.08)] border border-gray-100 flex flex-col">
+          <span class="w-[46px] h-[46px] rounded-xl bg-gradient-to-br from-sn-violet to-sn-violet-light flex items-center justify-center text-white text-[22px] mb-4">
+            <Icon name={a.icono} />
+          </span>
+          <h3 class="m-0 mb-1.5 font-display font-semibold text-[17px] text-gray-900">{a.titulo}</h3>
+          <p class="m-0 text-[13px] leading-relaxed text-gray-500">{a.texto}</p>
+        </div>
+      ))}
+    </div>
+
+    <p class="m-0 mt-11 font-display font-semibold text-[clamp(1.2rem,2.5vw,1.5rem)] leading-snug text-sn-violet max-w-[620px]">
+      Si algo no te cierra, escribinos y lo charlamos. Preguntar no cuesta nada
+      y evita meses de dar vueltas.
+    </p>
+  </section>
+</BaseLayout>

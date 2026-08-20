@@ -1,0 +1,452 @@
+---
+import sitio from '../../content/sitio.json';
+import contenido from '../../content/orientador.json';
+import { buildWhatsAppUrl } from '../../lib/whatsapp';
+
+// El número y el link de turnos se resuelven en build y viajan como data-attributes:
+// así el script del wizard no necesita importar el sitio entero.
+const waBase = buildWhatsAppUrl({ phone: sitio.contacto.whatsapp });
+const turnitoUrl = sitio.turnito?.hub ?? '';
+---
+<div
+  data-orientador
+  data-wa-base={waBase}
+  data-turnito={turnitoUrl}
+  class="bg-white rounded-2xl border border-gray-100 shadow-[0_2px_16px_rgba(48,22,109,0.10)] p-6 md:p-8"
+>
+  <!-- cuestionario -->
+  <div data-paso>
+    <div class="flex items-center justify-between gap-4 mb-3">
+      <span data-progreso class="text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage-dark"></span>
+      <button
+        type="button"
+        data-atras
+        class="hidden text-xs text-gray-500 hover:text-sn-violet underline underline-offset-2 transition"
+      >← Atrás</button>
+    </div>
+
+    <div class="h-1.5 bg-gray-100 rounded-full overflow-hidden mb-6">
+      <div data-barra class="h-full bg-sn-sage transition-all duration-300" style="width: 0%"></div>
+    </div>
+
+    <div aria-live="polite">
+      <h2
+        data-pregunta
+        class="m-0 font-display font-semibold text-[clamp(1.15rem,3vw,1.5rem)] leading-snug tracking-[-0.01em] text-sn-violet"
+      ></h2>
+      <p data-ayuda class="m-0 mt-2 text-[13px] text-gray-500 hidden"></p>
+    </div>
+
+    <div data-opciones class="grid gap-2.5 mt-5"></div>
+
+    <button
+      type="button"
+      data-continuar
+      class="hidden mt-5 w-full sm:w-auto items-center justify-center gap-2 px-[26px] py-[13px] rounded-full bg-sn-violet text-white font-semibold text-[15px] hover:bg-sn-violet-light transition-colors"
+    >Continuar →</button>
+  </div>
+
+  <!-- resultado -->
+  <div data-resultado class="hidden">
+    <div data-resultado-card class="rounded-2xl p-6 md:p-7 border">
+      <p data-resultado-kicker class="m-0 mb-2 text-xs font-semibold tracking-[1.5px] uppercase"></p>
+      <h2
+        data-resultado-titulo
+        class="m-0 font-display font-semibold text-[clamp(1.5rem,4vw,2.1rem)] leading-[1.15] tracking-[-0.02em]"
+      ></h2>
+      <p data-resultado-texto class="m-0 mt-3.5 text-[15px] leading-relaxed"></p>
+
+      <div data-razones-wrap class="mt-5 hidden">
+        <p class="m-0 mb-2 text-[13px] font-semibold text-gray-800">Por lo que contás:</p>
+        <ul data-razones class="m-0 p-0 list-none grid gap-1.5"></ul>
+      </div>
+
+      <div data-pasos-wrap class="mt-6 pt-5 border-t">
+        <p data-pasos-titulo class="m-0 mb-2.5 text-[13px] font-semibold"></p>
+        <ol data-pasos class="m-0 p-0 list-none grid gap-2.5"></ol>
+      </div>
+
+      <p data-resultado-cierre class="m-0 mt-6 text-[14px] leading-relaxed"></p>
+
+      <div class="flex flex-wrap gap-3 mt-5">
+        <a data-cta-wa target="_blank" rel="noopener"></a>
+        <a data-cta-turnos target="_blank" rel="noopener">Ver turnos disponibles</a>
+      </div>
+    </div>
+
+    <button
+      type="button"
+      data-reiniciar
+      class="mt-5 text-xs text-gray-500 hover:text-sn-violet underline underline-offset-2 transition"
+    >Volver a empezar</button>
+  </div>
+
+  <p class="m-0 mt-6 text-[12.5px] leading-relaxed text-gray-500 border-t border-gray-100 pt-5">
+    {contenido.disclaimer}
+  </p>
+</div>
+
+<script>
+  import contenido from '../../content/orientador.json';
+  import { evaluar } from '../../lib/orientador';
+  import type { Respuestas, RamaTag, ZonaId } from '../../lib/orientador';
+
+  type Paso =
+    | 'zona'
+    | 'banderas'
+    | 'inicio'
+    | 'tiempo'
+    | 'medico'
+    | 'signosTrauma'
+    | 'rama0'
+    | 'rama1'
+    | 'recurrencia'
+    | 'objetivo';
+
+  const PASOS_BASE: Paso[] = [
+    'zona',
+    'banderas',
+    'inicio',
+    'tiempo',
+    'medico',
+    'rama0',
+    'rama1',
+    'recurrencia',
+    'objetivo',
+  ];
+
+  interface OpcionUI {
+    id: string;
+    texto: string;
+    tags?: string[];
+  }
+
+  const preguntas = contenido.preguntas as Record<string, any>;
+  const ramas = contenido.ramas as Record<string, any[]>;
+  const caminos = contenido.caminos as Record<string, any>;
+  const razonesTexto = contenido.razones as Record<string, string>;
+
+  document.querySelectorAll<HTMLElement>('[data-orientador]').forEach((root) => {
+    const el = <T extends HTMLElement>(sel: string) => root.querySelector(sel) as T;
+
+    const pasoWrap = el('[data-paso]');
+    const resultado = el('[data-resultado]');
+    const elProgreso = el('[data-progreso]');
+    const elBarra = el('[data-barra]');
+    const elPregunta = el('[data-pregunta]');
+    const elAyuda = el('[data-ayuda]');
+    const elOpciones = el('[data-opciones]');
+    const btnContinuar = el<HTMLButtonElement>('[data-continuar]');
+    const btnAtras = el<HTMLButtonElement>('[data-atras]');
+
+    let respuestas: Respuestas;
+    let historial: Paso[];
+    let actual: Paso;
+    let seleccionMultiple: string[] = [];
+    let ramaIds: string[] = [];
+    let interactuado = false;
+
+    /** La pregunta de signos de trauma solo aparece ante un golpe reciente. */
+    const pideSignos = () => respuestas.inicio === 'golpe' && respuestas.tiempo === 'agudo72h';
+
+    function secuencia(): Paso[] {
+      const pasos = [...PASOS_BASE];
+      if (pideSignos()) pasos.splice(pasos.indexOf('rama0'), 0, 'signosTrauma');
+      return pasos;
+    }
+
+    function siguiente(desde: Paso): Paso | 'resultado' {
+      if (desde === 'banderas' && respuestas.banderas.length > 0) return 'resultado';
+      const pasos = secuencia();
+      const idx = pasos.indexOf(desde);
+      return idx >= 0 && idx < pasos.length - 1 ? pasos[idx + 1] : 'resultado';
+    }
+
+    function definicion(p: Paso): { pregunta: string; ayuda?: string; opciones: OpcionUI[] } {
+      if (p === 'zona') {
+        return {
+          pregunta: preguntas.zona.pregunta,
+          opciones: contenido.zonas.map((z) => ({ id: z.id, texto: z.label })),
+        };
+      }
+      if (p === 'banderas') {
+        return {
+          pregunta: contenido.banderas.pregunta,
+          ayuda: contenido.banderas.ayuda,
+          opciones: contenido.banderas.opciones,
+        };
+      }
+      if (p === 'rama0' || p === 'rama1') {
+        const rama = ramas[respuestas.zona][p === 'rama0' ? 0 : 1];
+        return { pregunta: rama.pregunta, opciones: rama.opciones };
+      }
+      const q = preguntas[p];
+      return { pregunta: q.pregunta, ayuda: q.ayuda, opciones: q.opciones };
+    }
+
+    function responder(p: Paso, opcion: OpcionUI) {
+      if (p === 'zona') {
+        respuestas.zona = opcion.id as ZonaId;
+      } else if (p === 'rama0' || p === 'rama1') {
+        ramaIds[p === 'rama0' ? 0 : 1] = opcion.id;
+        respuestas.ramaTags = [...(respuestas.ramaTags ?? []), ...((opcion.tags ?? []) as RamaTag[])];
+      } else if (p === 'signosTrauma') {
+        respuestas.signosTrauma = opcion.id === 'si';
+      } else {
+        (respuestas as unknown as Record<string, unknown>)[p] = opcion.id;
+      }
+
+      historial.push(p);
+      avanzarDesde(p);
+    }
+
+    /**
+     * Si con lo contestado hasta acá ya hay un corte duro (bandera roja o derivación a
+     * traumatología), no tiene sentido seguir preguntando: el resto no cambia el resultado.
+     * Quien decide es el motor, no la UI.
+     */
+    function avanzarDesde(p: Paso) {
+      const CORTES = ['R0', 'R1a', 'R1b', 'R1c'];
+      if (CORTES.includes(evaluar(respuestas).regla)) {
+        avanzar('resultado');
+        return;
+      }
+      avanzar(siguiente(p));
+    }
+
+    function avanzar(destino: Paso | 'resultado') {
+      interactuado = true;
+      if (destino === 'resultado') {
+        mostrarResultado();
+        return;
+      }
+      actual = destino;
+      render();
+    }
+
+    /** Al volver hay que deshacer lo que aportó el paso al que estamos regresando. */
+    function volver() {
+      const previo = historial.pop();
+      if (!previo) return;
+      if (previo === 'rama0') {
+        respuestas.ramaTags = [];
+        ramaIds = [];
+      } else if (previo === 'rama1') {
+        const primera = ramas[respuestas.zona][0];
+        const elegida = primera.opciones.find((o: OpcionUI) => o.id === ramaIds[0]);
+        respuestas.ramaTags = (elegida?.tags ?? []) as RamaTag[];
+        ramaIds = [ramaIds[0]];
+      }
+      actual = previo;
+      render();
+    }
+
+    function botonOpcion(texto: string, onClick: () => void): HTMLButtonElement {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className =
+        'text-left text-[14.5px] text-gray-800 bg-white hover:bg-sn-sage/10 hover:border-sn-sage border border-gray-200 rounded-xl px-4 py-3.5 transition-colors min-h-[44px] focus:outline-none focus-visible:ring-2 focus-visible:ring-sn-violet';
+      b.textContent = texto;
+      b.addEventListener('click', onClick);
+      return b;
+    }
+
+    function enfocarPrimera() {
+      if (!interactuado) return;
+      const primera = elOpciones.querySelector('button, input') as HTMLElement | null;
+      primera?.focus();
+    }
+
+    function render() {
+      resultado.classList.add('hidden');
+      pasoWrap.classList.remove('hidden');
+
+      const pasos = secuencia();
+      const nro = pasos.indexOf(actual) + 1;
+      elProgreso.textContent = `Pregunta ${nro} de ${pasos.length}`;
+      elBarra.style.width = `${((nro - 1) / pasos.length) * 100}%`;
+      btnAtras.classList.toggle('hidden', historial.length === 0);
+
+      const def = definicion(actual);
+      elPregunta.textContent = def.pregunta;
+      elAyuda.textContent = def.ayuda ?? '';
+      elAyuda.classList.toggle('hidden', !def.ayuda);
+
+      elOpciones.innerHTML = '';
+      btnContinuar.classList.add('hidden');
+
+      if (actual === 'banderas') {
+        renderBanderas(def.opciones);
+        return;
+      }
+
+      def.opciones.forEach((op) => {
+        elOpciones.appendChild(botonOpcion(op.texto, () => responder(actual, op)));
+      });
+      enfocarPrimera();
+    }
+
+    function renderBanderas(opciones: OpcionUI[]) {
+      seleccionMultiple = [];
+
+      const ninguna = document.createElement('label');
+      const ningunaInput = document.createElement('input');
+
+      opciones.forEach((op) => {
+        const label = document.createElement('label');
+        label.className =
+          'flex items-start gap-3 text-[14.5px] text-gray-800 bg-white hover:bg-sn-sage/10 border border-gray-200 rounded-xl px-4 py-3.5 cursor-pointer transition-colors has-[:checked]:border-sn-violet has-[:checked]:bg-sn-violet/5';
+        const input = document.createElement('input');
+        input.type = 'checkbox';
+        input.value = op.id;
+        input.className = 'mt-0.5 w-[18px] h-[18px] accent-sn-violet shrink-0';
+        input.addEventListener('change', () => {
+          seleccionMultiple = input.checked
+            ? [...seleccionMultiple.filter((x) => x !== op.id), op.id]
+            : seleccionMultiple.filter((x) => x !== op.id);
+          if (input.checked) ningunaInput.checked = false;
+        });
+        const span = document.createElement('span');
+        span.textContent = op.texto;
+        label.append(input, span);
+        elOpciones.appendChild(label);
+      });
+
+      ninguna.className =
+        'flex items-center gap-3 text-[14.5px] font-semibold text-sn-violet bg-sn-sage/10 border border-sn-sage rounded-xl px-4 py-3.5 cursor-pointer mt-1';
+      ningunaInput.type = 'checkbox';
+      ningunaInput.className = 'w-[18px] h-[18px] accent-sn-violet shrink-0';
+      ningunaInput.setAttribute('data-ninguna', '');
+      ningunaInput.addEventListener('change', () => {
+        if (!ningunaInput.checked) return;
+        seleccionMultiple = [];
+        elOpciones
+          .querySelectorAll('input[type=checkbox][value]')
+          .forEach((i) => ((i as HTMLInputElement).checked = false));
+      });
+      const ningunaSpan = document.createElement('span');
+      ningunaSpan.textContent = contenido.banderas.ninguna;
+      ninguna.append(ningunaInput, ningunaSpan);
+      elOpciones.appendChild(ninguna);
+
+      btnContinuar.classList.remove('hidden');
+      btnContinuar.classList.add('inline-flex');
+      enfocarPrimera();
+    }
+
+    function textoResumen(): string {
+      const zona = contenido.zonas.find((z) => z.id === respuestas.zona);
+      const tiempo = preguntas.tiempo.opciones.find((o: OpcionUI) => o.id === respuestas.tiempo);
+      const inicio = preguntas.inicio.opciones.find((o: OpcionUI) => o.id === respuestas.inicio);
+      const partes = [
+        zona ? `Me molesta ${zona.resumen}` : null,
+        tiempo ? `hace ${tiempo.texto.toLowerCase()}` : null,
+        inicio ? `y empezó ${inicio.texto.toLowerCase()}` : null,
+      ].filter(Boolean);
+      return partes.length ? `${partes.join(', ')}.` : '';
+    }
+
+    function mostrarResultado() {
+      const r = evaluar(respuestas);
+      const camino = caminos[r.camino];
+      const urgente = camino.urgente === true;
+
+      el('[data-resultado-card]').className = urgente
+        ? 'rounded-2xl p-6 md:p-7 border border-amber-300 bg-amber-50'
+        : 'rounded-2xl p-6 md:p-7 border border-sn-sage bg-sn-sage/10';
+
+      const kicker = el('[data-resultado-kicker]');
+      kicker.className = `m-0 mb-2 text-xs font-semibold tracking-[1.5px] uppercase ${urgente ? 'text-amber-700' : 'text-sn-sage-dark'}`;
+      kicker.textContent = camino.kicker;
+
+      const titulo = el('[data-resultado-titulo]');
+      titulo.className = `m-0 font-display font-semibold text-[clamp(1.5rem,4vw,2.1rem)] leading-[1.15] tracking-[-0.02em] ${urgente ? 'text-amber-900' : 'text-sn-violet'}`;
+      titulo.textContent = camino.titulo;
+
+      const texto = el('[data-resultado-texto]');
+      texto.className = `m-0 mt-3.5 text-[15px] leading-relaxed ${urgente ? 'text-amber-900/90' : 'text-gray-700'}`;
+      texto.textContent = camino.texto;
+
+      const razonesWrap = el('[data-razones-wrap]');
+      const razonesEl = el('[data-razones]');
+      razonesEl.innerHTML = '';
+      const frases = r.razones.map((k) => razonesTexto[k]).filter(Boolean);
+      razonesWrap.classList.toggle('hidden', frases.length === 0);
+      frases.forEach((f) => {
+        const li = document.createElement('li');
+        li.className = 'text-[14px] text-gray-700 flex gap-2';
+        const punto = document.createElement('span');
+        punto.className = 'text-sn-sage-dark shrink-0';
+        punto.textContent = '·';
+        li.append(punto, document.createTextNode(f));
+        razonesEl.appendChild(li);
+      });
+
+      el('[data-pasos-wrap]').className = `mt-6 pt-5 border-t ${urgente ? 'border-amber-300' : 'border-sn-sage/40'}`;
+      const pasosTitulo = el('[data-pasos-titulo]');
+      pasosTitulo.className = `m-0 mb-2.5 text-[13px] font-semibold ${urgente ? 'text-amber-900' : 'text-gray-800'}`;
+      pasosTitulo.textContent = urgente ? 'Qué hacer ahora:' : 'Cómo sigue:';
+
+      const pasosEl = el('[data-pasos]');
+      pasosEl.innerHTML = '';
+      camino.pasos.forEach((p: string, i: number) => {
+        const li = document.createElement('li');
+        li.className = `text-[14px] leading-relaxed flex gap-3 items-start ${urgente ? 'text-amber-900/90' : 'text-gray-700'}`;
+        const n = document.createElement('span');
+        n.className = `shrink-0 w-6 h-6 rounded-full text-[12px] font-bold flex items-center justify-center ${urgente ? 'bg-amber-200 text-amber-900' : 'bg-sn-violet text-white'}`;
+        n.textContent = String(i + 1);
+        li.append(n, document.createTextNode(p));
+        pasosEl.appendChild(li);
+      });
+
+      const cierre = el('[data-resultado-cierre]');
+      cierre.className = `m-0 mt-6 text-[14px] leading-relaxed ${urgente ? 'text-amber-900' : 'text-gray-700'}`;
+      cierre.textContent = camino.cierre;
+
+      const wa = el<HTMLAnchorElement>('[data-cta-wa]');
+      const resumen = textoResumen();
+      wa.href = `${root.dataset.waBase}?text=${encodeURIComponent(
+        resumen ? `${camino.waTexto} ${resumen}` : camino.waTexto
+      )}`;
+      wa.textContent = camino.ctaWa;
+      wa.className = `inline-flex items-center gap-2.5 px-[26px] py-[14px] rounded-full font-semibold text-[15px] transition-all duration-300 hover:-translate-y-0.5 ${urgente ? 'bg-amber-800 text-white hover:bg-amber-900' : 'bg-sn-sage text-sn-deep hover:bg-sn-sage-light'}`;
+
+      // Ante bandera roja no ofrecemos turnos: la consulta médica va primero.
+      const turnos = el<HTMLAnchorElement>('[data-cta-turnos]');
+      const turnitoUrl = root.dataset.turnito;
+      if (!urgente && turnitoUrl) {
+        turnos.href = turnitoUrl;
+        turnos.className =
+          'inline-flex items-center gap-2.5 px-[26px] py-[14px] rounded-full border border-sn-violet/30 text-sn-violet font-semibold text-[15px] hover:border-sn-violet hover:bg-sn-violet/5 transition-all duration-300';
+      } else {
+        turnos.className = 'hidden';
+      }
+
+      pasoWrap.classList.add('hidden');
+      resultado.classList.remove('hidden');
+    }
+
+    function reiniciar() {
+      respuestas = { zona: 'cuello', banderas: [], ramaTags: [] };
+      historial = [];
+      ramaIds = [];
+      seleccionMultiple = [];
+      actual = 'zona';
+      resultado.classList.add('hidden');
+      render();
+    }
+
+    btnContinuar.addEventListener('click', () => {
+      respuestas.banderas = [...seleccionMultiple];
+      historial.push('banderas');
+      avanzarDesde('banderas');
+    });
+    btnAtras.addEventListener('click', volver);
+    el('[data-reiniciar]').addEventListener('click', () => {
+      interactuado = false;
+      reiniciar();
+    });
+
+    reiniciar();
+  });
+</script>

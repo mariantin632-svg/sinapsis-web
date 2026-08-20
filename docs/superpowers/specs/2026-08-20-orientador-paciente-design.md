@@ -22,7 +22,7 @@ cuatro resultados posibles, cierre por WhatsApp con resumen prellenado.
 sumar nutrición / online / evaluación funcional como salidas, analytics.
 
 **No se toca:** el `MapaCorporal` de `/tests` sigue igual; solo se le agrega un link al
-orientador. Nada del resto de la web cambia.
+orientador cuando el contenido esté validado (ver §8). Nada del resto de la web cambia.
 
 ---
 
@@ -32,11 +32,10 @@ orientador. Nada del resto de la web cambia.
 |---|---|
 | `src/pages/orientador.astro` | Página: BaseLayout + hero + wizard + encuadre legal |
 | `src/components/orientador/Orientador.astro` | Wizard: una pregunta por pantalla, progreso, atrás |
-| `src/components/orientador/Resultado.astro` | Tarjeta de resultado + CTA |
 | `src/content/orientador.json` | **Contenido clínico**: zonas, preguntas, banderas, textos |
 | `src/lib/orientador.ts` | **Motor**: `evaluar(respuestas) → Resultado`, función pura |
-| `src/lib/orientador.test.ts` | Casos clínicos del motor (unitarios, sin browser) |
-| `tests/orientador.spec.ts` | Playwright: flujo completo, teclado, mobile |
+| `tests/unit/orientador.test.ts` | Casos clínicos del motor (vitest, sin browser) |
+| `tests/e2e/orientador.spec.ts` | Playwright: flujo completo, corte, atrás, mobile |
 
 **Principio de separación.** El motor no sabe nada de DOM y el JSON no sabe nada de lógica.
 Consecuencias buscadas:
@@ -46,8 +45,8 @@ Consecuencias buscadas:
   con movimiento → kine`) que corren solos y avisan si rompen otra regla.
 - El wizard se puede rediseñar sin tocar criterio clínico.
 
-**Sin framework nuevo.** Astro + una isla de `<script>` con `define:vars`, igual que
-`MapaCorporal.astro` y `QuizPlan.astro`. Estado en memoria, cero dependencias.
+**Sin framework nuevo.** Astro + un `<script>` bundleado por Vite que importa el motor y el
+JSON de contenido. Estado en memoria, cero dependencias en runtime.
 
 **Motor por scoring, no por árbol de `if`.** Un árbol anidado se vuelve inmanejable con 8
 zonas y no sabe expresar el caso mixto. Acá: las urgencias y traumatología son **cortes
@@ -116,6 +115,10 @@ Recuperarme de una cirugía o de una lesión
 
 Se evalúan en orden. La primera que matchea gana y detiene el resto.
 
+**Corte anticipado.** Después de cada respuesta el wizard le pregunta al motor si ya hay un
+corte duro (R0 o cualquier R1). Si lo hay, muestra el resultado sin seguir preguntando: lo
+que falta no puede cambiar la conducta. Quien decide es el motor, no la UI.
+
 ### R0 · Urgencia — corta el test
 
 Cualquiera de estas dispara el resultado 🚨 y cancela las preguntas siguientes:
@@ -161,6 +164,7 @@ Si no disparó R0 ni R1, cada respuesta suma puntos:
 | Es la primera vez | 1 | 0 |
 | Irradia, hormiguea o adormece | 2 | 1 |
 | Se hinchó / se traba / falla / inestabilidad | 3 | 0 |
+| Duele al cargar o usar la zona (sobrecarga) | 2 | 0 |
 | Rigidez que afloja al moverse | 0 | 2 |
 | Empeora con estrés, pantalla o dormir mal | 0 | 2 |
 | Objetivo: que se me vaya el dolor | 1 | 1 |
@@ -256,7 +260,19 @@ link de WhatsApp bien formado, render en 375 / 768 / 1440.
 
 ---
 
-## 8 · Encuadre medicolegal
+## 8 · Publicación por etapas
+
+La v1 sale **en vivo pero sin difundir**, hasta que el contenido clínico tenga la revisión de
+Tincho. Concretamente: la página responde en `/orientador`, pero va con `noindex`, queda
+fuera del sitemap y no se linkea desde ningún lado.
+
+Para abrirlo al público, tres cambios de una línea cada uno:
+
+1. Sacar `noindex` de `src/pages/orientador.astro`.
+2. Sacar el `filter` del sitemap en `astro.config.mjs`.
+3. Sumar el link: al `Nav`, al footer y/o desde `/tests`.
+
+## 9 · Encuadre medicolegal
 
 - Disclaimer visible en la pantalla inicial y repetido en el resultado.
 - El test no guarda ni transmite nada: las respuestas viven en memoria del navegador y se
@@ -264,7 +280,7 @@ link de WhatsApp bien formado, render en 375 / 768 / 1440.
 - Las banderas rojas siempre ganan sobre cualquier otra regla.
 - El contenido clínico del JSON requiere revisión y firma de Tincho antes de publicar.
 
-## 9 · Riesgos conocidos
+## 10 · Riesgos conocidos
 
 | Riesgo | Mitigación |
 |---|---|

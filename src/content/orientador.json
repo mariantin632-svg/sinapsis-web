@@ -1,0 +1,318 @@
+{
+  "_nota": "Contenido clínico del orientador de pacientes. La lógica vive en src/lib/orientador.ts; acá solo texto y las señales que cada respuesta activa. Requiere revisión y firma clínica antes de publicar.",
+
+  "zonas": [
+    { "id": "cuello", "label": "Cuello", "resumen": "el cuello" },
+    { "id": "hombro", "label": "Hombro", "resumen": "el hombro" },
+    { "id": "codo", "label": "Codo o muñeca", "resumen": "el codo o la muñeca" },
+    { "id": "lumbar", "label": "Espalda baja (lumbar)", "resumen": "la espalda baja" },
+    { "id": "cadera", "label": "Cadera o pelvis", "resumen": "la cadera" },
+    { "id": "rodilla", "label": "Rodilla", "resumen": "la rodilla" },
+    { "id": "tobillo", "label": "Tobillo o pie", "resumen": "el tobillo o el pie" },
+    { "id": "varias", "label": "Varias zonas o dolor difuso", "resumen": "varias zonas" }
+  ],
+
+  "banderas": {
+    "pregunta": "¿Alguna de estas cosas te está pasando?",
+    "ayuda": "Podés marcar más de una. Si no te pasa ninguna, seguí de largo.",
+    "opciones": [
+      { "id": "fuerza", "texto": "Perdí fuerza en un brazo o una pierna, y va en aumento" },
+      { "id": "esfinteres", "texto": "Me cuesta controlar la orina o la materia fecal, o siento adormecida la zona del pantalón" },
+      { "id": "fiebre", "texto": "Tengo fiebre junto con el dolor" },
+      { "id": "nocturno", "texto": "Me duele de noche y no cede con nada, ni cambiando de posición" },
+      { "id": "accidente", "texto": "Vengo de un accidente fuerte (auto, moto, caída de altura)" },
+      { "id": "deformidad", "texto": "La zona quedó deformada, o no puedo apoyarla ni moverla nada" },
+      { "id": "antecedentes", "texto": "Tuve cáncer, o tomo corticoides hace mucho tiempo" },
+      { "id": "peso", "texto": "Bajé de peso sin explicación en el último tiempo" }
+    ],
+    "ninguna": "No, ninguna de estas"
+  },
+
+  "preguntas": {
+    "zona": { "pregunta": "¿Dónde te molesta?" },
+
+    "inicio": {
+      "pregunta": "¿Cómo empezó?",
+      "opciones": [
+        { "id": "golpe", "texto": "De un golpe, una torcedura o un accidente" },
+        { "id": "gradual", "texto": "De a poco, sin una causa clara" },
+        { "id": "esfuerzo", "texto": "Después de un esfuerzo o de entrenar" },
+        { "id": "postquirurgico", "texto": "Después de una cirugía" }
+      ]
+    },
+
+    "tiempo": {
+      "pregunta": "¿Hace cuánto que te pasa?",
+      "opciones": [
+        { "id": "agudo72h", "texto": "Menos de 72 horas" },
+        { "id": "menos1mes", "texto": "Menos de un mes" },
+        { "id": "1a3meses", "texto": "Entre 1 y 3 meses" },
+        { "id": "mas3meses", "texto": "Más de 3 meses" }
+      ]
+    },
+
+    "medico": {
+      "pregunta": "¿Te vio un médico por esto?",
+      "opciones": [
+        { "id": "si-estudios", "texto": "Sí, y me pidió estudios" },
+        { "id": "si-sin-estudios", "texto": "Sí, pero sin estudios" },
+        { "id": "no", "texto": "No, nunca" }
+      ]
+    },
+
+    "signosTrauma": {
+      "pregunta": "¿Se hinchó enseguida, sentiste un crujido o desgarro, o sentís que la zona falla o se te va?",
+      "ayuda": "Solo para entender qué tan fuerte fue el golpe.",
+      "opciones": [
+        { "id": "si", "texto": "Sí, alguna de esas" },
+        { "id": "no", "texto": "No, nada de eso" }
+      ]
+    },
+
+    "recurrencia": {
+      "pregunta": "¿Es la primera vez que te pasa, o te vuelve seguido?",
+      "opciones": [
+        { "id": "primera", "texto": "Es la primera vez", "tags": [] },
+        { "id": "vuelve", "texto": "Me vuelve seguido", "tags": [] }
+      ]
+    },
+
+    "objetivo": {
+      "pregunta": "¿Qué buscás?",
+      "opciones": [
+        { "id": "dolor", "texto": "Que se me vaya el dolor" },
+        { "id": "deporte", "texto": "Volver a entrenar o competir" },
+        { "id": "no-vuelva", "texto": "Que deje de volver" },
+        { "id": "post-lesion", "texto": "Recuperarme de una lesión o de una cirugía" }
+      ]
+    }
+  },
+
+  "ramas": {
+    "cuello": [
+      {
+        "pregunta": "¿El dolor baja al brazo, con hormigueo o adormecimiento?",
+        "opciones": [
+          { "id": "si", "texto": "Sí, baja al brazo", "tags": ["irradia"] },
+          { "id": "no", "texto": "No, queda en el cuello", "tags": [] }
+        ]
+      },
+      {
+        "pregunta": "¿Empeora con la pantalla, el estrés o al final del día?",
+        "opciones": [
+          { "id": "si", "texto": "Sí, bastante", "tags": ["tensional"] },
+          { "id": "no", "texto": "No, es parejo", "tags": [] }
+        ]
+      }
+    ],
+    "hombro": [
+      {
+        "pregunta": "¿Podés levantar el brazo por encima de la cabeza?",
+        "opciones": [
+          { "id": "si", "texto": "Sí, aunque moleste", "tags": [] },
+          { "id": "no", "texto": "No, no llego", "tags": ["mecanico"] }
+        ]
+      },
+      {
+        "pregunta": "¿Te duele de noche al acostarte de ese lado?",
+        "opciones": [
+          { "id": "si", "texto": "Sí, me despierta", "tags": ["sobrecarga"] },
+          { "id": "no", "texto": "No", "tags": [] }
+        ]
+      }
+    ],
+    "codo": [
+      {
+        "pregunta": "¿Duele al agarrar cosas o hacer fuerza con la mano?",
+        "opciones": [
+          { "id": "si", "texto": "Sí, al agarrar o cargar", "tags": ["sobrecarga"] },
+          { "id": "no", "texto": "No, duele en reposo", "tags": [] }
+        ]
+      },
+      {
+        "pregunta": "¿Sentís hormigueo o adormecimiento en los dedos?",
+        "opciones": [
+          { "id": "si", "texto": "Sí", "tags": ["irradia"] },
+          { "id": "no", "texto": "No", "tags": [] }
+        ]
+      }
+    ],
+    "lumbar": [
+      {
+        "pregunta": "¿El dolor baja a la pierna?",
+        "opciones": [
+          { "id": "si", "texto": "Sí, baja a la pierna", "tags": ["irradia"] },
+          { "id": "no", "texto": "No, queda en la espalda", "tags": [] }
+        ]
+      },
+      {
+        "pregunta": "¿Qué pasa cuando te movés?",
+        "opciones": [
+          { "id": "mejora", "texto": "Aflojo y mejora", "tags": ["rigidez"] },
+          { "id": "empeora", "texto": "Empeora", "tags": ["mecanico"] }
+        ]
+      }
+    ],
+    "cadera": [
+      {
+        "pregunta": "¿Duele al caminar o al subir escaleras?",
+        "opciones": [
+          { "id": "si", "texto": "Sí, al cargar el peso", "tags": ["sobrecarga"] },
+          { "id": "no", "texto": "No, duele quieto", "tags": [] }
+        ]
+      },
+      {
+        "pregunta": "¿Sentís que un lado traba o perdió movilidad?",
+        "opciones": [
+          { "id": "si", "texto": "Sí, se siente distinto", "tags": ["rigidez"] },
+          { "id": "no", "texto": "No", "tags": [] }
+        ]
+      }
+    ],
+    "rodilla": [
+      {
+        "pregunta": "¿Se hinchó?",
+        "opciones": [
+          { "id": "si", "texto": "Sí, se hinchó", "tags": ["mecanico"] },
+          { "id": "no", "texto": "No", "tags": [] }
+        ]
+      },
+      {
+        "pregunta": "¿Se traba, falla o sentís que se te va?",
+        "opciones": [
+          { "id": "si", "texto": "Sí, alguna de esas", "tags": ["mecanico"] },
+          { "id": "no", "texto": "No, solo duele", "tags": ["sobrecarga"] }
+        ]
+      }
+    ],
+    "tobillo": [
+      {
+        "pregunta": "¿Te lo torciste alguna vez?",
+        "opciones": [
+          { "id": "si", "texto": "Sí, una o varias veces", "tags": ["sobrecarga"] },
+          { "id": "no", "texto": "No, nunca", "tags": [] }
+        ]
+      },
+      {
+        "pregunta": "¿Sentís inestabilidad al caminar en terreno irregular?",
+        "opciones": [
+          { "id": "si", "texto": "Sí, siento que se me va", "tags": ["mecanico"] },
+          { "id": "no", "texto": "No, va firme", "tags": [] }
+        ]
+      }
+    ],
+    "varias": [
+      {
+        "pregunta": "¿Estás rígido a la mañana y aflojás a medida que te movés?",
+        "opciones": [
+          { "id": "si", "texto": "Sí, arranco duro", "tags": ["rigidez"] },
+          { "id": "no", "texto": "No", "tags": [] }
+        ]
+      },
+      {
+        "pregunta": "¿Coincide con épocas de estrés o de dormir mal?",
+        "opciones": [
+          { "id": "si", "texto": "Sí, se nota", "tags": ["tensional"] },
+          { "id": "no", "texto": "No tiene que ver", "tags": [] }
+        ]
+      }
+    ]
+  },
+
+  "razones": {
+    "inicio:golpe": "empezó de un golpe o una torcedura",
+    "inicio:esfuerzo": "apareció después de un esfuerzo o de entrenar",
+    "inicio:gradual": "apareció de a poco, sin una causa clara",
+    "inicio:postquirurgico": "venís de una cirugía",
+    "tiempo:agudo72h": "es algo reciente, de menos de 72 horas",
+    "tiempo:menos1mes": "lleva menos de un mes",
+    "tiempo:1a3meses": "ya lleva más de un mes",
+    "tiempo:mas3meses": "lleva más de tres meses",
+    "medico:si-estudios": "ya te vio un médico y hay estudios",
+    "medico:si-sin-estudios": "te vio un médico, aunque sin estudios",
+    "medico:no": "todavía no te vio ningún médico",
+    "zona:varias": "te molesta en varias zonas a la vez",
+    "recurrencia:primera": "es la primera vez que te pasa",
+    "recurrencia:vuelve": "te vuelve seguido",
+    "tag:irradia": "el dolor se extiende o te da hormigueo",
+    "tag:mecanico": "hay señales de que la zona no está trabajando bien",
+    "tag:sobrecarga": "duele cuando cargás o usás la zona",
+    "tag:rigidez": "hay rigidez que afloja con el movimiento",
+    "tag:tensional": "se mueve con el estrés, la postura o el descanso",
+    "objetivo:dolor": "querés sacarte el dolor de encima",
+    "objetivo:deporte": "querés volver a entrenar",
+    "objetivo:no-vuelva": "buscás que deje de volver",
+    "objetivo:post-lesion": "estás recuperándote de una lesión o una cirugía"
+  },
+
+  "caminos": {
+    "urgencia": {
+      "kicker": "Primero, descartar",
+      "titulo": "Conviene que te vea un médico hoy",
+      "texto": "Marcaste algo que se chequea antes que cualquier otra cosa. No es para asustarte: la mayoría de las veces no termina siendo nada serio. Pero no es algo que convenga empezar a tratar sin descartarlo primero.",
+      "pasos": [
+        "Consultá hoy con tu médico o, si el cuadro es intenso, en una guardia.",
+        "Llevá anotado desde cuándo te pasa, qué lo empeora y qué medicación tomás.",
+        "Si tenés estudios previos de la zona, llevalos."
+      ],
+      "cierre": "Si querés que te orientemos mientras tanto, escribinos. Pero la consulta médica va primero.",
+      "waTexto": "Hola! Hice el test de orientación en la web y me sugirió consultar con un médico. Quería preguntarles algo.",
+      "ctaWa": "Escribirnos",
+      "urgente": true
+    },
+    "traumatologia": {
+      "kicker": "Tu punto de partida",
+      "titulo": "Empezá por una consulta traumatológica",
+      "texto": "Por lo que contás, antes de rehabilitar conviene saber con qué estamos tratando. Una consulta traumatológica define si hace falta algún estudio y con qué indicaciones arrancar. Después la rehabilitación va sobre seguro y no perdés tiempo.",
+      "pasos": [
+        "Consulta traumatológica: revisación y, si hace falta, pedido de estudios.",
+        "Con eso definido, armamos el tratamiento kinésico que corresponda.",
+        "En el centro tenemos consulta traumatológica, así que podés resolver todo acá."
+      ],
+      "cierre": "Escribinos y coordinamos la consulta.",
+      "waTexto": "Hola! Hice el test de orientación en la web y me sugirió empezar por una consulta traumatológica.",
+      "ctaWa": "Coordinar la consulta"
+    },
+    "kinesiologia": {
+      "kicker": "Tu punto de partida",
+      "titulo": "Kinesiología",
+      "texto": "Lo que contás pide rehabilitación activa: recuperar movilidad, fuerza y confianza en la zona, con un plan que progresa y ejercicios para hacer en casa.",
+      "pasos": [
+        "Primera visita: evaluación funcional. Vemos cómo se mueve la zona, qué duele y qué está flojo.",
+        "Salís con un punto de partida claro y las primeras pautas.",
+        "El tratamiento es personalizado: el plan es tuyo y se ajusta sesión a sesión."
+      ],
+      "cierre": "Escribinos y coordinamos la primera evaluación.",
+      "waTexto": "Hola! Hice el test de orientación en la web y me sugirió empezar por kinesiología.",
+      "ctaWa": "Coordinar una evaluación"
+    },
+    "osteopatia": {
+      "kicker": "Tu punto de partida",
+      "titulo": "Osteopatía",
+      "texto": "Lo tuyo pinta a un cuadro que se instaló de a poco, que vuelve, y que no responde a una lesión puntual. La osteopatía trabaja con terapia manual sobre las restricciones de movilidad y la tensión que lo sostienen.",
+      "pasos": [
+        "Sesión individual de una hora, con evaluación manual global: no miramos solo donde duele.",
+        "Tratamiento el mismo día.",
+        "Te llevás pautas para sostener el cambio entre sesiones."
+      ],
+      "cierre": "Escribinos y coordinamos una sesión.",
+      "waTexto": "Hola! Hice el test de orientación en la web y me sugirió empezar por osteopatía.",
+      "ctaWa": "Coordinar una sesión"
+    },
+    "combinado": {
+      "kicker": "Tu punto de partida",
+      "titulo": "Kinesiología con complemento osteopático",
+      "texto": "Tu cuadro tiene las dos caras: algo que necesita recuperar función, y algo que se sostiene en tensión y falta de movilidad. El eje es la kinesiología; la osteopatía entra como complemento donde el trabajo activo no llega solo.",
+      "pasos": [
+        "Arrancamos con la evaluación kinésica y el plan de trabajo.",
+        "Sumamos sesiones de osteopatía en los momentos en que hacen diferencia.",
+        "Vamos ajustando la proporción según cómo respondas."
+      ],
+      "cierre": "Escribinos y vemos cómo armarlo.",
+      "waTexto": "Hola! Hice el test de orientación en la web y me sugirió kinesiología con complemento osteopático.",
+      "ctaWa": "Coordinar una evaluación"
+    }
+  },
+
+  "disclaimer": "Esto es una orientación, no un diagnóstico. Con una evaluación presencial nos acercamos lo más posible a lo que te está pasando. Ante dolor intenso o que empeora, consultá con un profesional."
+}
