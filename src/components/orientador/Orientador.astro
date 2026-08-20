@@ -103,9 +103,10 @@ const turnitoUrl = sitio.turnito?.hub ?? '';
     | 'recurrencia'
     | 'objetivo';
 
+  // Las banderas rojas van ÚLTIMAS a propósito: abrir con una lista de señales de alarma
+  // asusta al paciente que no tiene ninguna, que son casi todos. Ver §2 de la spec.
   const PASOS_BASE: Paso[] = [
     'zona',
-    'banderas',
     'inicio',
     'tiempo',
     'medico',
@@ -113,6 +114,7 @@ const turnitoUrl = sitio.turnito?.hub ?? '';
     'rama1',
     'recurrencia',
     'objetivo',
+    'banderas',
   ];
 
   interface OpcionUI {
@@ -156,7 +158,6 @@ const turnitoUrl = sitio.turnito?.hub ?? '';
     }
 
     function siguiente(desde: Paso): Paso | 'resultado' {
-      if (desde === 'banderas' && respuestas.banderas.length > 0) return 'resultado';
       const pasos = secuencia();
       const idx = pasos.indexOf(desde);
       return idx >= 0 && idx < pasos.length - 1 ? pasos[idx + 1] : 'resultado';
@@ -201,14 +202,20 @@ const turnitoUrl = sitio.turnito?.hub ?? '';
     }
 
     /**
-     * Si con lo contestado hasta acá ya hay un corte duro (bandera roja o derivación a
-     * traumatología), no tiene sentido seguir preguntando: el resto no cambia el resultado.
-     * Quien decide es el motor, no la UI.
+     * Si con lo contestado ya hay derivación a traumatología, el resto de las preguntas no
+     * puede cambiar la conducta: saltamos directo a las banderas. Pero saltamos A las
+     * banderas, no al resultado — son lo único que puede pisar esa derivación, así que
+     * ningún camino llega a un resultado sin haberlas preguntado.
+     * Quien decide el corte es el motor, no la UI.
      */
     function avanzarDesde(p: Paso) {
-      const CORTES = ['R0', 'R1a', 'R1b', 'R1c'];
-      if (CORTES.includes(evaluar(respuestas).regla)) {
+      if (p === 'banderas') {
         avanzar('resultado');
+        return;
+      }
+      const CORTES = ['R1a', 'R1b', 'R1c'];
+      if (CORTES.includes(evaluar(respuestas).regla)) {
+        avanzar('banderas');
         return;
       }
       avanzar(siguiente(p));
@@ -263,8 +270,15 @@ const turnitoUrl = sitio.turnito?.hub ?? '';
 
       const pasos = secuencia();
       const nro = pasos.indexOf(actual) + 1;
-      elProgreso.textContent = `Pregunta ${nro} de ${pasos.length}`;
-      elBarra.style.width = `${((nro - 1) / pasos.length) * 100}%`;
+      // Las banderas son siempre el último paso, y se puede llegar salteando: numerarlas
+      // "9 de 10" después de la 4 confunde más de lo que informa.
+      if (actual === 'banderas') {
+        elProgreso.textContent = contenido.banderas.titulo;
+        elBarra.style.width = '90%';
+      } else {
+        elProgreso.textContent = `Pregunta ${nro} de ${pasos.length}`;
+        elBarra.style.width = `${((nro - 1) / pasos.length) * 100}%`;
+      }
       btnAtras.classList.toggle('hidden', historial.length === 0);
 
       const def = definicion(actual);
@@ -447,7 +461,7 @@ const turnitoUrl = sitio.turnito?.hub ?? '';
       if (zona) {
         respuestas.zona = zona as ZonaId;
         historial = ['zona'];
-        actual = 'banderas';
+        actual = 'inicio';
       }
       render();
     }

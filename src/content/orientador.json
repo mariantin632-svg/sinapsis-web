@@ -13,15 +13,16 @@
   ],
 
   "banderas": {
+    "titulo": "Última, y es de rutina",
     "pregunta": "¿Alguna de estas cosas te está pasando?",
-    "ayuda": "Podés marcar más de una. Si no te pasa ninguna, seguí de largo.",
+    "ayuda": "Son poco frecuentes y a la mayoría no le pasa ninguna. Preguntamos igual porque, si alguna te está pasando, lo primero no es rehabilitación: es que te vea un médico. Podés marcar más de una.",
     "opciones": [
-      { "id": "fuerza", "texto": "Perdí fuerza en un brazo o una pierna, y va en aumento" },
-      { "id": "esfinteres", "texto": "Me cuesta controlar la orina o la materia fecal, o siento adormecida la zona del pantalón" },
       { "id": "fiebre", "texto": "Tengo fiebre junto con el dolor" },
-      { "id": "nocturno", "texto": "Me duele de noche y no cede con nada, ni cambiando de posición" },
       { "id": "accidente", "texto": "Vengo de un accidente fuerte (auto, moto, caída de altura)" },
       { "id": "deformidad", "texto": "La zona quedó deformada, o no puedo apoyarla ni moverla nada" },
+      { "id": "nocturno", "texto": "Me duele de noche y no cede con nada, ni cambiando de posición" },
+      { "id": "fuerza", "texto": "Perdí fuerza en un brazo o una pierna, y va en aumento" },
+      { "id": "esfinteres", "texto": "Me cuesta controlar la orina o la materia fecal, o siento adormecida la zona del pantalón" },
       { "id": "antecedentes", "texto": "Tuve cáncer, o tomo corticoides hace mucho tiempo" },
       { "id": "peso", "texto": "Bajé de peso sin explicación en el último tiempo" }
     ],

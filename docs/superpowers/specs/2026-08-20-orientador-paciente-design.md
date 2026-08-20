@@ -60,8 +60,13 @@ un resultado legítimo (kine con complemento osteopático), no un error a desemp
 ## 2 · Flujo de preguntas
 
 Nueve preguntas en el recorrido completo, más una condicional si hubo trauma reciente.
-Si el paciente marca una bandera roja el test corta en la segunda. Una por pantalla, barra
-de progreso, botón atrás, sin datos personales.
+Una por pantalla, barra de progreso, botón atrás, sin datos personales.
+
+**Las banderas rojas van últimas** (revisión de Tincho, 20/08). Abrir el test con una lista de
+ocho señales de alarma asusta al paciente que no tiene ninguna, que son casi todos: es la
+primera impresión del test y el punto de abandono más caro. Al final, con el paciente ya
+enganchado, la misma pregunta se lee como minuciosidad y no como amenaza. No se pierde nada
+clínico —siguen decidiendo el resultado— pero sí cambia el orden interno del motor: ver §3.
 
 ### Fijas — todas las zonas
 
@@ -69,20 +74,17 @@ de progreso, botón atrás, sin datos personales.
 Cuello · Hombro · Codo o muñeca · Espalda baja (lumbar) · Cadera o pelvis · Rodilla ·
 Tobillo o pie · Varias zonas o dolor difuso
 
-**P2 · ¿Alguna de estas cosas te está pasando?** *(selección múltiple + "ninguna")*
-Corta el test si marca cualquiera. Ver §3.
-
-**P3 · ¿Cómo empezó?**
+**P2 · ¿Cómo empezó?**
 De un golpe, torcedura o accidente · De a poco, sin causa clara · Después de un esfuerzo o
 de entrenar · Después de una cirugía
 
-**P4 · ¿Hace cuánto?**
+**P3 · ¿Hace cuánto?**
 Menos de 72 horas · Menos de un mes · Entre 1 y 3 meses · Más de 3 meses
 
-**P5 · ¿Te vio un médico por esto?**
+**P4 · ¿Te vio un médico por esto?**
 Sí, y me pidió estudios · Sí, pero sin estudios · No, nunca
 
-**P5b · condicional — solo si P3 = golpe/torcedura y P4 = menos de 72 h**
+**P4b · condicional — solo si P2 = golpe/torcedura y P3 = menos de 72 h**
 ¿Se hinchó enseguida, sentiste un crujido o desgarro, o sentís que la zona falla o se te va?
 Sí · No
 
@@ -107,9 +109,16 @@ traumatología.
 
 ### Cierre — todas las zonas
 
-**P9 · ¿Qué buscás?**
+**P8 · ¿Qué buscás?**
 Que se me vaya el dolor · Volver a entrenar o competir · Que deje de volver ·
 Recuperarme de una cirugía o de una lesión
+
+**P9 · ¿Alguna de estas cosas te está pasando?** *(selección múltiple + "ninguna")*
+Las banderas rojas, siempre el último paso. No se numera en la barra de progreso ("Última, y
+es de rutina") porque se puede llegar salteando, y "9 de 10" después de la 4 confunde. El
+encuadre es explícito: *son poco frecuentes y a la mayoría no le pasa ninguna; preguntamos
+porque si alguna te pasa, lo primero no es rehabilitación sino un médico*. Las ocho señales
+van ordenadas de lo más concreto a lo más delicado.
 
 ---
 
@@ -117,13 +126,22 @@ Recuperarme de una cirugía o de una lesión
 
 Se evalúan en orden. La primera que matchea gana y detiene el resto.
 
-**Corte anticipado.** Después de cada respuesta el wizard le pregunta al motor si ya hay un
-corte duro (R0 o cualquier R1). Si lo hay, muestra el resultado sin seguir preguntando: lo
-que falta no puede cambiar la conducta. Quien decide es el motor, no la UI.
+**Corte anticipado, pero nunca salteando las banderas.** Después de cada respuesta el wizard
+le pregunta al motor si ya hay derivación a traumatología (R1a/b/c). Si la hay, **salta a las
+preguntas de banderas rojas** —no al resultado—: lo que falta del cuestionario no puede
+cambiar la conducta, pero las banderas sí, porque son lo único que pisa una derivación.
 
-### R0 · Urgencia — corta el test
+Consecuencia que hay que sostener al tocar el flujo: **ningún camino puede llegar a un
+resultado sin haber preguntado las banderas.** Hay un test e2e dedicado a eso
+(*"ningún camino llega al resultado sin preguntar las banderas"*), con el peor caso:
+derivación temprana a traumatología + bandera roja marcada → tiene que dar urgencia.
 
-Cualquiera de estas dispara el resultado 🚨 y cancela las preguntas siguientes:
+Quien decide el corte es el motor, no la UI.
+
+### R0 · Urgencia — gana siempre
+
+Se preguntan al final (§2). Cualquiera de estas dispara el resultado 🚨, por encima de
+cualquier otra regla:
 
 - Pérdida de fuerza que va en aumento
 - Alteración para controlar la orina o la materia fecal, o adormecimiento en la zona del pantalón
@@ -138,7 +156,7 @@ Cualquiera de estas dispara el resultado 🚨 y cancela las preguntas siguientes
 
 Cualquiera de estas tres:
 
-- **a)** Empezó de un golpe/torcedura, hace menos de 72 h, **y** P5b es "sí" (hinchazón
+- **a)** Empezó de un golpe/torcedura, hace menos de 72 h, **y** P4b es "sí" (hinchazón
   inmediata, crujido o desgarro, o sensación de que falla o se va).
   *(La imposibilidad total de apoyar o mover ya es R0.)*
 - **b)** Es post-quirúrgico y no tiene indicación médica de rehabilitación.
@@ -247,7 +265,7 @@ queda como "si querés que te orientemos, escribinos" y Turnito no aparece.
 
 **Unitarios del motor** (`orientador.test.ts`) — como mínimo un caso por regla:
 
-1. Cualquier bandera roja → urgencia, sin importar el resto.
+1. Cualquier bandera roja → urgencia, sin importar el resto (incluso pisando una R1).
 2. Golpe + menos de 72 h + se hinchó → traumatología.
 3. Post-quirúrgico sin indicación → traumatología.
 4. Más de 3 meses + nunca vio médico → traumatología.
