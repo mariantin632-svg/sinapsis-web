@@ -1,0 +1,234 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import sitio from '../content/sitio.json';
+import { buildWhatsAppUrl } from '../lib/whatsapp';
+
+// Fecha de última revisión del texto. Actualizar a mano cuando cambie el contenido.
+const actualizado = '6 de septiembre de 2026';
+
+const mailContacto = 'martinniro@outlook.com';
+const mailtoHref = 'mailto:' + mailContacto;
+const whatsappUrl = buildWhatsAppUrl({
+  phone: sitio.contacto.whatsapp,
+  text: 'Hola! Quería hacer una consulta sobre mis datos personales.',
+});
+const direccion = [sitio.direccion.calle, sitio.direccion.ciudad, sitio.direccion.provincia].join(', ');
+
+// El fade-in del layout observa `main > section` con threshold 0.12: si el texto
+// va todo en una sección única de miles de píxeles, nunca la alcanza y la página
+// arranca en blanco. Por eso el cuerpo va partido en secciones cortas.
+const bloque = 'max-w-[820px] mx-auto px-6';
+const h2 = 'm-0 mb-4 font-display font-semibold text-[clamp(1.4rem,3vw,1.75rem)] leading-snug tracking-[-0.01em] text-sn-violet';
+const h3 = 'm-0 mb-2 font-display font-semibold text-[16px] text-gray-900';
+const parrafo = 'm-0 mb-6 text-[15px] leading-relaxed text-gray-600';
+const lista = 'm-0 mb-6 pl-5 list-disc text-[15px] leading-relaxed text-gray-600 space-y-2 marker:text-sn-sage-dark';
+const enlace = 'font-semibold text-sn-violet hover:text-sn-violet-light underline underline-offset-2 transition';
+const fuerte = 'font-semibold text-gray-900';
+---
+<BaseLayout
+  title="Política de privacidad · Sinapsis"
+  description="Cómo Sinapsis trata los datos personales y de salud de sus pacientes: qué guardamos, para qué, por cuánto tiempo y cómo pedir acceso, rectificación o supresión."
+>
+  <!-- hero -->
+  <section class="relative overflow-hidden" style="background: linear-gradient(135deg, #1f0f48 0%, #30166d 70%, #3a2178 100%);">
+    <div class="absolute inset-0 opacity-5 pattern-cross"></div>
+    <div class="relative max-w-[1200px] mx-auto px-6 py-16 md:py-20">
+      <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage">Política de privacidad</p>
+      <h1 class="m-0 font-display font-semibold text-[clamp(2.1rem,5vw,3rem)] leading-[1.12] tracking-[-0.02em] text-white max-w-[760px]">
+        Qué hacemos con tus datos.
+      </h1>
+      <p class="m-0 mt-[18px] text-[16px] leading-relaxed text-white/80 max-w-[640px]">
+        Trabajamos con información sensible: lo que te duele, lo que te pasó, cómo
+        venís evolucionando. Esta página explica en castellano qué guardamos, para
+        qué, con quién lo compartimos y qué podés pedirnos en cualquier momento.
+      </p>
+      <p class="m-0 mt-5 text-[13px] text-white/55">Última actualización: {actualizado}</p>
+    </div>
+  </section>
+
+  <!-- resumen + responsable -->
+  <section class={`${bloque} pt-14 pb-10 md:pt-16`}>
+    <div class="bg-sn-sage/15 border border-sn-sage/40 rounded-2xl p-6 mb-12">
+      <h2 class="m-0 mb-3 font-display font-semibold text-[17px] text-sn-violet">En dos líneas</h2>
+      <p class="m-0 text-[14.5px] leading-relaxed text-gray-700">
+        Este sitio no te rastrea: no tiene cookies, ni analítica, ni formularios. Los
+        datos que sí tenemos son los que nos das cuando te atendés o nos escribís, y
+        los usamos para atenderte. <strong class={fuerte}>No los vendemos ni los cedemos
+        con fines publicitarios.</strong>
+      </p>
+    </div>
+
+    <h2 class={h2}>1. Quién es responsable de tus datos</h2>
+    <p class={parrafo}>
+      El responsable del tratamiento es <strong class={fuerte}>Martín Niro</strong>,
+      CUIT 20-41449429-4, titular de <strong class={fuerte}>Sinapsis</strong> —
+      Centro de Rehabilitación Traumatológica y Deportiva, con domicilio en {direccion}.
+    </p>
+    <p class="m-0 text-[15px] leading-relaxed text-gray-600">
+      Para cualquier tema de esta política escribinos a
+      <a href={mailtoHref} class={enlace}>{mailContacto}</a>
+      o por <a href={whatsappUrl} target="_blank" rel="noopener" class={enlace}>WhatsApp al {sitio.contacto.whatsapp_display}</a>.
+    </p>
+  </section>
+
+  <!-- qué datos -->
+  <section class={`${bloque} py-10`}>
+    <h2 class={h2}>2. Qué datos tratamos y de dónde salen</h2>
+
+    <h3 class={h3}>Navegar este sitio</h3>
+    <p class={parrafo}>
+      Ninguno. <strong class={fuerte}>sinapsiskinesio.com.ar no usa cookies, no tiene
+      herramientas de analítica ni píxeles de publicidad, y no tiene formularios.</strong>
+      El orientador de pacientes y los tests de la sección Tests funcionan enteramente
+      dentro de tu navegador: las respuestas que marcás no se envían a ningún servidor,
+      no quedan guardadas y desaparecen al cerrar la página. El servidor donde está
+      alojado el sitio (Netlify) registra datos técnicos de las visitas, como cualquier
+      servidor web, según su propia política.
+    </p>
+
+    <h3 class={h3}>Escribirnos por WhatsApp</h3>
+    <p class={parrafo}>
+      Cuando nos escribís por WhatsApp guardamos tu número, el nombre que muestra tu
+      perfil y el contenido de la conversación —que puede incluir información sobre tu
+      salud, porque de eso venís a hablarnos—. Usamos la plataforma de WhatsApp Business
+      de Meta para recibir y responder mensajes, y una herramienta propia que ordena esas
+      conversaciones y nos permite mandarte recordatorios de turno. Meta procesa los
+      mensajes como intermediario, bajo sus propias políticas.
+    </p>
+
+    <h3 class={h3}>Atenderte en el centro</h3>
+    <p class={parrafo}>
+      Acá está el grueso: nombre, documento, fecha de nacimiento, datos de contacto,
+      cobertura médica, motivo de consulta, antecedentes, diagnósticos, evaluaciones
+      funcionales, evolución sesión a sesión, indicaciones y estudios que nos traigas.
+      Todo eso constituye tu <strong class={fuerte}>historia clínica</strong>. También
+      registramos los turnos y los pagos de tus sesiones o planes.
+    </p>
+
+    <h3 class={h3}>Servicios de terceros que enlazamos</h3>
+    <p class="m-0 text-[15px] leading-relaxed text-gray-600">
+      Desde el sitio se sale a plataformas que no son nuestras y tienen sus propias
+      políticas: <strong class={fuerte}>Turnito</strong> para agendar turnos,
+      <strong class={fuerte}>Cafecito</strong> para los aportes voluntarios —los pagos
+      los procesa Cafecito y no vemos ni guardamos datos de tu tarjeta— e
+      <strong class={fuerte}>Instagram</strong>. Lo que cargues ahí se rige por lo que
+      esas plataformas digan.
+    </p>
+  </section>
+
+  <!-- para qué + base legal -->
+  <section class={`${bloque} py-10`}>
+    <h2 class={h2}>3. Para qué los usamos</h2>
+    <ul class={lista}>
+      <li>Evaluarte, tratarte y hacer el seguimiento de tu rehabilitación.</li>
+      <li>Coordinar turnos y mandarte recordatorios, indicaciones y material de tu tratamiento.</li>
+      <li>Responder tus consultas administrativas y clínicas entre sesiones.</li>
+      <li>Facturar y llevar la contabilidad del centro.</li>
+      <li>Cumplir obligaciones legales, sanitarias e impositivas.</li>
+    </ul>
+    <p class="m-0 mb-12 text-[15px] leading-relaxed text-gray-600">
+      No usamos tus datos para publicidad, no armamos perfiles comerciales con tu
+      información de salud y no los vendemos ni los cedemos a terceros con fines
+      comerciales. Si alguna vez queremos usar tu caso o tus imágenes con fines
+      docentes o de difusión, te lo pedimos aparte y por escrito: podés decir que no
+      sin que eso afecte en nada tu tratamiento.
+    </p>
+
+    <h2 class={h2}>4. Con qué derecho los tratamos</h2>
+    <p class="m-0 text-[15px] leading-relaxed text-gray-600">
+      Los datos de salud son <strong class={fuerte}>datos sensibles</strong> según la
+      Ley 25.326 de Protección de los Datos Personales. Los tratamos amparados en su
+      artículo 8, que habilita a los profesionales y establecimientos sanitarios a
+      registrar los datos de sus pacientes respetando el secreto profesional, y con tu
+      consentimiento al iniciar el tratamiento. Los datos de contacto y administrativos
+      los tratamos para poder prestarte el servicio y cumplir con las obligaciones
+      legales que nos correspondan.
+    </p>
+  </section>
+
+  <!-- con quién + cuánto tiempo -->
+  <section class={`${bloque} py-10`}>
+    <h2 class={h2}>5. Con quién los compartimos</h2>
+    <ul class={lista}>
+      <li><strong class={fuerte}>Los profesionales del equipo que te atienden.</strong> Todos alcanzados por el secreto profesional.</li>
+      <li><strong class={fuerte}>Tu obra social o prepaga</strong>, y el médico que te derivó, cuando hace falta para autorizar o justificar tu tratamiento.</li>
+      <li><strong class={fuerte}>Proveedores de tecnología</strong> que usamos para hacer funcionar el centro: Meta (WhatsApp Business), Google, Supabase y Netlify. Actúan por cuenta nuestra y solo para prestarnos el servicio.</li>
+      <li><strong class={fuerte}>Autoridades</strong>, cuando una norma o una orden judicial nos obligue.</li>
+    </ul>
+    <p class="m-0 mb-12 text-[15px] leading-relaxed text-gray-600">
+      Algunos de esos proveedores tienen servidores fuera de la Argentina, así que parte
+      de la información se almacena en el exterior. Elegimos plataformas con estándares
+      de seguridad reconocidos y les exigimos confidencialidad, pero es justo que lo sepas.
+    </p>
+
+    <h2 class={h2}>6. Cuánto tiempo los guardamos</h2>
+    <ul class="m-0 pl-5 list-disc text-[15px] leading-relaxed text-gray-600 space-y-2 marker:text-sn-sage-dark">
+      <li><strong class={fuerte}>Historia clínica: 10 años</strong> desde la última atención. No es una decisión nuestra: lo fija el artículo 18 de la Ley 26.529 de Derechos del Paciente, que nos obliga a conservarla.</li>
+      <li><strong class={fuerte}>Conversaciones de WhatsApp:</strong> mientras seas paciente activo y por el tiempo en que puedan hacer falta como respaldo de lo que se indicó. Si nos pedís que las borremos y no forman parte de tu historia clínica, las borramos.</li>
+      <li><strong class={fuerte}>Documentación contable:</strong> los plazos que exige la normativa impositiva.</li>
+      <li><strong class={fuerte}>Si nos consultaste y nunca te atendiste:</strong> conservamos el contacto hasta un año y después lo eliminamos.</li>
+    </ul>
+  </section>
+
+  <!-- seguridad + derechos -->
+  <section class={`${bloque} py-10`}>
+    <h2 class={h2}>7. Cómo los cuidamos</h2>
+    <p class="m-0 mb-12 text-[15px] leading-relaxed text-gray-600">
+      El acceso a las historias clínicas está restringido por usuario y contraseña, y
+      cada profesional ve solo lo que necesita para atender. Los sistemas que usamos
+      cifran la información en tránsito, hacemos copias de resguardo y revisamos los
+      accesos. Ningún sistema es infalible, pero si detectáramos un incidente que
+      comprometa tus datos, te lo vamos a informar.
+    </p>
+
+    <h2 class={h2}>8. Qué podés pedirnos</h2>
+    <p class="m-0 mb-4 text-[15px] leading-relaxed text-gray-600">Sobre tus datos personales tenés derecho a:</p>
+    <ul class={lista}>
+      <li><strong class={fuerte}>Acceder</strong> a la información que tenemos sobre vos, incluida una copia de tu historia clínica —que es tuya, no nuestra—.</li>
+      <li><strong class={fuerte}>Rectificar o actualizar</strong> lo que esté mal o desactualizado.</li>
+      <li><strong class={fuerte}>Pedir la supresión</strong> de los datos que no estemos obligados a conservar.</li>
+      <li><strong class={fuerte}>Dejar de recibir</strong> nuestros mensajes de recordatorio o seguimiento cuando quieras.</li>
+    </ul>
+    <p class={parrafo}>
+      Escribinos a <a href={mailtoHref} class={enlace}>{mailContacto}</a> y contestamos
+      dentro de los <strong class={fuerte}>10 días corridos</strong> para los pedidos de
+      acceso y de los <strong class={fuerte}>5 días hábiles</strong> para los de
+      rectificación o supresión, como fija la Ley 25.326. Es gratuito. Para entregar una
+      historia clínica vamos a pedirte que acredites tu identidad: es la forma de
+      proteger tus datos de un tercero que diga ser vos.
+    </p>
+    <p class="m-0 text-[15px] leading-relaxed text-gray-600">
+      Si considerás que no te respondimos bien, podés reclamar ante la
+      <strong class={fuerte}>Agencia de Acceso a la Información Pública</strong>, el
+      organismo de control de la Ley 25.326
+      (<a href="https://www.argentina.gob.ar/aaip" target="_blank" rel="noopener" class={enlace}>argentina.gob.ar/aaip</a>).
+    </p>
+  </section>
+
+  <!-- menores + cambios + cierre -->
+  <section class={`${bloque} pt-10 pb-20`}>
+    <h2 class={h2}>9. Menores de edad</h2>
+    <p class="m-0 mb-12 text-[15px] leading-relaxed text-gray-600">
+      Cuando el paciente es menor de edad, los datos los aporta y los gestiona su madre,
+      padre o representante legal, que es también quien puede ejercer los derechos del
+      punto anterior, con el alcance que la ley le reconoce al menor según su edad y
+      grado de madurez.
+    </p>
+
+    <h2 class={h2}>10. Cambios en esta política</h2>
+    <p class="m-0 mb-12 text-[15px] leading-relaxed text-gray-600">
+      Si cambiamos algo, actualizamos la fecha del encabezado y publicamos la versión
+      nueva en esta misma dirección. Si el cambio afecta de manera relevante cómo
+      tratamos tus datos, te lo avisamos por los canales habituales.
+    </p>
+
+    <div class="border-t border-gray-200 pt-8">
+      <p class="m-0 text-[14px] leading-relaxed text-gray-500">
+        ¿Alguna duda con todo esto? Preguntanos sin vueltas por
+        <a href={whatsappUrl} target="_blank" rel="noopener" class={enlace}>WhatsApp</a>
+        o a <a href={mailtoHref} class={enlace}>{mailContacto}</a>.
+        Preferimos explicártelo a que te quedes con la duda.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
