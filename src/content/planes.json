@@ -86,17 +86,17 @@
     "color_hex": "#D89B7A",
     "pdf": "/planes/pdf/plan-osteo-4.pdf",
     "para_quien": "Para tensiones recurrentes, dolor de espalda o restricciones de movilidad que no ceden con descanso — o para conocer el abordaje osteopático del centro en un ciclo corto e intensivo. Las cuatro sesiones son con el Lic. Martín Niro.",
-    "nota_pago": "Pago único al activar el plan. El precio ya incluye el 10% de descuento por pago único con transferencia o efectivo; con tarjeta de crédito el descuento no aplica (1 pago de $200.000, cuotas a consultar).",
+    "nota_pago": "Pago único al activar el plan. El precio ya incluye el 10% de descuento por pago único con transferencia o efectivo; con tarjeta de crédito el descuento no aplica (1 pago de $220.000, cuotas a consultar).",
     "duraciones": [
       {
         "periodo": "unico",
         "label": "4 sesiones",
         "sesiones": "4 sesiones de osteopatía (60 min) + evaluación inicial",
-        "total": 179000,
-        "equiv_valor": 44750,
+        "total": 199000,
+        "equiv_valor": 49750,
         "equiv_label": "/sesión",
         "ahorro_label": "$21.000 off",
-        "tarjeta_1pago": 200000
+        "tarjeta_1pago": 220000
       }
     ],
     "incluye": [
@@ -368,21 +368,21 @@
         "periodo": "anual",
         "label": "Plan anual",
         "sesiones": "48 kine deportiva · 24 osteo · 12 nutri",
-        "total": 2099000,
-        "equiv_valor": 174916,
+        "total": 2199000,
+        "equiv_valor": 183250,
         "equiv_label": "/mes",
-        "ahorro_label": "23% off",
-        "tarjeta_1pago": 2308900
+        "ahorro_label": "29% off",
+        "tarjeta_1pago": 2418900
       },
       {
         "periodo": "semestral",
         "label": "Plan semestral",
         "sesiones": "24 kine deportiva · 12 osteo · 6 nutri",
-        "total": 1199000,
-        "equiv_valor": 199833,
+        "total": 1249000,
+        "equiv_valor": 208166,
         "equiv_label": "/mes",
-        "ahorro_label": "12% off",
-        "tarjeta_1pago": 1318900
+        "ahorro_label": "20% off",
+        "tarjeta_1pago": 1373900
       }
     ],
     "incluye": [
@@ -467,11 +467,11 @@
         "periodo": "anual",
         "label": "Plan anual",
         "sesiones": "24 sesiones de osteopatía (1 cada 15 días)",
-        "total": 1099000,
-        "equiv_valor": 91583,
+        "total": 1199000,
+        "equiv_valor": 99916,
         "equiv_label": "/mes",
-        "ahorro_label": "$101.000 off",
-        "tarjeta_1pago": 1208900
+        "ahorro_label": "$121.000 off",
+        "tarjeta_1pago": 1318900
       }
     ],
     "incluye": [
@@ -508,7 +508,7 @@
         "total": 299000,
         "equiv_valor": 29900,
         "equiv_label": "/sesión",
-        "ahorro_label": "19% off",
+        "ahorro_label": "21% off",
         "tarjeta_1pago": 328900
       }
     ],
@@ -540,11 +540,11 @@
         "periodo": "anual",
         "label": "Plan anual",
         "sesiones": "48 sesiones de osteopatía (1 por semana)",
-        "total": 1799000,
-        "equiv_valor": 149916,
+        "total": 1999000,
+        "equiv_valor": 166583,
         "equiv_label": "/mes",
-        "ahorro_label": "25% off",
-        "tarjeta_1pago": 1978900
+        "ahorro_label": "24% off",
+        "tarjeta_1pago": 2198900
       }
     ],
     "incluye": [

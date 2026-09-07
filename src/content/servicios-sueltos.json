@@ -13,7 +13,7 @@
     "slug": "osteopatia",
     "nombre": "Osteopatía",
     "modalidades": [
-      { "tipo": "presencial", "precio": 50000 }
+      { "tipo": "presencial", "precio": 55000 }
     ],
     "descripcion": "Sesión de osteopatía."
   },
