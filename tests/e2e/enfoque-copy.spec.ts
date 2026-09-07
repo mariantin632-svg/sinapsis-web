@@ -15,8 +15,12 @@ test.describe('EnfoqueCards — copy actualizado en "Nuestro enfoque"', () => {
       page.locator('body')
     ).toContainText('Atención personalizada, con seguimiento real de tu evolución.');
 
-    // El copy viejo ya no debe estar
-    await expect(page.locator('body')).not.toContainText('Sesiones uno a uno');
+    // El copy viejo ya no debe estar en esta sección. Se acota a la sección y no
+    // al body entero porque "Sesiones uno a uno" es copy válido en otros lugares
+    // de la home (la card del plan de osteopatía, que sí es uno a uno).
+    await expect(
+      page.locator('main > section', { hasText: 'Nuestro enfoque' })
+    ).not.toContainText('Sesiones uno a uno');
 
     const card = page.locator('h3', { hasText: 'Atención humanizada' }).locator('..');
     await expect(card).toBeVisible();

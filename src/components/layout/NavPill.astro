@@ -1,0 +1,101 @@
+---
+/**
+ * La píldora de navegación del desktop, compartida por el header de la home y el
+ * Nav de interiores. Muestra los 4 links primarios sueltos y agrupa el resto en un
+ * desplegable "Más" (un <details> nativo, así funciona aunque el JS no cargue).
+ */
+import { primarios, secundarios, type MenuLink } from '../../lib/menu';
+
+interface Props {
+  /** 'home' navega con anclas a las secciones; 'interior' con rutas */
+  variant: 'home' | 'interior';
+}
+const { variant } = Astro.props;
+
+const destino = (l: MenuLink) => (variant === 'home' ? l.hrefHome : l.href);
+
+// Resaltar la página activa (la home usa anclas y no lo necesita)
+const rutaActual = Astro.url.pathname.replace(/\/$/, '') || '/';
+const esActiva = (l: MenuLink) => {
+  if (variant === 'home') return false;
+  const href = destino(l);
+  return rutaActual === href || rutaActual.startsWith(`${href}/`);
+};
+const hayActivaEnMas = secundarios.some(esActiva);
+
+const claseLink = 'px-3 py-[7px] rounded-full text-[13px] whitespace-nowrap transition';
+---
+
+<div class="hidden xl:flex items-center gap-0.5 px-1.5 py-1.5 border border-white/15 rounded-full bg-white/5 backdrop-blur-md">
+  {primarios.map((l) => (
+    <a
+      href={destino(l)}
+      aria-current={esActiva(l) ? 'page' : undefined}
+      class:list={[
+        claseLink,
+        esActiva(l) ? 'text-white bg-white/10' : 'text-white/80 hover:text-white hover:bg-white/10',
+      ]}
+    >{l.labelCorto ?? l.label}</a>
+  ))}
+
+  <details class="relative" data-menu-mas>
+    <summary
+      class:list={[
+        claseLink,
+        'flex items-center gap-1.5 cursor-pointer list-none select-none [&::-webkit-details-marker]:hidden',
+        hayActivaEnMas ? 'text-white bg-white/10' : 'text-white/80 hover:text-white hover:bg-white/10',
+      ]}
+      aria-label="Más secciones"
+    >
+      Más
+      <svg
+        class="w-3 h-3 shrink-0 transition-transform duration-200"
+        viewBox="0 0 12 12"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.6"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      ><path d="M2.5 4.5 6 8l3.5-3.5" /></svg>
+    </summary>
+
+    <div class="absolute right-0 top-[calc(100%+12px)] min-w-[215px] p-1.5 rounded-2xl border border-white/15 bg-sn-ink shadow-[0_18px_44px_rgba(13,8,41,0.55)]">
+      {secundarios.map((l) => (
+        <a
+          href={destino(l)}
+          aria-current={esActiva(l) ? 'page' : undefined}
+          class:list={[
+            'block px-3.5 py-2.5 rounded-xl text-[13px] whitespace-nowrap transition',
+            esActiva(l) ? 'text-white bg-white/10' : 'text-white/80 hover:text-white hover:bg-white/10',
+          ]}
+        >{l.label}</a>
+      ))}
+    </div>
+  </details>
+</div>
+
+<style>
+  /* la flecha apunta para arriba cuando el desplegable está abierto */
+  details[data-menu-mas][open] summary svg { transform: rotate(180deg); }
+</style>
+
+<script>
+  // <details> abre y cierra solo al clickear el summary; falta cerrarlo al clickear
+  // afuera, al elegir una opción y con Escape.
+  const desplegables = document.querySelectorAll<HTMLDetailsElement>('details[data-menu-mas]');
+  const cerrarTodos = () => desplegables.forEach((d) => { d.open = false; });
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as Node | null;
+    desplegables.forEach((d) => {
+      if (target && !d.contains(target)) d.open = false;
+    });
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') cerrarTodos();
+  });
+  desplegables.forEach((d) => {
+    d.querySelectorAll('a').forEach((a) => a.addEventListener('click', cerrarTodos));
+  });
+</script>

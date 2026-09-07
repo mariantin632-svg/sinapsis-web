@@ -39,6 +39,8 @@ test.describe('Apoyá el proyecto', () => {
   test('está enlazada desde el nav (desktop y mobile) y desde el footer', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto('/faq');
+    // en desktop "Apoyá el proyecto" vive dentro del desplegable "Más"
+    await page.locator('body > nav details[data-menu-mas] summary').click();
     await expect(page.locator('body > nav a[href="/apoyar"]')).toBeVisible();
     await expect(page.locator('footer a[href="/apoyar"]')).toBeVisible();
 
@@ -52,6 +54,7 @@ test.describe('Apoyá el proyecto', () => {
     // La home no usa el Nav de interiores: tiene su propio header dentro del Hero.
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto('/');
+    await page.locator('header details[data-menu-mas] summary').click();
     await expect(page.locator('header a[href="/apoyar"]')).toBeVisible();
 
     await page.setViewportSize({ width: 375, height: 812 });

@@ -8,11 +8,12 @@ test.describe('Nav v2 — barra superior de páginas interiores', () => {
     });
 
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto('/faq');
+    await page.goto('/equipo');
     await page.waitForLoadState('networkidle');
 
     const nav = page.locator('body > nav').first();
-    await expect(nav.locator('a[aria-current="page"]')).toHaveText('FAQ');
+    // "Equipo" es uno de los 4 links primarios: se marca activo en la píldora
+    await expect(nav.locator('a[aria-current="page"]')).toHaveText('Equipo');
     await expect(nav.locator('a', { hasText: 'Agendar turno' })).toHaveAttribute('href', /turnito\.app/);
     await expect(nav.locator('a[aria-label="Instagram de Sinapsis"]')).toBeVisible();
 

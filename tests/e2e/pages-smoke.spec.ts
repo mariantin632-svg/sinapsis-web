@@ -52,13 +52,13 @@ test('all WhatsApp links use wa.me with correct phone', async ({ page }) => {
 test('Filtros de planes en la home ocultan/muestran cards', async ({ page }) => {
   await page.goto('/');
   const total = await page.locator('[data-plan-item]').count();
-  expect(total).toBe(5);
+  expect(total).toBe(6);
   await page.locator('[data-plan-filtro][data-cat="evaluaciones"]').click();
   const visibles = await page.locator('[data-plan-item]:visible').count();
   expect(visibles).toBe(3);
   await page.locator('[data-plan-filtro][data-cat="all"]').click();
   const visiblesTodos = await page.locator('[data-plan-item]:visible').count();
-  expect(visiblesTodos).toBe(5);
+  expect(visiblesTodos).toBe(6);
 });
 
 test('Filtros de packs ocultan/muestran items', async ({ page }) => {

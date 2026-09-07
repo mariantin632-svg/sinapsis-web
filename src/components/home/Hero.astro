@@ -2,6 +2,8 @@
 import sitio from '../../content/sitio.json';
 import { buildWhatsAppUrl } from '../../lib/whatsapp';
 import Icon from '../shared/Icon.astro';
+import NavPill from '../layout/NavPill.astro';
+import { todos as anchors } from '../../lib/menu';
 
 const turnitoUrl = sitio.turnito?.hub ?? '#';
 const whatsappUrl = buildWhatsAppUrl({
@@ -10,19 +12,6 @@ const whatsappUrl = buildWhatsAppUrl({
 });
 const instagramUrl = sitio.contacto.instagram_url;
 
-// `labelCorto` es el texto de la píldora del desktop, donde el espacio es justo;
-// el menú mobile usa el nombre completo. Mismo criterio que el Nav de interiores.
-const anchors: Array<{ href: string; label: string; labelCorto?: string }> = [
-  { href: '/orientador', label: '¿Por dónde empiezo?', labelCorto: 'Orientador' },
-  { href: '#servicios', label: 'Servicios' },
-  { href: '/que-tratamos', label: 'Qué tratamos' },
-  { href: '#equipo', label: 'Equipo' },
-  { href: '#planes', label: 'Planes' },
-  { href: '#obras', label: 'Obras sociales' },
-  { href: '#faq', label: 'FAQ' },
-  { href: '#ubicacion', label: 'Ubicación' },
-  { href: '/apoyar', label: 'Apoyá el proyecto', labelCorto: 'Apoyanos' },
-];
 ---
 <section class="relative min-h-screen overflow-hidden bg-sn-ink">
   <!-- fondo: gradiente base + video encima + overlays -->
@@ -49,11 +38,7 @@ const anchors: Array<{ href: string; label: string; labelCorto?: string }> = [
     <a href="/" class="flex items-center shrink-0" aria-label="Sinapsis — inicio">
       <img src="/logo-sinapsis-nav.png" alt="Sinapsis" class="h-[38px] w-auto block" width="287" height="48" />
     </a>
-    <nav class="hidden xl:flex items-center gap-0 px-1.5 py-1.5 border border-white/15 rounded-full bg-white/5 backdrop-blur-md">
-      {anchors.map((l) => (
-        <a href={l.href} class="px-[5px] py-[7px] rounded-full text-[13px] whitespace-nowrap text-white/80 hover:text-white hover:bg-white/10 transition">{l.labelCorto ?? l.label}</a>
-      ))}
-    </nav>
+    <NavPill variant="home" />
     <div class="hidden xl:flex items-center gap-3 shrink-0">
       {instagramUrl && (
         <a
@@ -94,7 +79,7 @@ const anchors: Array<{ href: string; label: string; labelCorto?: string }> = [
     </div>
     <nav class="flex flex-col gap-0.5 mt-9">
       {anchors.map((l) => (
-        <a href={l.href} class="font-display text-[28px] font-medium text-white py-[9px]">{l.label}</a>
+        <a href={l.hrefHome} class="font-display text-[28px] font-medium text-white py-[9px]">{l.label}</a>
       ))}
     </nav>
     <div class="mt-auto flex gap-2.5 mb-3">

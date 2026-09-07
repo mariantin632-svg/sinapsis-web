@@ -7,6 +7,8 @@ test.describe('Link "Qué tratamos" — nav interior, header home y footer', () 
     await page.waitForLoadState('networkidle');
 
     const nav = page.locator('body > nav').first();
+    // en desktop "Qué tratamos" vive dentro del desplegable "Más"
+    await nav.locator('details[data-menu-mas] summary').click();
     const link = nav.locator('a', { hasText: 'Qué tratamos' });
     await expect(link).toBeVisible();
     await expect(link).toHaveAttribute('href', '/que-tratamos');
@@ -15,8 +17,9 @@ test.describe('Link "Qué tratamos" — nav interior, header home y footer', () 
     await page.waitForLoadState('networkidle');
     await expect(page).toHaveURL(/\/que-tratamos\/?$/);
 
-    // Y queda marcado como activo en la píldora al estar parado en /que-tratamos
+    // Y queda marcado como activo dentro del desplegable al estar parado en /que-tratamos
     const navEnDestino = page.locator('body > nav').first();
+    await navEnDestino.locator('details[data-menu-mas] summary').click();
     await expect(navEnDestino.locator('a[aria-current="page"]')).toHaveText('Qué tratamos');
   });
 
@@ -37,6 +40,7 @@ test.describe('Link "Qué tratamos" — nav interior, header home y footer', () 
     await page.waitForLoadState('networkidle');
 
     const header = page.locator('header').first();
+    await header.locator('details[data-menu-mas] summary').click();
     const link = header.locator('a', { hasText: 'Qué tratamos' });
     await expect(link).toBeVisible();
     await expect(link).toHaveAttribute('href', '/que-tratamos');

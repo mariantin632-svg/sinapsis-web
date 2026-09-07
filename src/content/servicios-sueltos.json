@@ -4,7 +4,7 @@
     "nombre": "Kinesiología personalizada",
     "modalidades": [
       { "tipo": "presencial", "precio": 30000 },
-      { "tipo": "online", "precio": 25000 }
+      { "tipo": "online", "precio": 30000 }
     ],
     "descripcion": "Sesión de kinesiología adaptada a tu objetivo y tu lesión.",
     "nota": "Pacientes en el exterior (online): US$30"
