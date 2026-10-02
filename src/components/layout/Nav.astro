@@ -3,6 +3,7 @@ import sitio from '../../content/sitio.json';
 import { buildWhatsAppUrl } from '../../lib/whatsapp';
 import Icon from '../shared/Icon.astro';
 import NavPill from './NavPill.astro';
+import Logo3D from './Logo3D.astro';
 import { todos as links } from '../../lib/menu';
 
 const whatsappUrl = buildWhatsAppUrl({
@@ -17,13 +18,7 @@ const instagramUrl = sitio.contacto.instagram_url;
   <div class="absolute inset-0 opacity-[0.045] pattern-cross pointer-events-none"></div>
   <div class="relative max-w-[1200px] mx-auto px-6 py-3.5 flex items-center justify-between gap-4">
     <a href="/" class="flex items-center shrink-0" aria-label="Sinapsis — inicio">
-      <img
-        src="/logo-sinapsis-nav.png"
-        alt="Sinapsis — Centro de Rehabilitación Traumatológica y Deportiva"
-        class="h-[34px] md:h-[38px] w-auto block"
-        width="287"
-        height="48"
-      />
+      <Logo3D variante="barra" class="h-[34px] md:h-[38px]" />
     </a>
 
     <NavPill variant="interior" />

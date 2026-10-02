@@ -72,9 +72,21 @@ function formaMenta() {
   return new THREE.Shape(pts);
 }
 
-export interface Logo3D { pausar(): void; reanudar(): void; destruir(): void }
+export interface Logo3D { pausar(): void; reanudar(): void; girar(): void; destruir(): void }
 
-export function montarLogo3D(canvas: HTMLCanvasElement): Logo3D {
+export interface OpcionesLogo3D {
+  /** Con la bajada "Centro de Rehabilitación…" (footer) o solo isotipo + SINAPSIS (barra). */
+  bajada?: boolean;
+  /** 'ciclo': vuelta + pausa, para siempre. 'unaVez': una vuelta al montar y después solo con girar(). */
+  modo?: 'ciclo' | 'unaVez';
+  /** Si se puede girar a mano arrastrando (en la barra el logo es un link, ahí no). */
+  arrastrable?: boolean;
+}
+
+export function montarLogo3D(
+  canvas: HTMLCanvasElement,
+  { bajada: conBajada = true, modo = 'ciclo', arrastrable = true }: OpcionesLogo3D = {},
+): Logo3D {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -125,7 +137,7 @@ export function montarLogo3D(canvas: HTMLCanvasElement): Logo3D {
 
   const titulo = glyphs.title as Texto, bajada = glyphs.sub as Texto;
   logo.add(texto(titulo, 664 / titulo.w, 18, 2.6, 172, -131, blanco));
-  logo.add(texto(bajada, 836 / bajada.w, 5, 0.7, 14, -196, blanco));
+  if (conBajada) logo.add(texto(bajada, 836 / bajada.w, 5, 0.7, 14, -196, blanco));
 
   const caja = new THREE.Box3().setFromObject(logo);
   logo.position.sub(caja.getCenter(new THREE.Vector3()));
@@ -161,8 +173,10 @@ export function montarLogo3D(canvas: HTMLCanvasElement): Logo3D {
   // Giro: vuelta con easing y pausa de frente. Arrastrar lo gira a mano y después vuelve solo al frente.
   let angulo = 0, base = 0, ciclo = 0, vel = 0, arrastrando = false, ultimoX = 0, volviendo = false;
   let corriendo = false, raf = 0, previo = 0;
+  // modo 'unaVez': hay una vuelta en curso; al terminarla se deja de dibujar hasta el próximo girar()
+  let girando = modo === 'unaVez';
 
-  canvas.addEventListener('pointerdown', (e) => {
+  if (arrastrable) canvas.addEventListener('pointerdown', (e) => {
     arrastrando = true; ultimoX = e.clientX; vel = 0;
     canvas.setPointerCapture(e.pointerId);
     reanudar();
@@ -188,6 +202,12 @@ export function montarLogo3D(canvas: HTMLCanvasElement): Logo3D {
       const destino = Math.round(angulo / (Math.PI * 2)) * Math.PI * 2;
       angulo += (destino - angulo) * Math.min(1, dt * 4);
       if (Math.abs(destino - angulo) < 0.001) { angulo = base = destino; volviendo = false; ciclo = GIRO; }
+    } else if (modo === 'unaVez') {
+      if (girando) {
+        ciclo += dt;
+        angulo = base + ease(Math.min(ciclo / GIRO, 1)) * Math.PI * 2;
+        if (ciclo >= GIRO) { angulo = base = base + Math.PI * 2; girando = false; }
+      }
     } else {
       ciclo += dt;
       if (ciclo >= GIRO + PAUSA) { ciclo -= GIRO + PAUSA; base += Math.PI * 2; }
@@ -195,6 +215,8 @@ export function montarLogo3D(canvas: HTMLCanvasElement): Logo3D {
     }
     giro.rotation.y = angulo;
     renderer.render(scene, camera);
+    const quieto = modo === 'unaVez' && !girando && !arrastrando && Math.abs(vel) <= 0.0005 && !volviendo;
+    if (quieto) corriendo = false;
     if (corriendo) raf = requestAnimationFrame(paso);
   }
 
@@ -207,9 +229,16 @@ export function montarLogo3D(canvas: HTMLCanvasElement): Logo3D {
 
   renderer.render(scene, camera);
 
+  function girar() {
+    if (modo !== 'unaVez' || girando) return;
+    girando = true; ciclo = 0;
+    reanudar();
+  }
+
   return {
     pausar,
     reanudar,
+    girar,
     destruir() {
       pausar(); ro.disconnect();
       scene.traverse((o) => { if (o instanceof THREE.Mesh) o.geometry.dispose(); });

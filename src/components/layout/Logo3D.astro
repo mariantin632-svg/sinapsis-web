@@ -1,24 +1,41 @@
 ---
-// Logo del footer en 3D, girando sobre su eje. Arranca como el PNG de siempre y,
-// recién cuando el footer está por entrar en pantalla, carga Three.js y cambia al 3D.
-// Sin WebGL o con "reducir movimiento" activado se queda el PNG.
+// Logo de Sinapsis en 3D, girando sobre su eje. Arranca como el PNG de siempre y cambia al 3D
+// cuando Three.js termina de cargar. Sin WebGL o con "reducir movimiento" activado se queda el PNG.
+//  - footer: logo completo con bajada; se carga cuando el footer está por entrar en pantalla y
+//    da una vuelta cada ~10 s (arrastrable).
+//  - barra: isotipo + SINAPSIS, siempre a la vista; se carga cuando el navegador queda libre,
+//    da una vuelta al entrar y otra cada vez que se pasa el mouse por el link.
+interface Props {
+  variante?: 'footer' | 'barra';
+  class?: string;
+}
+const { variante = 'footer', class: clase = '' } = Astro.props;
+const barra = variante === 'barra';
+const img = barra
+  ? { src: '/logo-sinapsis-nav.png', width: 900, height: 150 }
+  : { src: '/logo-sinapsis-full.png', width: 900, height: 210 };
 ---
-<div class="logo3d" data-logo3d="estatico">
+<div class:list={['logo3d', `logo3d--${variante}`, clase]} data-logo3d="estatico" data-variante={variante}>
   <img
-    src="/logo-sinapsis-full.png"
+    src={img.src}
     alt="Sinapsis — Centro de Rehabilitación Traumatológica y Deportiva"
     class="logo3d-img"
-    width="900"
-    height="210"
+    width={img.width}
+    height={img.height}
   />
-  <canvas class="logo3d-canvas" aria-hidden="true" title="Arrastrá para girar el logo"></canvas>
+  <canvas class="logo3d-canvas" aria-hidden="true" title={barra ? undefined : 'Arrastrá para girar el logo'}></canvas>
 </div>
 
 <style>
   .logo3d {
     position: relative;
+  }
+  .logo3d--footer {
     width: min(100%, 300px);
     aspect-ratio: 900 / 210;
+  }
+  .logo3d--barra {
+    aspect-ratio: 900 / 150;
   }
   .logo3d-img,
   .logo3d-canvas {
@@ -30,21 +47,31 @@
   }
   .logo3d-img { object-fit: contain; }
   .logo3d-canvas {
-    /* desborde para que las letras no se corten al girar (la perspectiva las agranda) */
+    opacity: 0;
+    pointer-events: none;
+  }
+  /* El canvas desborda la caja para que las letras no se corten al girar (la perspectiva las agranda) */
+  .logo3d--footer .logo3d-canvas {
     inset: -60% -15%;
     width: 130%;
     height: 220%;
-    opacity: 0;
-    pointer-events: none;
     cursor: grab;
     touch-action: pan-y;
   }
-  .logo3d-canvas:active { cursor: grabbing; }
+  .logo3d--footer .logo3d-canvas:active { cursor: grabbing; }
+  /* En la barra solo desborda en vertical: a los costados no hay margen y no debe correr la página */
+  .logo3d--barra .logo3d-canvas {
+    inset: -40% 0;
+    height: 180%;
+  }
   .logo3d[data-logo3d='listo'] .logo3d-img { opacity: 0; }
-  .logo3d[data-logo3d='listo'] .logo3d-canvas { opacity: 1; pointer-events: auto; }
+  .logo3d[data-logo3d='listo'] .logo3d-canvas { opacity: 1; }
+  .logo3d--footer[data-logo3d='listo'] .logo3d-canvas { pointer-events: auto; }
 </style>
 
 <script>
+  import type { Logo3D } from '../../lib/logo3d/escena';
+
   function webglDisponible() {
     try {
       const c = document.createElement('canvas');
@@ -60,14 +87,37 @@
     if (reducir || !('IntersectionObserver' in window) || !webglDisponible()) return;
     const canvas = caja.querySelector('canvas');
     if (!canvas) return;
+    const barra = caja.dataset.variante === 'barra';
 
-    let logo: { pausar(): void; reanudar(): void } | null = null;
+    let logo: Logo3D | null = null;
     let cargando = false;
     let enPantalla = false;
 
-    // Carga perezosa: el chunk de Three.js se pide solo cuando el footer está cerca
+    async function montar() {
+      if (logo || cargando) return;
+      cargando = true;
+      try {
+        // Un solo chunk de Three.js compartido entre la barra y el footer
+        const { montarLogo3D } = await import('../../lib/logo3d/escena');
+        logo = barra
+          ? montarLogo3D(canvas!, { bajada: false, modo: 'unaVez', arrastrable: false })
+          : montarLogo3D(canvas!);
+        caja.dataset.logo3d = 'listo';
+        // En la barra arranca la primera vuelta; en el footer, el ciclo
+        if (enPantalla && !document.hidden) logo.reanudar();
+        if (barra) {
+          // Otra vuelta al pasar el mouse o el foco por el link que contiene al logo
+          const disparador = caja.closest('a') ?? caja;
+          disparador.addEventListener('pointerenter', () => logo?.girar());
+          disparador.addEventListener('focus', () => logo?.girar());
+        }
+      } catch (err) {
+        console.warn('Logo 3D no disponible, queda el logo estático', err);
+      }
+    }
+
     const io = new IntersectionObserver(
-      async ([entrada]) => {
+      ([entrada]) => {
         enPantalla = entrada.isIntersecting;
         if (!enPantalla) {
           logo?.pausar();
@@ -77,20 +127,23 @@
           if (!document.hidden) logo.reanudar();
           return;
         }
-        if (cargando) return;
-        cargando = true;
-        try {
-          const { montarLogo3D } = await import('../../lib/logo3d/escena');
-          logo = montarLogo3D(canvas);
-          caja.dataset.logo3d = 'listo';
-          if (enPantalla && !document.hidden) logo.reanudar();
-        } catch (err) {
-          console.warn('Logo 3D no disponible, queda el logo estático', err);
-        }
+        // El footer se carga recién cuando está cerca de la pantalla
+        if (!barra) montar();
       },
       { rootMargin: '200px 0px' },
     );
     io.observe(caja);
+
+    // La barra está a la vista desde el principio: esperar a que la página termine de cargar
+    // y el navegador quede libre, para no competir con el contenido.
+    if (barra) {
+      const cuandoLibre = () =>
+        'requestIdleCallback' in window
+          ? window.requestIdleCallback(() => montar(), { timeout: 2500 })
+          : setTimeout(montar, 600);
+      if (document.readyState === 'complete') cuandoLibre();
+      else window.addEventListener('load', cuandoLibre, { once: true });
+    }
 
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) logo?.pausar();
