@@ -1,0 +1,100 @@
+---
+// Logo del footer en 3D, girando sobre su eje. Arranca como el PNG de siempre y,
+// recién cuando el footer está por entrar en pantalla, carga Three.js y cambia al 3D.
+// Sin WebGL o con "reducir movimiento" activado se queda el PNG.
+---
+<div class="logo3d" data-logo3d="estatico">
+  <img
+    src="/logo-sinapsis-full.png"
+    alt="Sinapsis — Centro de Rehabilitación Traumatológica y Deportiva"
+    class="logo3d-img"
+    width="900"
+    height="210"
+  />
+  <canvas class="logo3d-canvas" aria-hidden="true" title="Arrastrá para girar el logo"></canvas>
+</div>
+
+<style>
+  .logo3d {
+    position: relative;
+    width: min(100%, 300px);
+    aspect-ratio: 900 / 210;
+  }
+  .logo3d-img,
+  .logo3d-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 600ms ease;
+  }
+  .logo3d-img { object-fit: contain; }
+  .logo3d-canvas {
+    /* desborde para que las letras no se corten al girar (la perspectiva las agranda) */
+    inset: -60% -15%;
+    width: 130%;
+    height: 220%;
+    opacity: 0;
+    pointer-events: none;
+    cursor: grab;
+    touch-action: pan-y;
+  }
+  .logo3d-canvas:active { cursor: grabbing; }
+  .logo3d[data-logo3d='listo'] .logo3d-img { opacity: 0; }
+  .logo3d[data-logo3d='listo'] .logo3d-canvas { opacity: 1; pointer-events: auto; }
+</style>
+
+<script>
+  function webglDisponible() {
+    try {
+      const c = document.createElement('canvas');
+      return !!(c.getContext('webgl2') || c.getContext('webgl'));
+    } catch {
+      return false;
+    }
+  }
+
+  const reducir = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.querySelectorAll<HTMLElement>('[data-logo3d]').forEach((caja) => {
+    if (reducir || !('IntersectionObserver' in window) || !webglDisponible()) return;
+    const canvas = caja.querySelector('canvas');
+    if (!canvas) return;
+
+    let logo: { pausar(): void; reanudar(): void } | null = null;
+    let cargando = false;
+    let enPantalla = false;
+
+    // Carga perezosa: el chunk de Three.js se pide solo cuando el footer está cerca
+    const io = new IntersectionObserver(
+      async ([entrada]) => {
+        enPantalla = entrada.isIntersecting;
+        if (!enPantalla) {
+          logo?.pausar();
+          return;
+        }
+        if (logo) {
+          if (!document.hidden) logo.reanudar();
+          return;
+        }
+        if (cargando) return;
+        cargando = true;
+        try {
+          const { montarLogo3D } = await import('../../lib/logo3d/escena');
+          logo = montarLogo3D(canvas);
+          caja.dataset.logo3d = 'listo';
+          if (enPantalla && !document.hidden) logo.reanudar();
+        } catch (err) {
+          console.warn('Logo 3D no disponible, queda el logo estático', err);
+        }
+      },
+      { rootMargin: '200px 0px' },
+    );
+    io.observe(caja);
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) logo?.pausar();
+      else if (enPantalla) logo?.reanudar();
+    });
+  });
+</script>

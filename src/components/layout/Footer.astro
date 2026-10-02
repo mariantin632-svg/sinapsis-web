@@ -2,6 +2,7 @@
 import sitio from '../../content/sitio.json';
 import { buildWhatsAppUrl } from '../../lib/whatsapp';
 import Icon from '../shared/Icon.astro';
+import Logo3D from './Logo3D.astro';
 
 const whatsappUrl = buildWhatsAppUrl({ phone: sitio.contacto.whatsapp });
 const instagramUrl = sitio.contacto.instagram_url;
@@ -25,14 +26,10 @@ const serviciosLinks = [
   { href: '/faq', label: 'Preguntas frecuentes' },
 ];
 ---
-<footer class="bg-sn-ink text-white/70">
+<footer class="bg-sn-ink text-white/70 overflow-x-clip">
   <div class="max-w-[1200px] mx-auto px-6 pt-16 pb-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr] gap-10">
     <div>
-      <img
-        src="/logo-sinapsis-full.png"
-        alt="Sinapsis — Centro de Rehabilitación Traumatológica y Deportiva"
-        class="h-[46px] w-auto block mb-[18px]"
-      />
+      <div class="mb-[18px]"><Logo3D /></div>
       <p class="m-0 text-sm leading-relaxed">{sitio.direccion.calle}, {sitio.direccion.ciudad}.</p>
       <div class="flex gap-3 mt-[18px]">
         {instagramUrl && (
