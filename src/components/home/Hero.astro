@@ -3,6 +3,7 @@ import sitio from '../../content/sitio.json';
 import { buildWhatsAppUrl } from '../../lib/whatsapp';
 import Icon from '../shared/Icon.astro';
 import NavPill from '../layout/NavPill.astro';
+import Logo3D from '../layout/Logo3D.astro';
 import { todos as anchors } from '../../lib/menu';
 
 const turnitoUrl = sitio.turnito?.hub ?? '#';
@@ -36,7 +37,7 @@ const instagramUrl = sitio.contacto.instagram_url;
   <!-- header integrado -->
   <header class="relative z-20 max-w-[1200px] mx-auto px-6 py-[22px] flex items-center justify-between gap-4">
     <a href="/" class="flex items-center shrink-0" aria-label="Sinapsis — inicio">
-      <img src="/logo-sinapsis-nav.png" alt="Sinapsis" class="h-[38px] w-auto block" width="287" height="48" />
+      <Logo3D variante="barra" class="h-[38px]" />
     </a>
     <NavPill variant="home" />
     <div class="hidden xl:flex items-center gap-3 shrink-0">
