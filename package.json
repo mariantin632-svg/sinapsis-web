@@ -14,12 +14,14 @@
   "dependencies": {
     "@fontsource/inter": "^5.2.8",
     "@fontsource/poppins": "^5.2.7",
-    "astro": "^5.0.0"
+    "astro": "^5.0.0",
+    "three": "0.160.0"
   },
   "devDependencies": {
     "@astrojs/sitemap": "^3.7.2",
     "@playwright/test": "^1.60.0",
     "@tailwindcss/vite": "^4.3.0",
+    "@types/three": "0.160.0",
     "bootstrap-icons": "^1.13.1",
     "lighthouse": "^13.3.0",
     "tailwindcss": "^4.3.0",
