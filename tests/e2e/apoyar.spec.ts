@@ -10,7 +10,7 @@ test.describe('Apoyá el proyecto', () => {
     const response = await page.goto('/apoyar');
     expect(response?.status()).toBe(200);
 
-    await expect(page.locator('h1')).toContainText('Sinapsis se construye');
+    await expect(page.locator('h1')).toContainText('Sinapsis® se construye');
     await expect(page.getByRole('heading', { name: 'El lugar' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'La atención' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'El equipo' })).toBeVisible();

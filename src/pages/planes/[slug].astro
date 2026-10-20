@@ -23,7 +23,7 @@ const duraciones = [...plan.duraciones].sort((a, b) => a.total - b.total);
 const principal = duraciones[0];
 const mensajeWhatsApp = `Hola! Me interesa el Plan ${plan.nombre} (${principal.label}, ${formatARS(principal.total)}).`;
 ---
-<BaseLayout title={`Plan ${plan.nombre} · Sinapsis`} description={plan.hook}>
+<BaseLayout title={`Plan ${plan.nombre} · Sinapsis®`} description={plan.hook}>
   <section class="bg-violet-deep text-cream px-6 py-12 md:py-16">
     <div class="max-w-3xl mx-auto">
       <div class="text-xs opacity-55 tracking-widest uppercase">{tipoLabel} · {plan.subtitulo}</div>
