@@ -1,48 +1,68 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import CtaWhatsApp from '../components/shared/CtaWhatsApp.astro';
+import PageHeader from '../components/shared/PageHeader.astro';
+import Icon from '../components/shared/Icon.astro';
 import sitio from '../content/sitio.json';
+import { buildWhatsAppUrl } from '../lib/whatsapp';
 
 const direccionEncoded = encodeURIComponent(`${sitio.direccion.calle}, ${sitio.direccion.ciudad}, ${sitio.direccion.provincia}`);
 const mapSrc = `https://www.google.com/maps?q=${direccionEncoded}&output=embed`;
+const whatsappUrl = buildWhatsAppUrl({ phone: sitio.contacto.whatsapp, text: 'Hola! Quería hacer una consulta.' });
+
+const canales = [
+  { icono: 'calendar-check', titulo: 'Agendá online', detalle: 'Elegí día y horario en la agenda', href: sitio.turnito?.hub ?? '#', cta: 'Agendar turno' },
+  { icono: 'whatsapp', titulo: 'WhatsApp', detalle: sitio.contacto.whatsapp_display, href: whatsappUrl, cta: 'Escribinos' },
+  { icono: 'instagram', titulo: 'Instagram', detalle: sitio.contacto.instagram, href: sitio.contacto.instagram_url, cta: 'Seguinos' },
+];
 ---
 <BaseLayout title="Contacto · Sinapsis®">
-  <section class="bg-white px-6 py-12">
-    <div class="max-w-3xl mx-auto text-center">
-      <div class="text-xs text-gray-500 uppercase tracking-widest">Contacto</div>
-      <h1 class="text-3xl md:text-4xl font-bold text-violet-deep mt-3">Vení a Sinapsis®</h1>
+  <PageHeader
+    kicker="Contacto"
+    title="Vení a Sinapsis®"
+    subtitle="Reservá online, escribinos o pasá por el centro."
+  />
+
+  <section class="max-w-[1200px] mx-auto px-6 py-10 md:py-14">
+    <div class="grid gap-5 md:grid-cols-3">
+      {canales.map((c) => (
+        <a
+          href={c.href}
+          target="_blank"
+          rel="noopener"
+          class="group bg-white rounded-2xl border border-gray-100 shadow-[0_2px_8px_rgba(48,22,109,0.08)] p-6 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(48,22,109,0.14)]"
+        >
+          <span class="w-11 h-11 rounded-xl bg-[#f4faf8] text-sn-sage-dark text-xl flex items-center justify-center"><Icon name={c.icono} /></span>
+          <span class="mt-4 font-display font-semibold text-[1.15rem] text-gray-900">{c.titulo}</span>
+          <span class="mt-0.5 text-sm text-gray-500">{c.detalle}</span>
+          <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-sn-violet">{c.cta} <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span></span>
+        </a>
+      ))}
     </div>
   </section>
 
-  <section class="bg-cream-bg px-6 py-10">
-    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
-      <div class="space-y-4">
-        <div>
-          <div class="text-xs text-gray-500 uppercase tracking-wider">Dirección</div>
-          <div class="text-violet-deep font-semibold text-lg">{sitio.direccion.calle}</div>
-          <div class="text-sm text-gray-600">{sitio.direccion.ciudad} · {sitio.direccion.provincia}</div>
-        </div>
-
-        <div>
-          <div class="text-xs text-gray-500 uppercase tracking-wider">Horarios</div>
-          <div class="text-sm text-gray-700 mt-1 space-y-1">
-            <div><strong>Lunes a viernes:</strong> {sitio.horarios.lunes_viernes}</div>
-            <div><strong>Sábado:</strong> {sitio.horarios.sabado}</div>
-            <div><strong>Domingo:</strong> {sitio.horarios.domingo}</div>
-          </div>
-        </div>
-
-        <div>
-          <div class="text-xs text-gray-500 uppercase tracking-wider">WhatsApp</div>
-          <div class="text-violet-deep font-semibold">{sitio.contacto.whatsapp_display}</div>
-          <div class="mt-3">
-            <CtaWhatsApp text="Escribinos" message="Hola! Quería hacer una consulta." size="md" />
-          </div>
+  <section class="relative overflow-hidden" style="background: linear-gradient(135deg, #1f0f48 0%, #30166d 65%, #3a2178 100%);">
+    <div class="relative max-w-[1200px] mx-auto px-6 py-[72px] grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-11 items-center">
+      <div>
+        <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage">Dirección</p>
+        <h2 class="m-0 mb-1.5 font-display font-semibold text-[clamp(1.8rem,4vw,2.5rem)] leading-[1.08] tracking-[-0.02em] text-white">{sitio.direccion.calle}</h2>
+        <p class="m-0 mb-7 text-base text-white/70">{sitio.direccion.ciudad} · {sitio.direccion.provincia}</p>
+        <p class="m-0 mb-3 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage">Horarios</p>
+        <div class="flex flex-col gap-3 text-[15px] text-white/85">
+          <div class="flex items-center gap-3"><span class="text-sn-sage text-lg"><Icon name="clock" /></span> Lunes a viernes: {sitio.horarios.lunes_viernes}</div>
+          <div class="flex items-center gap-3"><span class="text-sn-sage text-lg"><Icon name="clock" /></span> Sábado: {sitio.horarios.sabado}</div>
+          <div class="flex items-center gap-3 text-white/55"><span class="text-lg"><Icon name="clock" /></span> Domingo: {sitio.horarios.domingo}</div>
         </div>
       </div>
-
-      <div class="rounded-card overflow-hidden h-80 bg-white">
-        <iframe src={mapSrc} width="100%" height="100%" style="border:0;" loading="lazy" title="Mapa Sinapsis"></iframe>
+      <div class="rounded-[20px] overflow-hidden shadow-[0_12px_48px_rgba(0,0,0,0.3)] border-[6px] border-white/10 min-h-[320px]">
+        <iframe
+          src={mapSrc}
+          width="100%"
+          height="360"
+          class="border-0 block"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Mapa Sinapsis"
+        ></iframe>
       </div>
     </div>
   </section>

@@ -6,7 +6,6 @@ const PAGES = [
   { path: '/equipo', name: 'equipo' },
   { path: '/faq', name: 'faq' },
   { path: '/obras-sociales', name: 'obras-sociales' },
-  { path: '/packs', name: 'packs' },
   { path: '/planes', name: 'planes' },
   { path: '/servicios-sueltos', name: 'servicios-sueltos' },
   { path: '/tests', name: 'tests' },

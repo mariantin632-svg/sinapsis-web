@@ -64,21 +64,6 @@ export interface Plan {
   faq?: { pregunta: string; respuesta: string }[];
 }
 
-// Packs únicos
-export interface Pack {
-  slug: string;
-  nombre: string;
-  emoji: string;
-  publico_ideal: string;
-  categoria: 'dolor_agudo' | 'oficina' | 'deportistas' | 'post_quirurgico' | 'mayor_60' | 'mujer' | 'empresas';
-  incluye: string[];
-  precio_carta: number;
-  precio_sugerido: number;
-  ahorro_pct: number;
-  // Sin margen_estimado: este repo es público, los márgenes no van acá.
-  descripcion_larga?: string;
-}
-
 // Servicios sueltos
 export interface ServicioSuelto {
   slug: string;

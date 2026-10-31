@@ -1,58 +1,51 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/shared/PageHeader.astro';
 import QuizPlan from '../components/tests/QuizPlan.astro';
+import { preguntas } from '../lib/quiz-plan';
 import RuletaEstiramientos from '../components/tests/RuletaEstiramientos.astro';
 ---
 <BaseLayout title="Tests interactivos · Sinapsis®" description="Probá nuestros tests: descubrí por dónde empezar, encontrá tu plan ideal y llevate un estiramiento.">
-  <section class="bg-white px-6 py-12">
-    <div class="max-w-3xl mx-auto text-center">
-      <div class="text-xs text-gray-500 uppercase tracking-widest">Interactivo</div>
-      <h1 class="text-3xl md:text-4xl font-bold text-violet-deep mt-3">Probate</h1>
-      <p class="text-gray-600 mt-3">Tres tests para conocerte un poco más y encontrar lo que necesitás. Rápidos y sin compromiso.</p>
-    </div>
-  </section>
+  <PageHeader
+    kicker="Interactivo"
+    title="Probate"
+    subtitle="Tres tests para conocerte un poco más y encontrar lo que necesitás. Rápidos y sin compromiso."
+  />
 
   <!-- Orientador (reemplaza al viejo mapa corporal: mismo lugar, criterio de verdad) -->
-  <section class="bg-violet-deep px-6 py-12 md:py-16">
-    <div class="max-w-3xl mx-auto text-center">
-      <div class="text-xs text-cream/50 uppercase tracking-widest">Test 1</div>
-      <h2 class="text-2xl md:text-3xl font-bold text-cream mt-1">¿Por dónde empiezo?</h2>
-      <p class="text-cream/70 text-sm mt-3 max-w-xl mx-auto leading-relaxed">
-        Contanos qué te pasa —dónde, desde cuándo y cómo empezó— y te decimos si te
-        conviene arrancar por kinesiología, por osteopatía o por una consulta médica.
-        Nueve preguntas, sin datos personales.
-      </p>
+  <section class="max-w-[1200px] mx-auto px-6 pt-10">
+    <div class="relative overflow-hidden rounded-3xl px-8 py-12 md:px-10 md:py-14 flex flex-wrap items-center justify-between gap-7 shadow-[0_12px_48px_rgba(48,22,109,0.20)]" style="background: linear-gradient(120deg, #30166d 0%, #4a2b8f 55%, #6da8a0 130%);">
+      <div class="absolute inset-0 opacity-[0.06] pattern-cross"></div>
+      <div class="relative max-w-[580px]">
+        <p class="m-0 mb-2 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage">Test 1</p>
+        <h2 class="m-0 mb-2.5 font-display font-semibold text-[clamp(1.7rem,3.5vw,2.3rem)] leading-[1.15] text-white">¿Por dónde empiezo?</h2>
+        <p class="m-0 text-[15px] leading-relaxed text-white/80">
+          Contanos qué te pasa —dónde, desde cuándo y cómo empezó— y te decimos si te
+          conviene arrancar por kinesiología, por osteopatía o por una consulta médica.
+          Nueve preguntas, sin datos personales.
+        </p>
+        <p class="m-0 mt-4 text-[11px] text-white/50">Información orientativa, no reemplaza una consulta profesional.</p>
+      </div>
       <a
         href="/orientador"
-        class="group inline-flex items-center gap-2 mt-7 bg-accent-mint text-accent-mint-dark px-6 py-3 rounded-pill text-sm font-bold hover:opacity-90 transition"
+        class="group relative inline-flex items-center gap-2.5 px-7 py-4 rounded-full bg-white text-sn-violet font-semibold text-[15px] whitespace-nowrap transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(0,0,0,0.2)]"
       >Hacer el test <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span></a>
-      <p class="text-[11px] text-cream/45 mt-5">
-        Información orientativa, no reemplaza una consulta profesional.
-      </p>
     </div>
   </section>
 
-  <!-- Quiz de plan -->
-  <section class="bg-violet-mid px-6 py-12 md:py-16">
-    <div class="max-w-2xl mx-auto">
-      <div class="text-center mb-8">
-        <div class="text-xs text-cream/50 uppercase tracking-widest">Test 2</div>
-        <h2 class="text-2xl md:text-3xl font-bold text-cream mt-1">Descubrí tu plan ideal</h2>
-        <p class="text-cream/60 text-sm mt-2">4 preguntas y te decimos cuál te queda mejor.</p>
-      </div>
-      <div class="bg-violet-deep/60 rounded-card p-6">
-        <QuizPlan />
-      </div>
+  <section class="max-w-[1200px] mx-auto px-6 pt-8 pb-20 grid gap-8 lg:grid-cols-2 items-start">
+    <!-- Quiz de plan -->
+    <div class="bg-white rounded-3xl border border-gray-100 shadow-[0_2px_8px_rgba(48,22,109,0.08)] p-6 md:p-8">
+      <p class="m-0 mb-2 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage-dark">Test 2</p>
+      <h2 class="m-0 mb-1.5 font-display font-semibold text-[clamp(1.4rem,2.6vw,1.75rem)] leading-[1.15] text-sn-violet">Descubrí tu plan ideal</h2>
+      <p class="m-0 mb-6 text-sm text-gray-500">{preguntas.length} preguntas y te decimos cuál te queda mejor.</p>
+      <QuizPlan />
     </div>
-  </section>
 
-  <!-- Ruleta -->
-  <section class="bg-violet-deep px-6 py-12 md:py-16">
-    <div class="max-w-2xl mx-auto">
-      <div class="text-center mb-8">
-        <div class="text-xs text-cream/50 uppercase tracking-widest">Test 3</div>
-        <h2 class="text-2xl md:text-3xl font-bold text-cream mt-1">Ruleta de estiramientos</h2>
-      </div>
+    <!-- Ruleta -->
+    <div class="bg-white rounded-3xl border border-gray-100 shadow-[0_2px_8px_rgba(48,22,109,0.08)] p-6 md:p-8">
+      <p class="m-0 mb-2 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage-dark">Test 3</p>
+      <h2 class="m-0 mb-6 font-display font-semibold text-[clamp(1.4rem,2.6vw,1.75rem)] leading-[1.15] text-sn-violet">Ruleta de estiramientos</h2>
       <RuletaEstiramientos />
     </div>
   </section>

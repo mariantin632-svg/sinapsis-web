@@ -1,67 +1,31 @@
 ---
 import sitio from '../../content/sitio.json';
+import { preguntas, resultados } from '../../lib/quiz-plan';
+import Icon from '../shared/Icon.astro';
+
 const wa = `https://wa.me/${sitio.contacto.whatsapp}`;
-
-// Cada opción suma puntos a uno o más planes. Gana el de mayor puntaje.
-const preguntas = [
-  {
-    q: '¿Cuál es tu objetivo principal?',
-    opciones: [
-      { t: 'Resolver una molestia reciente o leve', p: { 'kine-inicio': 3 } },
-      { t: 'Tratar una lesión con diagnóstico', p: { 'kine-10': 3 } },
-      { t: 'Conocer mi punto de partida antes de entrenar', p: { 'evaluacion-postural': 2, 'evaluacion-deportiva': 1 } },
-      { t: 'Medir mi rendimiento deportivo', p: { 'evaluacion-deportiva': 3 } },
-    ],
-  },
-  {
-    q: '¿Cuántas sesiones creés que necesitás?',
-    opciones: [
-      { t: 'Pocas, es algo puntual', p: { 'kine-inicio': 2 } },
-      { t: 'Un tratamiento completo hasta el alta', p: { 'kine-10': 2 } },
-      { t: 'Por ahora solo quiero evaluarme', p: { 'evaluacion-postural': 1, 'evaluacion-deportiva': 1, 'evaluacion-nutricional': 1 } },
-    ],
-  },
-  {
-    q: 'Si te evaluaras hoy, ¿qué te gustaría conocer?',
-    opciones: [
-      { t: 'Mi postura y de dónde viene el dolor', p: { 'evaluacion-postural': 2 } },
-      { t: 'Mi fuerza, saltos y asimetrías', p: { 'evaluacion-deportiva': 2 } },
-      { t: 'Mi composición corporal y alimentación', p: { 'evaluacion-nutricional': 3 } },
-      { t: 'Nada puntual, vengo por tratamiento', p: { 'kine-10': 1, 'kine-inicio': 1 } },
-    ],
-  },
-];
-
-const resultados = {
-  'kine-inicio': { nombre: 'KINE INICIO', desc: 'Cinco sesiones con evaluación incluida para resolver lo puntual. Si necesitás continuar, pasás al KINE 10 pagando la diferencia.', href: '/planes/kine-inicio' },
-  'kine-10': { nombre: 'KINE 10', desc: 'Un tratamiento completo de 10 sesiones, de la evaluación al alta.', href: '/planes/kine-10' },
-  'evaluacion-postural': { nombre: 'EVALUACIÓN POSTURAL', desc: 'Un diagnóstico claro de tu postura, con informe escrito.', href: '/planes/evaluacion-postural' },
-  'evaluacion-deportiva': { nombre: 'EVALUACIÓN DEPORTIVA', desc: 'Saltos, fuerza y asimetrías medidos con datos reales.', href: '/planes/evaluacion-deportiva' },
-  'evaluacion-nutricional': { nombre: 'EVALUACIÓN NUTRICIONAL', desc: 'Composición corporal, hábitos y laboratorio interpretados por una nutricionista.', href: '/planes/evaluacion-nutricional' },
-};
 ---
 <div data-quiz>
   <div data-quiz-body>
     <div class="flex items-center justify-between text-xs text-gray-500 mb-3">
       <span data-quiz-progress>Pregunta 1 de {preguntas.length}</span>
-      <button data-quiz-reset class="hidden underline hover:text-violet-deep">Reiniciar</button>
     </div>
-    <div class="h-1.5 bg-gray-200 rounded-full overflow-hidden mb-5">
-      <div data-quiz-bar class="h-full bg-accent-mint transition-all" style="width: 0%"></div>
+    <div class="h-1.5 bg-gray-100 rounded-full overflow-hidden mb-6">
+      <div data-quiz-bar class="h-full bg-sn-sage-dark rounded-full transition-all duration-300" style="width: 0%"></div>
     </div>
-    <h3 data-quiz-question class="text-lg font-bold text-violet-deep mb-4"></h3>
-    <div data-quiz-options class="grid gap-2"></div>
+    <h3 data-quiz-question class="m-0 mb-4 font-display font-semibold text-[1.1rem] text-sn-violet"></h3>
+    <div data-quiz-options class="grid gap-2.5"></div>
   </div>
 
-  <div data-quiz-result class="hidden text-center">
-    <div class="text-xs uppercase tracking-widest text-gray-500">Tu plan ideal</div>
-    <div data-result-nombre class="text-2xl font-bold text-sinapsis-purple mt-1"></div>
-    <p data-result-desc class="text-sm text-gray-600 mt-2 max-w-md mx-auto"></p>
-    <div class="flex flex-wrap gap-3 justify-center mt-5">
-      <a data-result-link class="bg-sinapsis-purple text-white px-5 py-2.5 rounded-pill text-sm font-bold hover:opacity-90 transition hidden">Ver el plan →</a>
-      <a data-result-wa target="_blank" rel="noopener" class="border border-sinapsis-purple text-sinapsis-purple px-5 py-2.5 rounded-pill text-sm font-bold hover:bg-sinapsis-purple/5 transition">📱 Consultar</a>
+  <div data-quiz-result class="hidden text-center py-2">
+    <p class="m-0 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage-dark">Tu plan ideal</p>
+    <div data-result-nombre class="font-display font-semibold text-[1.6rem] text-sn-violet mt-1.5"></div>
+    <p data-result-desc class="m-0 text-sm leading-relaxed text-gray-500 mt-2 max-w-md mx-auto"></p>
+    <div class="flex flex-wrap gap-2.5 justify-center mt-6">
+      <a data-result-link class="hidden px-5 py-2.5 rounded-full bg-gradient-to-br from-sn-violet to-sn-violet-light text-white font-semibold text-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_6px_18px_rgba(48,22,109,0.25)]">Ver el plan →</a>
+      <a data-result-wa target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-[1.5px] border-gray-200 text-sn-violet font-semibold text-sm hover:border-sn-sage hover:bg-[#f4faf8] transition"><Icon name="whatsapp" /> Consultar</a>
     </div>
-    <button data-quiz-reset2 class="block mx-auto mt-5 text-xs text-gray-500 underline hover:text-violet-deep">Volver a empezar</button>
+    <button data-quiz-reset class="block mx-auto mt-5 text-xs text-gray-500 underline hover:text-sn-violet">Volver a empezar</button>
   </div>
 </div>
 
@@ -84,7 +48,7 @@ const resultados = {
       elOpts.innerHTML = '';
       pre.opciones.forEach((op) => {
         const b = document.createElement('button');
-        b.className = 'text-left text-sm text-violet-deep bg-cream-bg hover:bg-violet-deep/5 border border-gray-200 rounded-card px-4 py-3 transition';
+        b.className = 'text-left text-sm text-gray-700 bg-[#f6f4fb] hover:bg-[#f4faf8] border border-transparent hover:border-sn-sage rounded-xl px-4 py-3 transition';
         b.textContent = op.t;
         b.addEventListener('click', () => {
           for (const k in op.p) scores[k] = (scores[k] || 0) + op.p[k];
@@ -99,7 +63,7 @@ const resultados = {
     function finish() {
       let best = null, bestVal = -1;
       for (const k in scores) if (scores[k] > bestVal) { bestVal = scores[k]; best = k; }
-      const r = resultados[best] || resultados['premier-kine'];
+      const r = resultados[best] || resultados['kine-10'];
       root.querySelector('[data-result-nombre]').textContent = r.nombre;
       root.querySelector('[data-result-desc]').textContent = r.desc;
       const link = root.querySelector('[data-result-link]');
@@ -118,8 +82,7 @@ const resultados = {
       render();
     }
 
-    root.querySelectorAll('[data-quiz-reset], [data-quiz-reset2]').forEach((b) =>
-      b.addEventListener('click', reset));
+    root.querySelector('[data-quiz-reset]').addEventListener('click', reset);
     render();
   });
 </script>

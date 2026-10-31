@@ -4,29 +4,27 @@ import PlanesSection from '../../components/home/PlanesSection.astro';
 import CtaWhatsApp from '../../components/shared/CtaWhatsApp.astro';
 ---
 <BaseLayout title="Planes y evaluaciones · Sinapsis®">
-  <section class="bg-white px-6 py-12">
-    <div class="max-w-3xl mx-auto text-center">
-      <div class="text-xs text-gray-500 uppercase tracking-widest">Planes & evaluaciones</div>
-      <h1 class="text-3xl md:text-4xl font-bold text-violet-deep mt-3">Elegí tu plan de cuidado</h1>
-      <p class="text-gray-600 mt-3">Tratamientos de kinesiología y evaluaciones profesionales, con precio cerrado y todo por escrito.</p>
-    </div>
-  </section>
+  <PlanesSection esPagina />
 
-  <PlanesSection />
-
-  <section class="bg-violet-deep px-6 py-12 md:py-16 border-t border-white/10">
-    <div class="max-w-2xl mx-auto text-center">
-      <div class="text-xs text-cream/50 uppercase tracking-widest">¿Necesitás otra cosa?</div>
-      <h2 class="text-2xl md:text-3xl font-bold text-cream mt-1">Armamos planes a tu medida</h2>
-      <p class="text-cream/60 text-sm mt-2 mb-6">
-        Planes deportivos de largo plazo, atención a domicilio o suscripciones anuales:
-        contanos qué necesitás y te preparamos una propuesta personalizada.
-      </p>
-      <CtaWhatsApp
-        text="Consultar por WhatsApp"
-        message="Hola! Quería consultar por un plan a medida."
-        size="lg"
-      />
+  <section class="max-w-[1200px] mx-auto px-6 pt-6 pb-20">
+    <div class="relative overflow-hidden rounded-3xl px-10 py-14 flex flex-wrap items-center justify-between gap-7 shadow-[0_12px_48px_rgba(48,22,109,0.20)]" style="background: linear-gradient(120deg, #30166d 0%, #4a2b8f 55%, #6da8a0 130%);">
+      <div class="absolute inset-0 opacity-[0.06] pattern-cross"></div>
+      <div class="relative max-w-[560px]">
+        <p class="m-0 mb-2 text-xs font-semibold tracking-[1px] uppercase text-sn-sage">¿Necesitás otra cosa?</p>
+        <h2 class="m-0 mb-2.5 font-display font-semibold text-[clamp(1.7rem,3.5vw,2.3rem)] leading-[1.15] text-white">Armamos planes a tu medida</h2>
+        <p class="m-0 text-[15px] leading-relaxed text-white/80">
+          Planes deportivos de largo plazo, atención a domicilio o suscripciones anuales:
+          contanos qué necesitás y te preparamos una propuesta personalizada.
+        </p>
+      </div>
+      <div class="relative">
+        <CtaWhatsApp
+          text="Consultar por WhatsApp"
+          message="Hola! Quería consultar por un plan a medida."
+          variant="primary"
+          size="lg"
+        />
+      </div>
     </div>
   </section>
 </BaseLayout>

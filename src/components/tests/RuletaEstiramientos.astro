@@ -1,4 +1,6 @@
 ---
+import Icon from '../shared/Icon.astro';
+
 // Estiramientos / tips de autocuidado, suaves y de bajo riesgo.
 const items = [
   { emoji: '🙆', nombre: 'Cuello lateral', como: 'Incliná la cabeza hacia un hombro, suave, sin tirar. Sostené 20 s de cada lado.' },
@@ -14,18 +16,18 @@ const items = [
 ];
 ---
 <div data-ruleta class="text-center">
-  <div class="bg-violet-mid rounded-card p-6 min-h-48 flex flex-col items-center justify-center mb-5">
+  <div class="bg-[#f6f4fb] rounded-2xl p-6 min-h-48 flex flex-col items-center justify-center mb-5">
     <div data-ruleta-emoji class="text-5xl mb-2 transition-transform">🎲</div>
-    <div data-ruleta-nombre class="text-lg font-bold text-cream">Girá la ruleta</div>
-    <p data-ruleta-como class="text-sm text-cream/75 mt-2 max-w-md leading-relaxed">
+    <div data-ruleta-nombre class="font-display font-semibold text-[1.1rem] text-sn-violet">Girá la ruleta</div>
+    <p data-ruleta-como class="m-0 text-sm leading-relaxed text-gray-500 mt-2 max-w-md">
       Te toca un estiramiento o tip de autocuidado al azar para hacer ahora mismo.
     </p>
   </div>
   <button data-ruleta-btn
-    class="bg-accent-mint text-accent-mint-dark px-6 py-3 rounded-pill text-sm font-bold hover:opacity-90 transition disabled:opacity-50">
-    🎯 Girar
+    class="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-sn-sage text-sn-deep font-semibold text-sm transition-all duration-300 hover:bg-sn-sage-light hover:-translate-y-0.5 disabled:opacity-50 disabled:hover:translate-y-0">
+    <Icon name="arrow-repeat" class="transition-transform duration-500 group-hover:rotate-180" /> Girar
   </button>
-  <p class="text-[11px] text-cream/45 mt-4 max-w-xl mx-auto">
+  <p class="m-0 text-[11px] text-gray-400 mt-4 max-w-xl mx-auto">
     Estiramientos suaves de uso general. Si algo te duele, pará y consultanos.
   </p>
 </div>

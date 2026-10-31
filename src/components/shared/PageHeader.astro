@@ -1,0 +1,19 @@
+---
+// Encabezado de las páginas interiores en el sistema v2 (mismo lenguaje que /equipo):
+// kicker salvia, título Poppins violeta y bajada gris.
+interface Props {
+  kicker: string;
+  title: string;
+  subtitle?: string;
+}
+
+const { kicker, title, subtitle } = Astro.props;
+---
+<section class="max-w-[1200px] mx-auto px-6 pt-16 pb-2 md:pt-24">
+  <div class="max-w-[680px]">
+    <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage-dark">{kicker}</p>
+    <h1 class="m-0 mb-2.5 font-display font-semibold text-[clamp(2.1rem,5vw,3rem)] leading-[1.12] tracking-[-0.02em] text-sn-violet">{title}</h1>
+    {subtitle && <p class="m-0 text-[15px] leading-relaxed text-gray-500">{subtitle}</p>}
+    <slot />
+  </div>
+</section>

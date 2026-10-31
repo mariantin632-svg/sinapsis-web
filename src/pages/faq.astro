@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/shared/PageHeader.astro';
 import FaqAccordion from '../components/shared/FaqAccordion.astro';
+import CtaWhatsApp from '../components/shared/CtaWhatsApp.astro';
 import faqData from '../content/faq.json';
 import type { FaqItem } from '../content/_types';
 
@@ -31,21 +33,25 @@ const faqJsonLd = {
 <BaseLayout title="Preguntas frecuentes · Sinapsis®">
   <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
 
-  <section class="bg-white px-6 py-12">
-    <div class="max-w-3xl mx-auto text-center">
-      <div class="text-xs text-gray-500 uppercase tracking-widest">FAQ</div>
-      <h1 class="text-3xl md:text-4xl font-bold text-violet-deep mt-3">Preguntas frecuentes</h1>
-    </div>
-  </section>
+  <PageHeader
+    kicker="FAQ"
+    title="Preguntas frecuentes"
+    subtitle="Turnos, pagos, planes y obras sociales. Si no encontrás lo que buscás, escribinos."
+  />
 
-  <section class="bg-cream-bg px-6 py-12">
-    <div class="max-w-3xl mx-auto space-y-10">
+  <section class="max-w-[1200px] mx-auto px-6 py-10 md:py-14">
+    <div class="max-w-[820px] flex flex-col gap-11">
       {grouped.map((g) => (
         <div>
-          <h2 class="text-violet-deep font-semibold mb-3">{g.label}</h2>
+          <h2 class="m-0 mb-4 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage-dark">{g.label}</h2>
           <FaqAccordion items={g.items} />
         </div>
       ))}
+    </div>
+
+    <div class="max-w-[820px] mt-12 rounded-2xl bg-[#f4faf8] border border-sn-sage/30 px-6 py-6 md:px-8 flex flex-wrap items-center justify-between gap-4">
+      <p class="m-0 text-[15px] text-gray-600">¿Te quedó alguna duda?</p>
+      <CtaWhatsApp text="Escribinos" message="Hola! Tenía una consulta." variant="violet" size="sm" />
     </div>
   </section>
 </BaseLayout>

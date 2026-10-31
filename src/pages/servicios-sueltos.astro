@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/shared/PageHeader.astro';
 import CtaWhatsApp from '../components/shared/CtaWhatsApp.astro';
 import { formatARS } from '../lib/precios';
 import sueltos from '../content/servicios-sueltos.json';
@@ -8,38 +9,47 @@ import type { ServicioSuelto } from '../content/_types';
 const servicios = sueltos as ServicioSuelto[];
 ---
 <BaseLayout title="Servicios sueltos · Sinapsis®">
-  <section class="bg-white px-6 py-12">
-    <div class="max-w-3xl mx-auto text-center">
-      <div class="text-xs text-gray-500 uppercase tracking-widest">Servicios sueltos</div>
-      <h1 class="text-3xl md:text-4xl font-bold text-violet-deep mt-3">Sesiones sueltas</h1>
-      <p class="text-gray-600 mt-3">Pagás solo lo que necesitás, cuando lo necesitás. Sin compromiso de plan.</p>
-    </div>
-  </section>
+  <PageHeader
+    kicker="Servicios sueltos"
+    title="Sesiones sueltas"
+    subtitle="Pagás solo lo que necesitás, cuando lo necesitás. Sin compromiso de plan."
+  />
 
-  <section class="bg-cream-bg px-6 py-12">
-    <div class="max-w-3xl mx-auto space-y-3">
+  <section class="max-w-[1200px] mx-auto px-6 py-10 md:py-14">
+    <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
       {servicios.map((s) => (
-        <article class="bg-white rounded-card p-5 shadow-card">
-          <h2 class="font-bold text-violet-deep">{s.nombre}</h2>
-          {s.descripcion && <p class="text-sm text-gray-600 mt-1">{s.descripcion}</p>}
-          <div class="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-sm">
+        <article class="bg-white rounded-2xl border border-gray-100 shadow-[0_2px_8px_rgba(48,22,109,0.08)] p-6 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(48,22,109,0.14)]">
+          <h2 class="m-0 mb-1.5 font-display font-semibold text-[1.2rem] text-gray-900">{s.nombre}</h2>
+          {s.descripcion && <p class="m-0 text-sm leading-relaxed text-gray-500">{s.descripcion}</p>}
+          <div class="flex flex-wrap gap-2 mt-5">
             {s.modalidades.map((m) => (
-              <div class="text-gray-700">
-                <span class="capitalize text-gray-500">{m.tipo}:</span>
-                <span class="font-semibold ml-1">{m.precio === 0 ? 'a consultar' : formatARS(m.precio)}</span>
-              </div>
+              <span class="inline-flex items-baseline gap-1.5 bg-[#f6f4fb] rounded-full px-3.5 py-1.5">
+                <span class="capitalize text-xs text-gray-500">{m.tipo}</span>
+                <span class="font-display font-semibold text-[15px] text-sn-violet">{m.precio === 0 ? 'a consultar' : formatARS(m.precio)}</span>
+              </span>
             ))}
           </div>
-          {s.nota && <p class="text-xs text-gray-500 mt-2">{s.nota}</p>}
-          <div class="mt-4">
+          {s.nota && <p class="m-0 mt-3 text-xs text-gray-400">{s.nota}</p>}
+          <div class="mt-auto pt-6">
             <CtaWhatsApp
               text="Consultar"
               message={`Hola! Me interesa una sesión de ${s.nombre}.`}
+              variant="outline-dark"
               size="sm"
             />
           </div>
         </article>
       ))}
+    </div>
+
+    <div class="mt-10 rounded-2xl bg-[#f4faf8] border border-sn-sage/30 px-6 py-6 md:px-8 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <p class="m-0 font-display font-semibold text-[1.1rem] text-sn-violet">¿Vas a necesitar varias sesiones?</p>
+        <p class="m-0 mt-1 text-sm text-gray-500">Con un plan pagás menos por sesión y tenés el tratamiento completo por escrito.</p>
+      </div>
+      <a href="/planes" class="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-br from-sn-violet to-sn-violet-light text-white font-semibold text-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_6px_18px_rgba(48,22,109,0.25)]">
+        Ver planes <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+      </a>
     </div>
   </section>
 </BaseLayout>

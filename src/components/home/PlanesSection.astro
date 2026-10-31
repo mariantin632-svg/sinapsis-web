@@ -4,6 +4,14 @@ import type { Plan } from '../../content/_types';
 import { formatARS } from '../../lib/precios';
 import Icon from '../shared/Icon.astro';
 
+// En la home es una sección (h2); en /planes es el encabezado de la página (h1).
+interface Props {
+  esPagina?: boolean;
+}
+
+const { esPagina = false } = Astro.props;
+const Titulo = esPagina ? 'h1' : 'h2';
+
 const planesTipados = (planes as Plan[])
   .filter((p) => !p.oculto)
   .sort((a, b) => a.orden - b.orden);
@@ -47,10 +55,10 @@ const cards = planesTipados.map((p) => {
   };
 });
 ---
-<section id="planes" class="max-w-[1200px] mx-auto px-6 pt-20 pb-10">
+<section id="planes" class={`max-w-[1200px] mx-auto px-6 pb-10 ${esPagina ? 'pt-16 md:pt-24' : 'pt-20'}`}>
   <div class="text-center max-w-[640px] mx-auto mb-9">
     <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage-dark">Planes &amp; tratamientos</p>
-    <h2 class="m-0 mb-2.5 font-display font-semibold text-[clamp(1.9rem,4vw,2.6rem)] leading-[1.12] tracking-[-0.02em] text-sn-violet">Encontrá tu plan ideal</h2>
+    <Titulo class="m-0 mb-2.5 font-display font-semibold text-[clamp(1.9rem,4vw,2.6rem)] leading-[1.12] tracking-[-0.02em] text-sn-violet">Encontrá tu plan ideal</Titulo>
     <p class="m-0 text-[15px] text-gray-500">Tratamientos y evaluaciones con precio cerrado. Pago único al activar.</p>
   </div>
 

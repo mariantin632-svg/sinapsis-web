@@ -14,3 +14,15 @@
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+
+# /packs se dio de baja el 31/10/2026: eran 11 packs con precios de mayo fuera del
+# Sistema de Planes 2026. El 301 manda lo que Google tenga indexado al catálogo vigente.
+[[redirects]]
+  from = "/packs"
+  to = "/planes"
+  status = 301
+
+[[redirects]]
+  from = "/packs/*"
+  to = "/planes"
+  status = 301

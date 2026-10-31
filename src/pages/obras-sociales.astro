@@ -2,6 +2,8 @@
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/shared/PageHeader.astro';
+import CtaWhatsApp from '../components/shared/CtaWhatsApp.astro';
 import obrasData from '../content/obras-sociales.json';
 import type { ObraSocial } from '../content/_types';
 
@@ -10,42 +12,48 @@ const obras = (obrasData as ObraSocial[]).map((o) => ({
   ...o,
   logoExiste: existsSync(path.join(process.cwd(), 'public', o.logo)),
 }));
+
+const pasos = [
+  { titulo: 'Coordinás el turno', detalle: 'Por WhatsApp o desde la agenda online.' },
+  { titulo: 'Traés la orden', detalle: 'Orden médica vigente, impresa o en el celular.' },
+  { titulo: 'Validamos la cobertura', detalle: 'En la primera sesión revisamos cobertura y coseguro si aplica.' },
+];
 ---
 <BaseLayout title="Obras sociales aceptadas · Sinapsis®">
-  <section class="bg-white px-6 py-12">
-    <div class="max-w-3xl mx-auto text-center">
-      <div class="text-xs text-gray-500 uppercase tracking-widest">Obras sociales</div>
-      <h1 class="text-3xl md:text-4xl font-bold text-violet-deep mt-3">Trabajamos con las principales obras sociales</h1>
-      <p class="text-gray-600 mt-3">Presentá tu orden médica vigente para acceder al beneficio según tu plan.</p>
+  <PageHeader
+    kicker="Obras sociales"
+    title="Trabajamos con las principales obras sociales"
+    subtitle="Presentá tu orden médica vigente para acceder al beneficio según tu plan."
+  />
+
+  <section class="max-w-[1200px] mx-auto px-6 py-10 md:py-14">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5">
+      {obras.map((o) => (
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-[0_2px_8px_rgba(48,22,109,0.06)] p-5 flex flex-col items-center justify-center min-h-[104px] text-center">
+          {o.logoExiste && <img src={o.logo} alt={o.nombre} class="max-h-12 max-w-full object-contain mb-2" loading="lazy" />}
+          <div class="font-display font-medium text-[15px] text-sn-violet">{o.nombre}</div>
+          {o.instrucciones && <div class="text-[11px] text-gray-500 mt-1 leading-snug">{o.instrucciones}</div>}
+        </div>
+      ))}
     </div>
   </section>
 
-  <section class="bg-cream-bg px-6 py-12">
-    <div class="max-w-5xl mx-auto">
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-        {obras.map((o) => (
-          <div class="bg-white rounded-card p-4 flex flex-col items-center justify-center border border-gray-100 min-h-28 text-center">
-            {o.logoExiste && <img src={o.logo} alt={o.nombre} class="max-h-12 max-w-full object-contain" loading="lazy" />}
-            <div class="text-sm font-medium text-gray-700 mt-2">{o.nombre}</div>
-            {o.instrucciones && <div class="text-[11px] text-gray-500 mt-1 leading-snug">{o.instrucciones}</div>}
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <section class="max-w-[1200px] mx-auto px-6 pb-20">
+    <p class="m-0 mb-2.5 text-xs font-semibold tracking-[1.5px] uppercase text-sn-sage-dark">Paso a paso</p>
+    <h2 class="m-0 mb-7 font-display font-semibold text-[clamp(1.5rem,3vw,1.9rem)] leading-[1.15] text-sn-violet">¿Cómo presentar la orden?</h2>
+    <ol class="m-0 p-0 list-none grid gap-5 md:grid-cols-3">
+      {pasos.map((p, i) => (
+        <li class="bg-white rounded-2xl border border-gray-100 shadow-[0_2px_8px_rgba(48,22,109,0.06)] p-6">
+          <span class="inline-flex w-9 h-9 rounded-full bg-gradient-to-br from-sn-violet to-sn-violet-light text-white font-display font-semibold items-center justify-center">{i + 1}</span>
+          <p class="m-0 mt-4 font-display font-semibold text-[1.05rem] text-gray-900">{p.titulo}</p>
+          <p class="m-0 mt-1 text-sm leading-relaxed text-gray-500">{p.detalle}</p>
+        </li>
+      ))}
+    </ol>
 
-  <section class="bg-white px-6 py-12">
-    <div class="max-w-3xl mx-auto">
-      <h2 class="text-xl font-bold text-violet-deep mb-3">¿Cómo presentar la orden?</h2>
-      <ol class="space-y-2 text-sm text-gray-700 list-decimal list-inside">
-        <li>Coordinás el turno por WhatsApp.</li>
-        <li>Traés la orden médica vigente impresa o en celular.</li>
-        <li>En la primera sesión validamos cobertura y coseguro si aplica.</li>
-      </ol>
-
-      <p class="text-sm text-gray-600 mt-6">
-        ¿Tu obra social no aparece? Consultanos por WhatsApp — actualizamos esta lista periódicamente.
-      </p>
+    <div class="mt-10 rounded-2xl bg-[#f4faf8] border border-sn-sage/30 px-6 py-6 md:px-8 flex flex-wrap items-center justify-between gap-4">
+      <p class="m-0 text-[15px] text-gray-600">¿Tu obra social no aparece? Consultanos: actualizamos esta lista periódicamente.</p>
+      <CtaWhatsApp text="Consultar" message="Hola! Quería consultar si trabajan con mi obra social." variant="violet" size="sm" />
     </div>
   </section>
 </BaseLayout>

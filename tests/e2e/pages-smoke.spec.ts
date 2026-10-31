@@ -8,18 +8,6 @@ const PAGES = [
   { path: '/planes/evaluacion-postural', name: 'Evaluación postural' },
   { path: '/planes/evaluacion-deportiva', name: 'Evaluación deportiva' },
   { path: '/planes/evaluacion-nutricional', name: 'Evaluación nutricional' },
-  { path: '/packs', name: 'Packs index' },
-  { path: '/packs/sos-express', name: 'Pack SOS Express' },
-  { path: '/packs/reset-lumbar', name: 'Pack Reset Lumbar' },
-  { path: '/packs/cuello-libre', name: 'Pack Cuello Libre' },
-  { path: '/packs/postura-pro', name: 'Pack Postura Pro' },
-  { path: '/packs/rodilla-total', name: 'Pack Rodilla Total' },
-  { path: '/packs/recovery-athlete', name: 'Pack Recovery Athlete' },
-  { path: '/packs/retorno-seguro', name: 'Pack Retorno Seguro' },
-  { path: '/packs/movilidad-60', name: 'Pack Movilidad +60' },
-  { path: '/packs/mujer-bienestar', name: 'Pack Mujer Bienestar' },
-  { path: '/packs/post-cirugia', name: 'Pack Post Cirugía' },
-  { path: '/packs/empresa-10', name: 'Pack Empresa 10' },
   { path: '/servicios-sueltos', name: 'Servicios sueltos' },
   { path: '/tests', name: 'Tests interactivos' },
   { path: '/orientador', name: 'Orientador' },
@@ -59,14 +47,4 @@ test('Filtros de planes en la home ocultan/muestran cards', async ({ page }) => 
   await page.locator('[data-plan-filtro][data-cat="all"]').click();
   const visiblesTodos = await page.locator('[data-plan-item]:visible').count();
   expect(visiblesTodos).toBe(6);
-});
-
-test('Filtros de packs ocultan/muestran items', async ({ page }) => {
-  await page.goto('/packs');
-  const totalItems = await page.locator('[data-pack-item]').count();
-  expect(totalItems).toBe(11);
-  await page.locator('[data-filter-btn][data-cat="deportistas"]').click();
-  const visibles = await page.locator('[data-pack-item]:visible').count();
-  expect(visibles).toBeLessThan(totalItems);
-  expect(visibles).toBeGreaterThan(0);
 });

@@ -1,11 +1,12 @@
 ---
 import sitio from '../../content/sitio.json';
 import { buildWhatsAppUrl } from '../../lib/whatsapp';
+import Icon from './Icon.astro';
 
 interface Props {
   text: string;
   message: string;
-  variant?: 'primary' | 'outline' | 'outline-dark';
+  variant?: 'primary' | 'violet' | 'outline' | 'outline-dark';
   size?: 'sm' | 'md' | 'lg';
 }
 
@@ -13,17 +14,19 @@ const { text, message, variant = 'primary', size = 'md' } = Astro.props;
 
 const url = buildWhatsAppUrl({ phone: sitio.contacto.whatsapp, text: message });
 
-const baseClasses = 'inline-flex items-center justify-center gap-2 rounded-pill font-bold transition';
+// Botones del sistema v2: salvia (primario), violeta en degradé, y contornos para fondo oscuro/claro.
+const baseClasses = 'group inline-flex items-center justify-center gap-2 rounded-full font-semibold whitespace-nowrap transition-all duration-300 hover:-translate-y-0.5';
 const variantClasses = {
-  primary: 'bg-accent-mint text-accent-mint-dark hover:opacity-90',
-  outline: 'border border-cream/40 text-cream hover:bg-cream/10',
-  'outline-dark': 'border border-violet-deep/30 text-violet-deep hover:bg-violet-deep/5',
+  primary: 'bg-sn-sage text-sn-deep hover:bg-sn-sage-light hover:shadow-[0_10px_30px_rgba(150,194,185,0.4)]',
+  violet: 'bg-gradient-to-br from-sn-violet to-sn-violet-light text-white hover:shadow-[0_6px_18px_rgba(48,22,109,0.25)]',
+  outline: 'border-[1.5px] border-white/30 text-white hover:bg-white/10',
+  'outline-dark': 'border-[1.5px] border-gray-200 text-sn-violet hover:border-sn-sage hover:bg-[#f4faf8]',
 }[variant];
 
 const sizeClasses = {
-  sm: 'px-3 py-1.5 text-xs',
-  md: 'px-4 py-2 text-sm',
-  lg: 'px-6 py-3 text-base',
+  sm: 'px-4 py-2 text-[13px]',
+  md: 'px-5 py-2.5 text-sm',
+  lg: 'px-7 py-4 text-[15px]',
 }[size];
 ---
 <a
@@ -32,5 +35,5 @@ const sizeClasses = {
   rel="noopener"
   class={`${baseClasses} ${variantClasses} ${sizeClasses}`}
 >
-  📱 {text}
+  <Icon name="whatsapp" class="text-[1.1em]" /> {text}
 </a>
